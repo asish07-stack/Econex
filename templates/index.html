@@ -1,0 +1,941 @@
+{% extends "base.html" %}
+
+{% block title %}
+EcoNex • AI Food Rescue
+{% endblock %}
+
+
+{% block content %}
+
+<div class="topbar">
+
+    <div>
+        <div class="eyebrow">Team EcoNex • Hackathon Prototype</div>
+    </div>
+
+    <div class="badge">
+        🟢 AI SYSTEM ONLINE
+    </div>
+
+</div>
+
+
+<section class="hero">
+
+    <div class="badge">
+        🌱 AI-POWERED FOOD RESCUE ECOSYSTEM
+    </div>
+
+    <h1>
+        Turn Food Surplus Into
+        <span class="green">Social Impact.</span>
+    </h1>
+
+    <p>
+
+        EcoNex connects daily food planning,
+        AI-based consumption estimation,
+        surplus detection, quality verification
+        and intelligent redistribution into one
+        sustainable ecosystem.
+
+    </p>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;">
+
+        <a href="/dashboard" class="btn btn-primary">
+            📊 Open Dashboard
+        </a>
+
+        <a href="/demand" class="btn btn-secondary">
+            🧠 Run AI Analysis
+        </a>
+
+    </div>
+
+</section>
+
+
+<div class="grid grid-3">
+
+    <div class="panel">
+
+        <div style="font-size:32px;margin-bottom:15px;">
+            🧠
+        </div>
+
+        <h3>AI Consumption Analysis</h3>
+
+        <p style="color:var(--muted);line-height:1.7;margin-top:9px;">
+
+            Estimate how many people consume
+            0, 1, 2 or 3 meals instead of assuming
+            every person consumes the same amount.
+
+        </p>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div style="font-size:32px;margin-bottom:15px;">
+            🍱
+        </div>
+
+        <h3>Surplus Detection</h3>
+
+        <p style="color:var(--muted);line-height:1.7;margin-top:9px;">
+
+            Identify potential surplus food after
+            daily consumption estimation and prepare
+            it for safe rescue.
+
+        </p>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div style="font-size:32px;margin-bottom:15px;">
+            🚚
+        </div>
+
+        <h3>Smart Redistribution</h3>
+
+        <p style="color:var(--muted);line-height:1.7;margin-top:9px;">
+
+            Connect safe surplus with nearby
+            community kitchens, shelters and NGOs.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     INTERACTIVE ECOSYSTEM
+========================================================= -->
+
+<section class="ecosystem-section">
+
+    <div class="ecosystem-heading">
+
+        <div class="section-eyebrow">
+            ✦ THE ECOSYSTEM
+        </div>
+
+        <h2>
+            From Kitchen
+            <span>To Community.</span>
+        </h2>
+
+        <p>
+            One intelligent ecosystem connecting food prediction,
+            surplus detection, quality verification and smart
+            redistribution.
+        </p>
+
+    </div>
+
+
+    <div class="ecosystem-flow">
+
+        <!-- AI DEMAND -->
+
+        <div class="eco-node active">
+
+            <div class="eco-icon">
+                🧠
+            </div>
+
+            <div class="eco-number">
+                01
+            </div>
+
+            <h3>
+                AI Demand
+            </h3>
+
+            <p>
+                Understand student consumption
+                before food becomes waste.
+            </p>
+
+            <div class="eco-status">
+                <span></span>
+                ANALYSING
+            </div>
+
+        </div>
+
+
+        <div class="eco-connector">
+
+            <div class="connector-line">
+                <div class="connector-flow"></div>
+            </div>
+
+            <div class="connector-arrow">
+                ›
+            </div>
+
+        </div>
+
+
+        <!-- SURPLUS -->
+
+        <div class="eco-node">
+
+            <div class="eco-icon">
+                🍱
+            </div>
+
+            <div class="eco-number">
+                02
+            </div>
+
+            <h3>
+                Surplus
+            </h3>
+
+            <p>
+                Detect excess food and identify
+                rescue opportunities.
+            </p>
+
+            <div class="eco-status">
+                <span></span>
+                DETECTING
+            </div>
+
+        </div>
+
+
+        <div class="eco-connector">
+
+            <div class="connector-line">
+                <div class="connector-flow"></div>
+            </div>
+
+            <div class="connector-arrow">
+                ›
+            </div>
+
+        </div>
+
+
+        <!-- QUALITY -->
+
+        <div class="eco-node">
+
+            <div class="eco-icon">
+                🛡️
+            </div>
+
+            <div class="eco-number">
+                03
+            </div>
+
+            <h3>
+                Quality
+            </h3>
+
+            <p>
+                Verify food safety before
+                redistribution begins.
+            </p>
+
+            <div class="eco-status">
+                <span></span>
+                VERIFYING
+            </div>
+
+        </div>
+
+
+        <div class="eco-connector">
+
+            <div class="connector-line">
+                <div class="connector-flow"></div>
+            </div>
+
+            <div class="connector-arrow">
+                ›
+            </div>
+
+        </div>
+
+
+        <!-- REDISTRIBUTION -->
+
+        <div class="eco-node">
+
+            <div class="eco-icon">
+                🚚
+            </div>
+
+            <div class="eco-number">
+                04
+            </div>
+
+            <h3>
+                Redistribution
+            </h3>
+
+            <p>
+                Match surplus with nearby
+                community recipients.
+            </p>
+
+            <div class="eco-status">
+                <span></span>
+                ROUTING
+            </div>
+
+        </div>
+
+
+        <div class="eco-connector">
+
+            <div class="connector-line">
+                <div class="connector-flow"></div>
+            </div>
+
+            <div class="connector-arrow">
+                ›
+            </div>
+
+        </div>
+
+
+        <!-- IMPACT -->
+
+        <div class="eco-node final-node">
+
+            <div class="eco-icon">
+                🌍
+            </div>
+
+            <div class="eco-number">
+                05
+            </div>
+
+            <h3>
+                Impact
+            </h3>
+
+            <p>
+                Turn rescued food into
+                measurable social impact.
+            </p>
+
+            <div class="eco-status">
+                <span></span>
+                IMPACT
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LIVE FLOW BAR -->
+
+    <div class="ecosystem-live">
+
+        <div class="live-pulse"></div>
+
+        <div class="live-text">
+
+            <strong>
+                EcoNex AI Flow Active
+            </strong>
+
+            <span>
+                Demand → Surplus → Quality → Route → Impact
+            </span>
+
+        </div>
+
+        <div class="live-badge">
+            ● LIVE SYSTEM
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+    .ecosystem-section {
+
+        margin-top: 90px;
+
+        padding: 55px 40px;
+
+        border-radius: 30px;
+
+        background:
+            radial-gradient(circle at 50% 0%,
+                rgba(45, 220, 130, 0.12),
+                transparent 45%),
+            rgba(8, 30, 20, 0.72);
+
+        border: 1px solid rgba(90, 255, 160, 0.14);
+
+        box-shadow:
+            0 30px 80px rgba(0, 0, 0, 0.30),
+            inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+        overflow: hidden;
+    }
+
+
+    .ecosystem-heading {
+
+        text-align: center;
+
+        max-width: 750px;
+
+        margin: 0 auto 55px;
+
+    }
+
+
+    .section-eyebrow {
+
+        color: #63f59a;
+
+        font-size: 12px;
+
+        font-weight: 800;
+
+        letter-spacing: 3px;
+
+        margin-bottom: 14px;
+
+    }
+
+
+    .ecosystem-heading h2 {
+
+        font-size: clamp(32px, 4vw, 52px);
+
+        margin: 0;
+
+        font-weight: 800;
+
+        color: #ffffff;
+
+    }
+
+
+    .ecosystem-heading h2 span {
+
+        color: #63f59a;
+
+    }
+
+
+    .ecosystem-heading p {
+
+        margin-top: 15px;
+
+        color: rgba(255, 255, 255, 0.60);
+
+        line-height: 1.7;
+
+    }
+
+
+    .ecosystem-flow {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 12px;
+
+    }
+
+
+    .eco-node {
+
+        position: relative;
+
+        width: 190px;
+
+        min-height: 250px;
+
+        padding: 25px 18px;
+
+        text-align: center;
+
+        border-radius: 22px;
+
+        background:
+            linear-gradient(145deg,
+                rgba(25, 75, 49, 0.70),
+                rgba(8, 29, 20, 0.92));
+
+        border: 1px solid rgba(99, 245, 154, 0.14);
+
+        transition:
+            transform .35s ease,
+            border-color .35s ease,
+            box-shadow .35s ease;
+
+        cursor: pointer;
+
+    }
+
+
+    .eco-node:hover {
+
+        transform:
+            translateY(-12px) scale(1.03);
+
+        border-color:
+            rgba(99, 245, 154, 0.50);
+
+        box-shadow:
+
+            0 20px 50px rgba(25, 220, 110, 0.15),
+
+            0 0 30px rgba(99, 245, 154, 0.08);
+
+    }
+
+
+    .eco-node.active {
+
+        border-color:
+            rgba(99, 245, 154, 0.45);
+
+        box-shadow:
+            0 0 35px rgba(50, 220, 120, 0.10);
+
+    }
+
+
+    .eco-node.final-node {
+
+        background:
+            linear-gradient(145deg,
+                rgba(28, 100, 60, 0.78),
+                rgba(7, 35, 22, 0.95));
+
+    }
+
+
+    .eco-icon {
+
+        width: 62px;
+
+        height: 62px;
+
+        margin: 0 auto 16px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 18px;
+
+        font-size: 30px;
+
+        background:
+            rgba(99, 245, 154, 0.08);
+
+        border:
+            1px solid rgba(99, 245, 154, 0.18);
+
+        box-shadow:
+            0 0 25px rgba(99, 245, 154, 0.06);
+
+        transition:
+            transform .35s ease,
+            box-shadow .35s ease;
+
+    }
+
+
+    .eco-node:hover .eco-icon {
+
+        transform:
+            scale(1.12) rotate(3deg);
+
+        box-shadow:
+            0 0 35px rgba(99, 245, 154, 0.18);
+
+    }
+
+
+    .eco-number {
+
+        font-size: 10px;
+
+        font-weight: 800;
+
+        color:
+            rgba(99, 245, 154, 0.65);
+
+        letter-spacing: 2px;
+
+    }
+
+
+    .eco-node h3 {
+
+        color: #ffffff;
+
+        margin: 8px 0;
+
+        font-size: 18px;
+
+    }
+
+
+    .eco-node p {
+
+        color:
+            rgba(255, 255, 255, 0.55);
+
+        font-size: 12px;
+
+        line-height: 1.6;
+
+        min-height: 58px;
+
+    }
+
+
+    .eco-status {
+
+        margin-top: 15px;
+
+        font-size: 9px;
+
+        letter-spacing: 1.5px;
+
+        color:
+            rgba(255, 255, 255, 0.45);
+
+        font-weight: 800;
+
+    }
+
+
+    .eco-status span {
+
+        display: inline-block;
+
+        width: 6px;
+
+        height: 6px;
+
+        border-radius: 50%;
+
+        background: #63f59a;
+
+        margin-right: 5px;
+
+        box-shadow:
+            0 0 10px #63f59a;
+
+        animation:
+            ecoPulse 1.6s infinite;
+
+    }
+
+
+    .eco-connector {
+
+        width: 55px;
+
+        display: flex;
+
+        align-items: center;
+
+        position: relative;
+
+    }
+
+
+    .connector-line {
+
+        height: 2px;
+
+        width: 100%;
+
+        position: relative;
+
+        overflow: hidden;
+
+        background:
+            linear-gradient(90deg,
+                rgba(99, 245, 154, 0.15),
+                rgba(99, 245, 154, 0.65));
+
+    }
+
+
+    .connector-flow {
+
+        position: absolute;
+
+        top: 0;
+
+        left: -30%;
+
+        width: 30%;
+
+        height: 100%;
+
+        background:
+            linear-gradient(90deg,
+                transparent,
+                #63f59a,
+                transparent);
+
+        animation:
+            flowMove 2s linear infinite;
+
+    }
+
+
+    .connector-arrow {
+
+        position: absolute;
+
+        right: -2px;
+
+        color: #63f59a;
+
+        font-size: 25px;
+
+        text-shadow:
+            0 0 15px rgba(99, 245, 154, 0.8);
+
+        animation:
+            arrowPulse 1.5s ease-in-out infinite;
+
+    }
+
+
+    .ecosystem-live {
+
+        margin-top: 35px;
+
+        padding: 15px 20px;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        border-radius: 15px;
+
+        background:
+            rgba(99, 245, 154, 0.045);
+
+        border:
+            1px solid rgba(99, 245, 154, 0.10);
+
+    }
+
+
+    .live-pulse {
+
+        width: 9px;
+
+        height: 9px;
+
+        border-radius: 50%;
+
+        background: #63f59a;
+
+        box-shadow:
+            0 0 15px #63f59a;
+
+        animation:
+            livePulse 1.4s infinite;
+
+    }
+
+
+    .live-text {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 3px;
+
+        flex: 1;
+
+    }
+
+
+    .live-text strong {
+
+        color: #ffffff;
+
+        font-size: 13px;
+
+    }
+
+
+    .live-text span {
+
+        color:
+            rgba(255, 255, 255, 0.45);
+
+        font-size: 11px;
+
+    }
+
+
+    .live-badge {
+
+        color: #63f59a;
+
+        font-size: 10px;
+
+        font-weight: 800;
+
+        letter-spacing: 1px;
+
+    }
+
+
+    @keyframes ecoPulse {
+
+        0%,
+        100% {
+
+            opacity: 1;
+
+            transform: scale(1);
+
+        }
+
+        50% {
+
+            opacity: .35;
+
+            transform: scale(.65);
+
+        }
+
+    }
+
+
+    @keyframes flowMove {
+
+        0% {
+
+            left: -30%;
+
+        }
+
+        100% {
+
+            left: 100%;
+
+        }
+
+    }
+
+
+    @keyframes arrowPulse {
+
+        0%,
+        100% {
+
+            transform: translateX(0);
+
+        }
+
+        50% {
+
+            transform: translateX(5px);
+
+        }
+
+    }
+
+
+    @keyframes livePulse {
+
+        0%,
+        100% {
+
+            transform: scale(1);
+
+            opacity: 1;
+
+        }
+
+        50% {
+
+            transform: scale(1.5);
+
+            opacity: .5;
+
+        }
+
+    }
+
+
+    @media (max-width: 1200px) {
+
+        .ecosystem-flow {
+
+            flex-wrap: wrap;
+
+        }
+
+        .eco-connector {
+
+            width: 35px;
+
+        }
+
+    }
+
+
+    @media (max-width: 850px) {
+
+        .ecosystem-section {
+
+            padding: 35px 20px;
+
+        }
+
+        .eco-connector {
+
+            display: none;
+
+        }
+
+        .eco-node {
+
+            width: 210px;
+
+        }
+
+    }
+</style>
+
+
+{% endblock %}

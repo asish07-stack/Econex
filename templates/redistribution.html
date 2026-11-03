@@ -1,0 +1,1835 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+EcoNex • Redistribution
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =========================================================
+     REDISTRIBUTION PAGE HEADER
+========================================================= -->
+
+<div class="topbar">
+
+    <div>
+
+        <div class="eyebrow">
+            Smart Logistics
+        </div>
+
+        <h1 style="font-size:34px;margin-top:5px;">
+            Smart Redistribution
+        </h1>
+
+        <p style="margin-top:8px;color:var(--muted);">
+            Connect verified food surplus with suitable community recipients.
+        </p>
+
+    </div>
+
+    <div class="badge">
+        🚚 RESCUE NETWORK
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="badge">
+        🤝 KITCHEN → COMMUNITY
+    </div>
+
+    <h1>
+        From Surplus To
+        <span class="green">Someone Who Needs It.</span>
+    </h1>
+
+    <p>
+
+        Once food passes quality verification,
+        EcoNex matches the surplus with suitable
+        nearby community recipients.
+
+    </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     REDISTRIBUTION METRICS
+========================================================= -->
+
+<div class="grid grid-4">
+
+
+    <div class="panel metric">
+
+        <div class="metric-icon">
+            🍱
+        </div>
+
+        <div class="metric-label">
+            Potential Surplus
+        </div>
+
+        <div class="metric-value green">
+            {{ surplus }}
+        </div>
+
+        <div style="margin-top:5px;color:var(--muted);font-size:11px;">
+            meals available
+        </div>
+
+    </div>
+
+
+
+    <div class="panel metric">
+
+        <div class="metric-icon">
+            🛡️
+        </div>
+
+        <div class="metric-label">
+            Quality Score
+        </div>
+
+        <div class="metric-value">
+            {{ quality_score }}
+        </div>
+
+        <div style="margin-top:5px;color:var(--muted);font-size:11px;">
+            out of 100
+        </div>
+
+    </div>
+
+
+
+    <div class="panel metric">
+
+        <div class="metric-icon">
+            🤝
+        </div>
+
+        <div class="metric-label">
+            Recipient Matches
+        </div>
+
+        <div class="metric-value">
+            3
+        </div>
+
+        <div style="margin-top:5px;color:var(--muted);font-size:11px;">
+            suitable recipients
+        </div>
+
+    </div>
+
+
+
+    <div class="panel metric">
+
+        <div class="metric-icon">
+            📍
+        </div>
+
+        <div class="metric-label">
+            Nearest Route
+        </div>
+
+        <div class="metric-value">
+            2.4
+        </div>
+
+        <div style="margin-top:5px;color:var(--muted);font-size:11px;">
+            km away
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     QUALITY VERIFICATION
+========================================================= -->
+
+<div class="panel" style="margin-top:20px;">
+
+    <div class="eyebrow">
+        DAILY STATUS
+    </div>
+
+    <h2 class="section-title">
+        Food Quality Verification
+    </h2>
+
+    <p class="section-subtitle">
+
+        EcoNex verifies food quality before
+        allowing surplus to proceed to smart matching.
+
+    </p>
+
+
+    {% if quality_status == "SAFE" %}
+
+    <div class="notice notice-info">
+
+        <strong>
+            ✅ FOOD QUALITY VERIFIED
+        </strong>
+
+        <div style="margin-top:6px;">
+
+            Quality score:
+
+            <strong>
+                {{ quality_score }}/100
+            </strong>
+
+            • Surplus can proceed
+            to smart matching.
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="notice notice-warning">
+
+        <strong>
+            ⚠️ FOOD QUALITY REQUIRES VERIFICATION
+        </strong>
+
+        <div style="margin-top:8px;">
+
+            Food quality has not been
+            confirmed as SAFE.
+
+        </div>
+
+        <div style="margin-top:14px;">
+
+            <a href="/quality" class="btn btn-secondary">
+
+                🛡️ Verify Food Quality
+
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+
+
+<!-- =========================================================
+     RECIPIENT MATCHING
+========================================================= -->
+
+<div style="margin-top:24px;">
+
+    <div class="eyebrow">
+        AI RECIPIENT MATCHING
+    </div>
+
+    <h2 class="section-title">
+        Suitable Community Recipients
+    </h2>
+
+    <p class="section-subtitle">
+
+        EcoNex evaluates recipient suitability using
+        surplus quantity, distance, food quality and
+        pickup readiness.
+
+    </p>
+
+</div>
+
+
+
+<div class="grid grid-3" style="margin-top:20px;">
+
+
+
+    <!-- =====================================================
+         RECIPIENT 1
+    ====================================================== -->
+
+    <div class="panel">
+
+        <div style="font-size:30px;">
+            🏠
+        </div>
+
+        <h3 style="margin-top:12px;">
+            Hope Community Shelter
+        </h3>
+
+        <p style="color:var(--muted);margin-top:8px;">
+            2.4 km away
+        </p>
+
+        <div style="margin-top:13px;">
+
+            <span class="status status-safe">
+                96% MATCH
+            </span>
+
+        </div>
+
+        <div style="margin-top:14px;color:#bdd5c6;">
+            Capacity: 120 meals
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         RECIPIENT 2
+    ====================================================== -->
+
+    <div class="panel">
+
+        <div style="font-size:30px;">
+            🍲
+        </div>
+
+        <h3 style="margin-top:12px;">
+            City Community Kitchen
+        </h3>
+
+        <p style="color:var(--muted);margin-top:8px;">
+            3.1 km away
+        </p>
+
+        <div style="margin-top:13px;">
+
+            <span class="status status-safe">
+                91% MATCH
+            </span>
+
+        </div>
+
+        <div style="margin-top:14px;color:#bdd5c6;">
+            Capacity: 100 meals
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         RECIPIENT 3
+    ====================================================== -->
+
+    <div class="panel">
+
+        <div style="font-size:30px;">
+            🤝
+        </div>
+
+        <h3 style="margin-top:12px;">
+            Helping Hands NGO
+        </h3>
+
+        <p style="color:var(--muted);margin-top:8px;">
+            4.7 km away
+        </p>
+
+        <div style="margin-top:13px;">
+
+            <span class="status status-safe">
+                87% MATCH
+            </span>
+
+        </div>
+
+        <div style="margin-top:14px;color:#bdd5c6;">
+            Capacity: 80 meals
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     AI ROUTE OPTIMIZATION
+
+     DO NOT CHANGE THIS SECTION.
+     GPS / MAP / ROUTE DESIGN PRESERVED.
+========================================================= -->
+
+<section class="route-section">
+
+    <div class="route-header">
+
+        <div>
+
+            <div class="route-eyebrow">
+                ✦ AI ROUTE OPTIMIZATION
+            </div>
+
+            <h2>
+                Smart Delivery Route
+            </h2>
+
+            <p>
+                EcoNex calculates an optimized delivery path
+                from the institutional kitchen to the nearest
+                suitable community recipient.
+            </p>
+
+        </div>
+
+
+        <div class="navigation-status">
+
+            <span class="nav-dot"></span>
+
+            LIVE NAVIGATION
+
+        </div>
+
+    </div>
+
+
+    <div class="gps-map">
+
+        <div class="map-grid"></div>
+
+
+        <!-- MAP ROADS -->
+
+        <div class="road road-1"></div>
+
+        <div class="road road-2"></div>
+
+        <div class="road road-3"></div>
+
+        <div class="road road-4"></div>
+
+        <div class="road road-5"></div>
+
+
+        <!-- ROUTE -->
+
+        <svg class="route-svg" viewBox="0 0 1000 450" preserveAspectRatio="none">
+
+            <path d="M 130 330
+                   C 250 300, 270 150, 410 180
+                   S 600 300, 700 240
+                   S 820 140, 870 115" class="route-shadow" />
+
+            <path d="M 130 330
+                   C 250 300, 270 150, 410 180
+                   S 600 300, 700 240
+                   S 820 140, 870 115" class="route-line" />
+
+        </svg>
+
+
+        <!-- KITCHEN -->
+
+        <div class="map-location kitchen-location">
+
+            <div class="location-pulse"></div>
+
+            <div class="location-marker kitchen-marker">
+                🍳
+            </div>
+
+            <div class="location-label">
+
+                <strong>
+                    Institutional Kitchen
+                </strong>
+
+                <span>
+                    START POINT
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- MOVING VEHICLE -->
+
+        <div class="eco-vehicle">
+
+            <div class="vehicle-glow"></div>
+
+            <div class="vehicle-icon">
+                🚚
+            </div>
+
+            <div class="vehicle-label">
+                EcoNex Vehicle
+            </div>
+
+        </div>
+
+
+        <!-- RECIPIENT -->
+
+        <div class="map-location recipient-location">
+
+            <div class="location-pulse"></div>
+
+            <div class="location-marker recipient-marker">
+                🏠
+            </div>
+
+            <div class="location-label">
+
+                <strong>
+                    Hope Community Shelter
+                </strong>
+
+                <span>
+                    RECIPIENT
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- MAP CONTROLS -->
+
+        <div class="map-controls">
+
+            <button>
+                +
+            </button>
+
+            <button>
+                −
+            </button>
+
+        </div>
+
+
+        <!-- GPS STATUS -->
+
+        <div class="map-live">
+
+            <span></span>
+
+            GPS TRACKING ACTIVE
+
+        </div>
+
+
+        <!-- ROUTE INFO -->
+
+        <div class="route-info-card">
+
+            <div class="route-info-top">
+
+                <span>
+                    OPTIMIZED ROUTE
+                </span>
+
+                <strong>
+                    ⚡ AI
+                </strong>
+
+            </div>
+
+
+            <div class="route-distance">
+
+                <div>
+
+                    <small>
+                        DISTANCE
+                    </small>
+
+                    <strong>
+                        2.4 km
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <small>
+                        ETA
+                    </small>
+
+                    <strong>
+                        08 min
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <small>
+                        PRIORITY
+                    </small>
+
+                    <strong class="priority-high">
+                        HIGH
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="route-progress">
+
+                <div class="route-progress-bar">
+
+                    <div class="route-progress-fill"></div>
+
+                </div>
+
+                <span>
+                    AI ROUTE IN PROGRESS
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {% if quality_status == "SAFE" %}
+
+    <div style="margin-top:22px;">
+
+        <a href="/impact" class="btn btn-primary">
+
+            🌍 Complete Rescue → View Impact
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+
+
+<!-- =========================================================
+     GPS / ROUTE CSS
+     
+     THIS SECTION IS PRESERVED.
+========================================================= -->
+
+<style>
+    /* =========================================================
+       AI ROUTE OPTIMIZATION
+    ========================================================= */
+
+    .route-section {
+
+        margin-top: 20px;
+
+        padding: 32px;
+
+        border-radius: 24px;
+
+        background:
+            radial-gradient(circle at 50% 0%,
+                rgba(45, 220, 130, 0.08),
+                transparent 45%),
+            rgba(8, 30, 20, 0.72);
+
+        border:
+            1px solid rgba(90, 255, 160, 0.14);
+
+        box-shadow:
+            0 30px 80px rgba(0, 0, 0, 0.25),
+            inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+        overflow: hidden;
+
+    }
+
+
+    .route-header {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 20px;
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .route-eyebrow {
+
+        color: #63f59a;
+
+        font-size: 11px;
+
+        font-weight: 800;
+
+        letter-spacing: 3px;
+
+        margin-bottom: 10px;
+
+    }
+
+
+    .route-header h2 {
+
+        margin: 0;
+
+        color: #ffffff;
+
+        font-size: 30px;
+
+    }
+
+
+    .route-header p {
+
+        margin-top: 9px;
+
+        color:
+            rgba(255, 255, 255, 0.55);
+
+        max-width: 650px;
+
+        line-height: 1.6;
+
+    }
+
+
+    .navigation-status {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        padding: 10px 15px;
+
+        border-radius: 20px;
+
+        border:
+            1px solid rgba(99, 245, 154, 0.16);
+
+        background:
+            rgba(99, 245, 154, 0.05);
+
+        color: #63f59a;
+
+        font-size: 9px;
+
+        font-weight: 800;
+
+        letter-spacing: 1.4px;
+
+        white-space: nowrap;
+
+    }
+
+
+    .nav-dot {
+
+        width: 7px;
+
+        height: 7px;
+
+        border-radius: 50%;
+
+        background: #63f59a;
+
+        box-shadow:
+            0 0 12px #63f59a;
+
+        animation:
+            gpsPulse 1.3s infinite;
+
+    }
+
+
+    /* =========================================================
+       GPS MAP
+    ========================================================= */
+
+    .gps-map {
+
+        position: relative;
+
+        height: 480px;
+
+        overflow: hidden;
+
+        border-radius: 22px;
+
+        background:
+            radial-gradient(circle at 50% 45%,
+                rgba(45, 140, 80, 0.28),
+                transparent 45%),
+            linear-gradient(135deg,
+                #071c13,
+                #0a291b 50%,
+                #061810);
+
+        border:
+            1px solid rgba(99, 245, 154, 0.12);
+
+        box-shadow:
+            inset 0 0 80px rgba(0, 0, 0, 0.35);
+
+    }
+
+
+    /* =========================================================
+       MAP GRID
+    ========================================================= */
+
+    .map-grid {
+
+        position: absolute;
+
+        inset: 0;
+
+        opacity: 0.20;
+
+        background-image:
+
+            linear-gradient(rgba(99, 245, 154, 0.16) 1px,
+                transparent 1px),
+
+            linear-gradient(90deg,
+                rgba(99, 245, 154, 0.16) 1px,
+                transparent 1px);
+
+        background-size:
+            45px 45px;
+
+    }
+
+
+    /* =========================================================
+       MAP ROADS
+    ========================================================= */
+
+    .road {
+
+        position: absolute;
+
+        height: 14px;
+
+        border-radius: 20px;
+
+        background:
+            rgba(111, 145, 125, 0.16);
+
+        box-shadow:
+            0 0 0 2px rgba(255, 255, 255, 0.025);
+
+        transform-origin: center;
+
+    }
+
+
+    .road::after {
+
+        content: "";
+
+        position: absolute;
+
+        inset: 5px 0;
+
+        border-top:
+            1px dashed rgba(190, 220, 200, 0.18);
+
+    }
+
+
+    .road-1 {
+
+        width: 75%;
+
+        left: -5%;
+
+        top: 70%;
+
+        transform:
+            rotate(-20deg);
+
+    }
+
+
+    .road-2 {
+
+        width: 80%;
+
+        left: 20%;
+
+        top: 30%;
+
+        transform:
+            rotate(18deg);
+
+    }
+
+
+    .road-3 {
+
+        width: 70%;
+
+        left: 15%;
+
+        top: 55%;
+
+        transform:
+            rotate(7deg);
+
+    }
+
+
+    .road-4 {
+
+        width: 65%;
+
+        left: 40%;
+
+        top: 72%;
+
+        transform:
+            rotate(-34deg);
+
+    }
+
+
+    .road-5 {
+
+        width: 55%;
+
+        left: -4%;
+
+        top: 35%;
+
+        transform:
+            rotate(40deg);
+
+    }
+
+
+    /* =========================================================
+       ROUTE SVG
+    ========================================================= */
+
+    .route-svg {
+
+        position: absolute;
+
+        inset: 0;
+
+        width: 100%;
+
+        height: 100%;
+
+        z-index: 3;
+
+        overflow: visible;
+
+    }
+
+
+    .route-shadow {
+
+        fill: none;
+
+        stroke:
+            rgba(99, 245, 154, 0.12);
+
+        stroke-width: 18;
+
+        stroke-linecap: round;
+
+        filter:
+            blur(7px);
+
+    }
+
+
+    .route-line {
+
+        fill: none;
+
+        stroke: #63f59a;
+
+        stroke-width: 5;
+
+        stroke-linecap: round;
+
+        stroke-dasharray: 14 9;
+
+        filter:
+            drop-shadow(0 0 8px rgba(99, 245, 154, 0.85));
+
+        animation:
+            routeFlow 2s linear infinite;
+
+    }
+
+
+    /* =========================================================
+       MAP LOCATIONS
+    ========================================================= */
+
+    .map-location {
+
+        position: absolute;
+
+        z-index: 6;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+    }
+
+
+    .kitchen-location {
+
+        left: 7%;
+
+        bottom: 20%;
+
+    }
+
+
+    .recipient-location {
+
+        right: 7%;
+
+        top: 15%;
+
+    }
+
+
+    .location-marker {
+
+        width: 55px;
+
+        height: 55px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 50%;
+
+        font-size: 26px;
+
+        background:
+            rgba(7, 30, 19, 0.94);
+
+        border:
+            2px solid #63f59a;
+
+        box-shadow:
+            0 0 25px rgba(99, 245, 154, 0.30);
+
+        position: relative;
+
+        z-index: 2;
+
+    }
+
+
+    .kitchen-marker {
+
+        border-color:
+            #63f59a;
+
+    }
+
+
+    .recipient-marker {
+
+        border-color:
+            #63f59a;
+
+    }
+
+
+    .location-pulse {
+
+        position: absolute;
+
+        width: 70px;
+
+        height: 70px;
+
+        top: -7px;
+
+        border-radius: 50%;
+
+        border:
+            1px solid rgba(99, 245, 154, 0.45);
+
+        animation:
+            locationPulse 2s infinite;
+
+    }
+
+
+    .location-label {
+
+        margin-top: 10px;
+
+        padding: 9px 12px;
+
+        min-width: 170px;
+
+        text-align: center;
+
+        border-radius: 10px;
+
+        background:
+            rgba(5, 20, 13, 0.88);
+
+        border:
+            1px solid rgba(99, 245, 154, 0.14);
+
+        backdrop-filter:
+            blur(10px);
+
+        box-shadow:
+            0 10px 25px rgba(0, 0, 0, 0.25);
+
+    }
+
+
+    .location-label strong {
+
+        display: block;
+
+        color: #ffffff;
+
+        font-size: 11px;
+
+    }
+
+
+    .location-label span {
+
+        display: block;
+
+        margin-top: 4px;
+
+        color: #63f59a;
+
+        font-size: 8px;
+
+        font-weight: 800;
+
+        letter-spacing: 1.5px;
+
+    }
+
+
+    /* =========================================================
+       MOVING ECONEX VEHICLE
+    ========================================================= */
+
+    .eco-vehicle {
+
+        position: absolute;
+
+        z-index: 8;
+
+        left: 12%;
+
+        bottom: 24%;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        animation:
+            vehicleMove 8s ease-in-out infinite;
+
+    }
+
+
+    .vehicle-glow {
+
+        position: absolute;
+
+        width: 70px;
+
+        height: 70px;
+
+        border-radius: 50%;
+
+        background:
+            rgba(99, 245, 154, 0.20);
+
+        filter:
+            blur(18px);
+
+        animation:
+            vehicleGlow 1.6s infinite;
+
+    }
+
+
+    .vehicle-icon {
+
+        position: relative;
+
+        width: 58px;
+
+        height: 58px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 17px;
+
+        background:
+            linear-gradient(145deg,
+                rgba(28, 100, 60, 0.95),
+                rgba(7, 35, 22, 0.98));
+
+        border:
+            2px solid #63f59a;
+
+        font-size: 27px;
+
+        box-shadow:
+            0 0 25px rgba(99, 245, 154, 0.30);
+
+    }
+
+
+    .vehicle-label {
+
+        margin-top: 7px;
+
+        padding: 5px 9px;
+
+        border-radius: 8px;
+
+        background:
+            rgba(5, 20, 13, 0.90);
+
+        color: #ffffff;
+
+        font-size: 8px;
+
+        font-weight: 800;
+
+        letter-spacing: 1px;
+
+        white-space: nowrap;
+
+        border:
+            1px solid rgba(99, 245, 154, 0.15);
+
+    }
+
+
+    /* =========================================================
+       MAP CONTROLS
+    ========================================================= */
+
+    .map-controls {
+
+        position: absolute;
+
+        top: 20px;
+
+        right: 20px;
+
+        z-index: 10;
+
+        display: flex;
+
+        flex-direction: column;
+
+    }
+
+
+    .map-controls button {
+
+        width: 38px;
+
+        height: 38px;
+
+        border: none;
+
+        border-bottom:
+            1px solid rgba(99, 245, 154, 0.10);
+
+        background:
+            rgba(5, 22, 14, 0.88);
+
+        color: #ffffff;
+
+        font-size: 20px;
+
+        cursor: pointer;
+
+    }
+
+
+    .map-controls button:first-child {
+
+        border-radius:
+            10px 10px 0 0;
+
+    }
+
+
+    .map-controls button:last-child {
+
+        border-radius:
+            0 0 10px 10px;
+
+        border-bottom: none;
+
+    }
+
+
+    .map-controls button:hover {
+
+        background:
+            rgba(99, 245, 154, 0.14);
+
+        color: #63f59a;
+
+    }
+
+
+    /* =========================================================
+       GPS LIVE BADGE
+    ========================================================= */
+
+    .map-live {
+
+        position: absolute;
+
+        top: 20px;
+
+        left: 20px;
+
+        z-index: 10;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        padding: 9px 13px;
+
+        border-radius: 20px;
+
+        background:
+            rgba(5, 22, 14, 0.88);
+
+        border:
+            1px solid rgba(99, 245, 154, 0.14);
+
+        color: #63f59a;
+
+        font-size: 8px;
+
+        font-weight: 800;
+
+        letter-spacing: 1.2px;
+
+    }
+
+
+    .map-live span {
+
+        width: 6px;
+
+        height: 6px;
+
+        border-radius: 50%;
+
+        background: #63f59a;
+
+        box-shadow:
+            0 0 10px #63f59a;
+
+        animation:
+            gpsPulse 1.2s infinite;
+
+    }
+
+
+    /* =========================================================
+       ROUTE INFO CARD
+    ========================================================= */
+
+    .route-info-card {
+
+        position: absolute;
+
+        z-index: 10;
+
+        right: 20px;
+
+        bottom: 20px;
+
+        width: 290px;
+
+        padding: 18px;
+
+        border-radius: 16px;
+
+        background:
+            rgba(5, 22, 14, 0.91);
+
+        border:
+            1px solid rgba(99, 245, 154, 0.16);
+
+        backdrop-filter:
+            blur(14px);
+
+        box-shadow:
+            0 18px 45px rgba(0, 0, 0, 0.35);
+
+    }
+
+
+    .route-info-top {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        padding-bottom: 12px;
+
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.06);
+
+    }
+
+
+    .route-info-top span {
+
+        color:
+            rgba(255, 255, 255, 0.45);
+
+        font-size: 8px;
+
+        font-weight: 800;
+
+        letter-spacing: 1.4px;
+
+    }
+
+
+    .route-info-top strong {
+
+        color: #63f59a;
+
+        font-size: 11px;
+
+    }
+
+
+    .route-distance {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 10px;
+
+        padding: 14px 0;
+
+    }
+
+
+    .route-distance div {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 4px;
+
+    }
+
+
+    .route-distance small {
+
+        color:
+            rgba(255, 255, 255, 0.35);
+
+        font-size: 7px;
+
+        letter-spacing: 1px;
+
+    }
+
+
+    .route-distance strong {
+
+        color: #ffffff;
+
+        font-size: 14px;
+
+    }
+
+
+    .priority-high {
+
+        color: #63f59a !important;
+
+    }
+
+
+    .route-progress {
+
+        padding-top: 10px;
+
+    }
+
+
+    .route-progress-bar {
+
+        height: 5px;
+
+        border-radius: 10px;
+
+        overflow: hidden;
+
+        background:
+            rgba(255, 255, 255, 0.07);
+
+    }
+
+
+    .route-progress-fill {
+
+        height: 100%;
+
+        width: 42%;
+
+        border-radius: 10px;
+
+        background:
+            linear-gradient(90deg,
+                rgba(99, 245, 154, 0.45),
+                #63f59a);
+
+        box-shadow:
+            0 0 12px rgba(99, 245, 154, 0.45);
+
+        animation:
+            progressMove 3s ease-in-out infinite;
+
+    }
+
+
+    .route-progress span {
+
+        display: block;
+
+        margin-top: 7px;
+
+        color:
+            rgba(255, 255, 255, 0.38);
+
+        font-size: 7px;
+
+        letter-spacing: 1.2px;
+
+        font-weight: 800;
+
+    }
+
+
+    /* =========================================================
+       ANIMATIONS
+    ========================================================= */
+
+    @keyframes routeFlow {
+
+        from {
+
+            stroke-dashoffset: 0;
+
+        }
+
+        to {
+
+            stroke-dashoffset: -46;
+
+        }
+
+    }
+
+
+    @keyframes vehicleMove {
+
+        0% {
+
+            left: 12%;
+
+            bottom: 24%;
+
+        }
+
+        25% {
+
+            left: 28%;
+
+            bottom: 43%;
+
+        }
+
+        50% {
+
+            left: 50%;
+
+            bottom: 45%;
+
+        }
+
+        75% {
+
+            left: 70%;
+
+            bottom: 55%;
+
+        }
+
+        100% {
+
+            left: 82%;
+
+            bottom: 67%;
+
+        }
+
+    }
+
+
+    @keyframes vehicleGlow {
+
+        0%,
+        100% {
+
+            transform: scale(.85);
+
+            opacity: .45;
+
+        }
+
+        50% {
+
+            transform: scale(1.2);
+
+            opacity: .8;
+
+        }
+
+    }
+
+
+    @keyframes locationPulse {
+
+        0% {
+
+            transform: scale(.75);
+
+            opacity: .8;
+
+        }
+
+        70% {
+
+            transform: scale(1.45);
+
+            opacity: 0;
+
+        }
+
+        100% {
+
+            transform: scale(1.45);
+
+            opacity: 0;
+
+        }
+
+    }
+
+
+    @keyframes gpsPulse {
+
+        0%,
+        100% {
+
+            opacity: 1;
+
+            transform: scale(1);
+
+        }
+
+        50% {
+
+            opacity: .35;
+
+            transform: scale(.65);
+
+        }
+
+    }
+
+
+    @keyframes progressMove {
+
+        0% {
+
+            width: 20%;
+
+        }
+
+        50% {
+
+            width: 72%;
+
+        }
+
+        100% {
+
+            width: 42%;
+
+        }
+
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 900px) {
+
+        .route-header {
+
+            flex-direction: column;
+
+            align-items: flex-start;
+
+        }
+
+        .gps-map {
+
+            height: 520px;
+
+        }
+
+        .route-info-card {
+
+            left: 20px;
+
+            right: 20px;
+
+            bottom: 20px;
+
+            width: auto;
+
+        }
+
+    }
+
+
+    @media (max-width: 600px) {
+
+        .route-section {
+
+            padding: 22px;
+
+        }
+
+        .gps-map {
+
+            height: 570px;
+
+        }
+
+        .location-label {
+
+            min-width: 135px;
+
+        }
+
+        .location-label strong {
+
+            font-size: 9px;
+
+        }
+
+        .eco-vehicle {
+
+            transform: scale(.85);
+
+        }
+
+    }
+</style>
+
+
+{% endblock %}

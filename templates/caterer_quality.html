@@ -1,0 +1,2380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Food Quality Intelligence | EcoNex</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+
+            --bg: #011b13;
+            --bg-dark: #00140e;
+
+            --panel: rgba(5, 52, 39, 0.76);
+            --panel-light: rgba(7, 67, 49, 0.68);
+
+            --green: #00f5a0;
+            --green-light: #23e7a3;
+
+            --text: #edfff8;
+            --muted: #91b8aa;
+            --muted-dark: #638e80;
+
+            --border: rgba(102, 255, 202, 0.14);
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family: "Inter", sans-serif;
+
+            color: var(--text);
+
+            background:
+
+                radial-gradient(circle at 10% 8%,
+                    rgba(0, 255, 170, 0.11),
+                    transparent 28%),
+
+                radial-gradient(circle at 88% 25%,
+                    rgba(0, 220, 145, 0.08),
+                    transparent 30%),
+
+                linear-gradient(135deg,
+                    #01160f,
+                    #02291e 50%,
+                    #01150f);
+
+            overflow-x: hidden;
+        }
+
+
+        /* subtle background grid */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            background-image:
+
+                linear-gradient(rgba(255, 255, 255, 0.018) 1px,
+                    transparent 1px),
+
+                linear-gradient(90deg,
+                    rgba(255, 255, 255, 0.018) 1px,
+                    transparent 1px);
+
+            background-size: 55px 55px;
+
+            mask-image:
+                linear-gradient(to bottom,
+                    black,
+                    transparent 90%);
+
+            z-index: -1;
+        }
+
+
+        /* =========================================================
+           TOP BAR
+        ========================================================= */
+
+        .topbar {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+            height: 76px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 34px;
+
+            background:
+                rgba(1, 24, 17, 0.80);
+
+            border-bottom:
+                1px solid rgba(100, 255, 200, 0.11);
+
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .brand-logo {
+
+            width: 42px;
+            height: 42px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(0, 255, 170, 0.23),
+                    rgba(0, 120, 80, 0.13));
+
+            border:
+                1px solid rgba(0, 255, 170, 0.21);
+
+            box-shadow:
+                0 0 25px rgba(0, 255, 170, 0.10);
+        }
+
+
+        .brand-logo span {
+            font-size: 21px;
+        }
+
+
+        .brand-name {
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 21px;
+
+            font-weight: 800;
+        }
+
+
+        .brand-name span {
+            color: var(--green);
+        }
+
+
+        .workspace {
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        .top-actions {
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+
+        .top-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 10px 15px;
+
+            border-radius: 12px;
+
+            color: #dffff2;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            background:
+                rgba(0, 255, 170, 0.055);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.12);
+
+            transition: 0.25s ease;
+        }
+
+
+        .top-btn:hover {
+
+            transform: translateY(-2px);
+
+            background:
+                rgba(0, 255, 170, 0.11);
+
+            border-color:
+                rgba(0, 255, 170, 0.27);
+
+            box-shadow:
+                0 0 22px rgba(0, 255, 170, 0.08);
+        }
+
+
+        /* =========================================================
+           PAGE
+        ========================================================= */
+
+        .page {
+
+            width:
+                min(1480px, calc(100% - 42px));
+
+            margin:
+                30px auto 70px;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+
+            position: relative;
+
+            overflow: hidden;
+
+            min-height: 390px;
+
+            padding: 58px 42px 42px;
+
+            border-radius: 28px;
+
+            background:
+
+                linear-gradient(135deg,
+                    rgba(6, 67, 48, 0.82),
+                    rgba(2, 40, 29, 0.80));
+
+            border:
+                1px solid rgba(103, 255, 204, 0.16);
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.27);
+        }
+
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 550px;
+            height: 550px;
+
+            right: -220px;
+            top: -290px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(0, 255, 170, 0.14),
+                    transparent 67%);
+
+            pointer-events: none;
+        }
+
+
+        .hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 330px;
+            height: 330px;
+
+            left: 44%;
+            bottom: -270px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(0, 220, 145, 0.09),
+                    transparent 70%);
+        }
+
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .eyebrow {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 8px 13px;
+
+            border-radius: 999px;
+
+            color: #9effdc;
+
+            background:
+                rgba(0, 255, 170, 0.07);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.15);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.15px;
+
+            text-transform: uppercase;
+        }
+
+
+        .eyebrow-dot {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 12px rgba(0, 255, 170, 0.75);
+
+            animation:
+                pulse 1.8s infinite;
+        }
+
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .55;
+                transform: scale(.72);
+            }
+        }
+
+
+        .hero h1 {
+
+            margin-top: 22px;
+
+            max-width: 780px;
+
+            font-family: "Outfit", sans-serif;
+
+            font-size:
+                clamp(43px, 5.2vw, 72px);
+
+            line-height: .97;
+
+            letter-spacing: -2.7px;
+
+            font-weight: 800;
+        }
+
+
+        .hero h1 .green {
+
+            color: var(--green);
+
+            text-shadow:
+                0 0 30px rgba(0, 255, 170, 0.13);
+        }
+
+
+        .hero-description {
+
+            max-width: 850px;
+
+            margin-top: 22px;
+
+            color: #9bbfb2;
+
+            font-size: 14px;
+
+            line-height: 1.85;
+        }
+
+
+        /* =========================================================
+           WORKFLOW
+        ========================================================= */
+
+        .workflow {
+
+            position: relative;
+
+            z-index: 4;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 10px;
+
+            margin-top: 30px;
+        }
+
+
+        .workflow-step {
+
+            position: relative;
+
+            min-height: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 11px 12px;
+
+            border-radius: 15px;
+
+            color:
+                rgba(235, 255, 247, 0.78);
+
+            background:
+                rgba(0, 91, 63, 0.22);
+
+            border:
+                1px solid rgba(72, 255, 185, 0.16);
+
+            box-shadow:
+
+                0 0 12px rgba(0, 255, 170, 0.07),
+
+                inset 0 0 14px rgba(0, 255, 170, 0.025);
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            transition: .3s ease;
+        }
+
+
+        .workflow-step:hover {
+
+            background:
+                rgba(0, 110, 75, 0.30);
+
+            border-color:
+                rgba(72, 255, 185, 0.30);
+
+            color:
+                #eafff5;
+
+            box-shadow:
+
+                0 0 17px rgba(0, 255, 170, 0.14),
+
+                inset 0 0 15px rgba(0, 255, 170, 0.04);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .workflow-step.active {
+
+            background:
+                rgba(0, 120, 80, 0.34);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.48);
+
+            color:
+                #eafff6;
+
+            box-shadow:
+
+                0 0 16px rgba(0, 255, 170, 0.20),
+
+                0 0 30px rgba(0, 255, 170, 0.08),
+
+                inset 0 0 18px rgba(0, 255, 170, 0.05);
+        }
+
+
+        /* =========================================================
+           MAIN CONTENT
+        ========================================================= */
+
+        .content-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr) minmax(390px, .78fr);
+
+            gap: 20px;
+
+            margin-top: 20px;
+        }
+
+
+        .panel {
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-radius: 25px;
+
+            background:
+
+                linear-gradient(145deg,
+                    rgba(6, 53, 40, 0.84),
+                    rgba(2, 30, 23, 0.87));
+
+            border:
+                1px solid var(--border);
+
+            box-shadow:
+                0 25px 65px rgba(0, 0, 0, 0.25);
+        }
+
+
+        .panel-header {
+
+            padding: 22px 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border-bottom:
+                1px solid rgba(111, 255, 204, 0.08);
+        }
+
+
+        .panel-title {
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 19px;
+
+            font-weight: 800;
+        }
+
+
+        .panel-caption {
+
+            color: var(--muted-dark);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================================
+           QUALITY CHECK FORM
+        ========================================================= */
+
+        .form-panel {
+
+            padding: 25px;
+        }
+
+
+        .intro-box {
+
+            padding: 17px;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(0, 255, 170, 0.09),
+                    rgba(0, 255, 170, 0.025));
+
+            border:
+                1px solid rgba(0, 255, 170, 0.13);
+        }
+
+
+        .intro-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            font-size: 12px;
+
+            font-weight: 800;
+        }
+
+
+        .intro-text {
+
+            margin-top: 7px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            line-height: 1.6;
+        }
+
+
+        .form-group {
+
+            margin-top: 18px;
+        }
+
+
+        .form-label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #a9c9be;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: .7px;
+
+            text-transform: uppercase;
+        }
+
+
+        select,
+        input {
+
+            width: 100%;
+
+            min-height: 48px;
+
+            padding: 0 14px;
+
+            border-radius: 13px;
+
+            outline: none;
+
+            color: #eafff6;
+
+            background:
+                rgba(0, 24, 18, 0.64);
+
+            border:
+                1px solid rgba(104, 255, 202, 0.12);
+
+            font-family: "Inter", sans-serif;
+
+            font-size: 12px;
+
+            transition: .25s ease;
+        }
+
+
+        select:focus,
+        input:focus {
+
+            border-color:
+                rgba(0, 255, 170, 0.40);
+
+            box-shadow:
+                0 0 20px rgba(0, 255, 170, 0.07);
+        }
+
+
+        select option {
+
+            background:
+                #06291e;
+
+            color:
+                white;
+        }
+
+
+        .input-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 11px;
+        }
+
+
+        .input-unit {
+
+            position: relative;
+        }
+
+
+        .unit {
+
+            position: absolute;
+
+            right: 13px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: var(--muted-dark);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            pointer-events: none;
+        }
+
+
+        .input-unit input {
+
+            padding-right: 42px;
+        }
+
+
+        .check-btn {
+
+            width: 100%;
+
+            min-height: 50px;
+
+            margin-top: 20px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            cursor: pointer;
+
+            color: #00291d;
+
+            background:
+                linear-gradient(135deg,
+                    #00f5a0,
+                    #26e5a2);
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 0 28px rgba(0, 255, 170, 0.16);
+
+            transition: .25s ease;
+        }
+
+
+        .check-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 0 38px rgba(0, 255, 170, 0.28);
+        }
+
+
+        /* =========================================================
+           CURRENT INVENTORY
+        ========================================================= */
+
+        .inventory-box {
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(1, 26, 20, 0.46);
+
+            border:
+                1px solid rgba(103, 255, 205, 0.08);
+        }
+
+
+        .inventory-title {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 13px;
+        }
+
+
+        .inventory-title strong {
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 13px;
+        }
+
+
+        .inventory-count {
+
+            color: var(--green);
+
+            font-size: 9px;
+
+            font-weight: 800;
+        }
+
+
+        .inventory-list {
+
+            display: grid;
+
+            gap: 8px;
+
+            max-height: 185px;
+
+            overflow-y: auto;
+        }
+
+
+        .inventory-item {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 10px 11px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(0, 255, 170, 0.035);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.06);
+        }
+
+
+        .food-name {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+
+        .food-icon {
+
+            width: 27px;
+            height: 27px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 8px;
+
+            background:
+                rgba(0, 255, 170, 0.08);
+        }
+
+
+        .food-quantity {
+
+            color: #9ac6b7;
+
+            font-size: 9px;
+
+            font-weight: 800;
+        }
+
+
+        /* =========================================================
+           ASSESSMENT
+        ========================================================= */
+
+        .assessment {
+
+            padding: 25px;
+        }
+
+
+        .score-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 25px;
+
+            padding: 21px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(0, 255, 170, 0.09),
+                    rgba(0, 255, 170, 0.025));
+
+            border:
+                1px solid rgba(0, 255, 170, 0.14);
+        }
+
+
+        .score-ring {
+
+            position: relative;
+
+            width: 145px;
+            height: 145px;
+
+            flex-shrink: 0;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 50%;
+
+            background:
+
+                radial-gradient(circle,
+                    #062e22 56%,
+                    transparent 57%),
+
+                conic-gradient(var(--green) calc(var(--score, 0) * 1%),
+                    rgba(0, 255, 170, 0.07) 0);
+
+            box-shadow:
+                0 0 35px rgba(0, 255, 170, 0.10);
+        }
+
+
+        .score-ring::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 7px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid rgba(0, 255, 170, 0.13);
+        }
+
+
+        .score-number {
+
+            position: relative;
+
+            text-align: center;
+        }
+
+
+        .score-number strong {
+
+            display: block;
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 34px;
+
+            font-weight: 800;
+
+            color: var(--green);
+        }
+
+
+        .score-number span {
+
+            color: var(--muted);
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            letter-spacing: .8px;
+
+            text-transform: uppercase;
+        }
+
+
+        .assessment-copy {
+
+            min-width: 0;
+        }
+
+
+        .assessment-copy h3 {
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 21px;
+
+            font-weight: 800;
+        }
+
+
+        .status-badge {
+
+            display: inline-flex;
+
+            margin-top: 9px;
+
+            padding: 6px 10px;
+
+            border-radius: 999px;
+
+            color: #9fffdc;
+
+            background:
+                rgba(0, 255, 170, 0.08);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.14);
+
+            font-size: 9px;
+
+            font-weight: 800;
+        }
+
+
+        .assessment-copy p {
+
+            margin-top: 10px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================================================
+           FACTORS
+        ========================================================= */
+
+        .factors {
+
+            margin-top: 20px;
+        }
+
+
+        .factors-title {
+
+            margin-bottom: 14px;
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 16px;
+
+            font-weight: 800;
+        }
+
+
+        .factor {
+
+            margin-bottom: 14px;
+        }
+
+
+        .factor-head {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 7px;
+
+            color: #86aa9d;
+
+            font-size: 9px;
+
+            font-weight: 700;
+        }
+
+
+        .factor-head strong {
+
+            color: #b9dacf;
+        }
+
+
+        .factor-bar {
+
+            height: 7px;
+
+            overflow: hidden;
+
+            border-radius: 999px;
+
+            background:
+                rgba(255, 255, 255, 0.045);
+        }
+
+
+        .factor-fill {
+
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(90deg,
+                    #00a878,
+                    #00f5a0);
+
+            box-shadow:
+                0 0 12px rgba(0, 255, 170, 0.25);
+
+            animation:
+                grow 1s ease both;
+        }
+
+
+        @keyframes grow {
+
+            from {
+                width: 0 !important;
+            }
+        }
+
+
+        /* =========================================================
+           AI INSIGHT
+        ========================================================= */
+
+        .ai-insight {
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(0, 255, 170, 0.045);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.10);
+        }
+
+
+        .ai-insight-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 11px;
+
+            font-weight: 800;
+        }
+
+
+        .ai-insight-text {
+
+            margin-top: 8px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================================================
+           NEXT STEP
+        ========================================================= */
+
+        .next-step {
+
+            margin-top: 20px;
+
+            padding: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            border-radius: 19px;
+
+            background:
+
+                linear-gradient(110deg,
+                    rgba(0, 126, 85, 0.20),
+                    rgba(0, 255, 170, 0.045));
+
+            border:
+                1px solid rgba(0, 255, 170, 0.13);
+        }
+
+
+        .next-copy h3 {
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 16px;
+
+            font-weight: 800;
+        }
+
+
+        .next-copy p {
+
+            margin-top: 5px;
+
+            color: var(--muted);
+
+            font-size: 9px;
+        }
+
+
+        .next-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 42px;
+
+            padding: 0 17px;
+
+            border-radius: 11px;
+
+            color: #00291d;
+
+            background:
+                linear-gradient(135deg,
+                    #00f5a0,
+                    #26e5a2);
+
+            text-decoration: none;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+
+            box-shadow:
+                0 0 23px rgba(0, 255, 170, 0.14);
+
+            transition: .25s ease;
+        }
+
+
+        .next-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 0 32px rgba(0, 255, 170, 0.25);
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+
+            padding: 25px 5px;
+
+            text-align: center;
+
+            color: #557a6e;
+
+            font-size: 10px;
+        }
+
+
+        footer span {
+            color: var(--green);
+        }
+
+
+        /* =========================================================
+           ANIMATION
+        ========================================================= */
+
+        .fade {
+
+            animation:
+                fadeUp .7s ease both;
+        }
+
+
+        .delay-1 {
+            animation-delay: .10s;
+        }
+
+
+        .delay-2 {
+            animation-delay: .18s;
+        }
+
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1100px) {
+
+            .content-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+
+
+        @media (max-width: 850px) {
+
+            .topbar {
+
+                padding: 0 18px;
+            }
+
+
+            .workspace {
+
+                display: none;
+            }
+
+
+            .page {
+
+                width:
+                    calc(100% - 24px);
+
+                margin-top: 18px;
+            }
+
+
+            .hero {
+
+                padding:
+                    38px 23px 27px;
+            }
+
+
+            .workflow {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .workflow-step:last-child {
+
+                grid-column:
+                    1 / -1;
+            }
+
+
+            .input-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+
+
+        @media (max-width: 560px) {
+
+            .hero h1 {
+
+                font-size: 40px;
+            }
+
+
+            .workflow {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .workflow-step:last-child {
+
+                grid-column: auto;
+            }
+
+
+            .score-area {
+
+                flex-direction:
+                    column;
+
+                text-align:
+                    center;
+            }
+
+
+            .next-step {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+            }
+
+
+            .next-btn {
+
+                width:
+                    100%;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+     TOP BAR
+========================================================= -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <span>🌿</span>
+            </div>
+
+            <div class="brand-name">
+                Eco<span>Nex</span>
+            </div>
+
+        </div>
+
+
+        <div class="workspace">
+            Caterer Workspace · Food Quality Intelligence
+        </div>
+
+
+        <div class="top-actions">
+
+            <a href="/caterer" class="top-btn">
+                🏠 <span>Home</span>
+            </a>
+
+            <a href="/" class="top-btn">
+                🔄 <span>Change Category</span>
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <main class="page">
+
+
+        <!-- =========================================================
+     HERO
+========================================================= -->
+
+        <section class="hero fade">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+
+                    <span class="eyebrow-dot"></span>
+
+                    EcoNex Food Quality Intelligence
+
+                </div>
+
+
+                <h1>
+
+                    Verify food quality
+                    <span class="green">
+                        before redistribution.
+                    </span>
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Evaluate the condition of your event surplus using
+                    storage temperature, humidity and storage duration.
+                    EcoNex combines these factors into a structured quality
+                    screening score before the food moves to smart redistribution.
+
+                </p>
+
+
+                <!-- WORKFLOW -->
+
+                <div class="workflow">
+
+                    <div class="workflow-step">
+                        🍱 &nbsp; Surplus
+                    </div>
+
+                    <div class="workflow-step">
+                        📦 &nbsp; Inventory
+                    </div>
+
+                    <div class="workflow-step active">
+                        🧪 &nbsp; Quality
+                    </div>
+
+                    <div class="workflow-step">
+                        🚚 &nbsp; Redistribution
+                    </div>
+
+                    <div class="workflow-step">
+                        🌱 &nbsp; Impact
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+        <section class="content-grid fade delay-1">
+
+
+            <!-- =========================================================
+     LEFT — QUALITY INPUT
+========================================================= -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div class="panel-title">
+                        🧪 Food Quality Check
+                    </div>
+
+                    <div class="panel-caption">
+                        Screening Inputs
+                    </div>
+
+                </div>
+
+
+                <div class="form-panel">
+
+
+                    <div class="intro-box">
+
+                        <div class="intro-title">
+                            🤖 EcoNex Screening Engine
+                        </div>
+
+                        <div class="intro-text">
+
+                            Select a surplus item and provide its current
+                            storage conditions. EcoNex evaluates the three
+                            main environmental factors before redistribution.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FOOD -->
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Food Item
+                        </label>
+
+                        <select id="food_name">
+
+                            <option value="">
+                                Select food item
+                            </option>
+
+                            {% for item in caterer_items %}
+
+                            <option value="{{ item.name }}">
+                                {{ item.name }}
+                                — {{ item.quantity }} {{ item.unit }}
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- INPUTS -->
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Storage Conditions
+                        </label>
+
+
+                        <div class="input-grid">
+
+
+                            <div class="input-unit">
+
+                                <input id="temperature" type="number" step="0.1" placeholder="Temperature">
+
+                                <span class="unit">
+                                    °C
+                                </span>
+
+                            </div>
+
+
+                            <div class="input-unit">
+
+                                <input id="humidity" type="number" step="0.1" placeholder="Humidity">
+
+                                <span class="unit">
+                                    %
+                                </span>
+
+                            </div>
+
+
+                            <div class="input-unit">
+
+                                <input id="storage_hours" type="number" step="0.1" placeholder="Storage time">
+
+                                <span class="unit">
+                                    HRS
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CHECK BUTTON -->
+
+                    <button class="check-btn" onclick="checkQuality()">
+
+                        ✨ Analyze Food Quality
+
+                    </button>
+
+
+                    <!-- INVENTORY -->
+
+                    <div class="inventory-box">
+
+                        <div class="inventory-title">
+
+                            <strong>
+                                Current Event Inventory
+                            </strong>
+
+                            <span class="inventory-count">
+                                {{ caterer_items|length }} ITEMS
+                            </span>
+
+                        </div>
+
+
+                        <div class="inventory-list">
+
+                            {% if caterer_items %}
+
+                            {% for item in caterer_items %}
+
+                            <div class="inventory-item">
+
+                                <div class="food-name">
+
+                                    <div class="food-icon">
+                                        🍱
+                                    </div>
+
+                                    {{ item.name }}
+
+                                </div>
+
+
+                                <div class="food-quantity">
+
+                                    {{ item.quantity }}
+                                    {{ item.unit }}
+
+                                </div>
+
+                            </div>
+
+                            {% endfor %}
+
+                            {% else %}
+
+                            <div class="inventory-item">
+
+                                <div class="food-name">
+
+                                    <div class="food-icon">
+                                        📦
+                                    </div>
+
+                                    No surplus items yet.
+
+                                </div>
+
+                            </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================================
+     RIGHT — ASSESSMENT
+========================================================= -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div class="panel-title">
+                        📊 Quality Assessment
+                    </div>
+
+                    <div class="panel-caption">
+                        EcoNex Analysis
+                    </div>
+
+                </div>
+
+
+                <div class="assessment">
+
+
+                    <!-- SCORE -->
+
+                    <div class="score-area">
+
+                        <div class="score-ring" id="scoreRing" style="--score: {{ quality.score|default(0) }};">
+
+                            <div class="score-number">
+
+                                <strong id="scoreValue">
+                                    {{ quality.score|default(0) }}
+                                </strong>
+
+                                <span>
+                                    Quality Score
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="assessment-copy">
+
+                            <h3 id="statusTitle">
+
+                                {% if quality.status %}
+                                {{ quality.status }}
+                                {% else %}
+                                Awaiting Analysis
+                                {% endif %}
+
+                            </h3>
+
+
+                            <div class="status-badge" id="statusBadge">
+
+                                {% if quality.status %}
+                                {{ quality.status }}
+                                {% else %}
+                                NOT CHECKED
+                                {% endif %}
+
+                            </div>
+
+
+                            <p id="statusDescription">
+
+                                {% if quality.status_description %}
+
+                                {{ quality.status_description }}
+
+                                {% else %}
+
+                                Run the food quality analysis to
+                                generate an EcoNex screening assessment.
+
+                                {% endif %}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FACTORS -->
+
+                    <div class="factors">
+
+                        <div class="factors-title">
+                            AI Screening Factors
+                        </div>
+
+
+                        <!-- TEMPERATURE -->
+
+                        <div class="factor">
+
+                            <div class="factor-head">
+
+                                <span>
+                                    🌡️ Temperature
+                                    <strong>(45%)</strong>
+                                </span>
+
+                                <span id="temperatureScore">
+                                    {{ quality.temperature_score|default(0) }}%
+                                </span>
+
+                            </div>
+
+
+                            <div class="factor-bar">
+
+                                <div id="temperatureBar" class="factor-fill" style="
+                            width:
+                            {{ quality.temperature_score|default(0) }}%;
+                        ">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- HUMIDITY -->
+
+                        <div class="factor">
+
+                            <div class="factor-head">
+
+                                <span>
+                                    💧 Humidity
+                                    <strong>(20%)</strong>
+                                </span>
+
+                                <span id="humidityScore">
+                                    {{ quality.humidity_score|default(0) }}%
+                                </span>
+
+                            </div>
+
+
+                            <div class="factor-bar">
+
+                                <div id="humidityBar" class="factor-fill" style="
+                            width:
+                            {{ quality.humidity_score|default(0) }}%;
+                        ">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- STORAGE -->
+
+                        <div class="factor">
+
+                            <div class="factor-head">
+
+                                <span>
+                                    ⏱️ Storage Duration
+                                    <strong>(35%)</strong>
+                                </span>
+
+                                <span id="storageScore">
+                                    {{ quality.storage_score|default(0) }}%
+                                </span>
+
+                            </div>
+
+
+                            <div class="factor-bar">
+
+                                <div id="storageBar" class="factor-fill" style="
+                            width:
+                            {{ quality.storage_score|default(0) }}%;
+                        ">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- AI INSIGHT -->
+
+                    <div class="ai-insight">
+
+                        <div class="ai-insight-title">
+
+                            🤖
+                            EcoNex AI Insight
+
+                        </div>
+
+
+                        <div class="ai-insight-text" id="aiInsight">
+
+                            Quality screening combines temperature,
+                            humidity and storage duration into a weighted
+                            assessment before redistribution.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- NEXT STEP -->
+
+                    <div class="next-step">
+
+                        <div class="next-copy">
+
+                            <h3>
+                                Ready for smart redistribution?
+                            </h3>
+
+                            <p>
+                                Move verified surplus into the AI recipient
+                                matching and route optimization stage.
+                            </p>
+
+                        </div>
+
+
+                        <a href="/caterer/redistribution" class="next-btn">
+
+                            Continue to Redistribution →
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <footer>
+
+            <span>EcoNex</span>
+            · Technology → Coordination → Measurable Impact
+
+        </footer>
+
+
+    </main>
+
+
+
+    <script>
+
+        /* =========================================================
+           QUALITY CHECK
+        ========================================================= */
+
+        async function checkQuality() {
+
+            const foodName =
+                document.getElementById("food_name").value;
+
+            const temperature =
+                document.getElementById("temperature").value;
+
+            const humidity =
+                document.getElementById("humidity").value;
+
+            const storageHours =
+                document.getElementById("storage_hours").value;
+
+
+            if (!foodName) {
+
+                alert("Please select a food item.");
+
+                return;
+            }
+
+
+            if (
+                temperature === "" ||
+                humidity === "" ||
+                storageHours === ""
+            ) {
+
+                alert(
+                    "Please enter temperature, humidity and storage duration."
+                );
+
+                return;
+            }
+
+
+            const button =
+                document.querySelector(".check-btn");
+
+
+            button.innerHTML =
+                "⏳ Analyzing Food Conditions...";
+
+            button.disabled = true;
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/caterer/check-quality",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                food_name:
+                                    foodName,
+
+                                temperature:
+                                    temperature,
+
+                                humidity:
+                                    humidity,
+
+                                storage_hours:
+                                    storageHours
+
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!data.success) {
+
+                    alert(data.message);
+
+                    return;
+                }
+
+
+                const quality =
+                    data.quality;
+
+
+                /* SCORE */
+
+                document.getElementById(
+                    "scoreValue"
+                ).textContent =
+                    quality.score;
+
+
+                document.getElementById(
+                    "scoreRing"
+                ).style.setProperty(
+                    "--score",
+                    quality.score
+                );
+
+
+                /* STATUS */
+
+                document.getElementById(
+                    "statusTitle"
+                ).textContent =
+                    quality.status;
+
+
+                document.getElementById(
+                    "statusBadge"
+                ).textContent =
+                    quality.status;
+
+
+                document.getElementById(
+                    "statusDescription"
+                ).textContent =
+                    quality.status_description;
+
+
+                /* FACTORS */
+
+                document.getElementById(
+                    "temperatureScore"
+                ).textContent =
+                    quality.temperature_score + "%";
+
+
+                document.getElementById(
+                    "humidityScore"
+                ).textContent =
+                    quality.humidity_score + "%";
+
+
+                document.getElementById(
+                    "storageScore"
+                ).textContent =
+                    quality.storage_score + "%";
+
+
+                document.getElementById(
+                    "temperatureBar"
+                ).style.width =
+                    quality.temperature_score + "%";
+
+
+                document.getElementById(
+                    "humidityBar"
+                ).style.width =
+                    quality.humidity_score + "%";
+
+
+                document.getElementById(
+                    "storageBar"
+                ).style.width =
+                    quality.storage_score + "%";
+
+
+                /* AI INSIGHT */
+
+                let insight = "";
+
+                if (quality.status === "SAFE") {
+
+                    insight =
+                        "All major screening factors are within the EcoNex safe screening range. The surplus can proceed to the redistribution stage for recipient matching.";
+
+                }
+
+                else if (
+                    quality.status === "CHECK REQUIRED"
+                ) {
+
+                    insight =
+                        "The screening indicates that some storage conditions require additional verification before the surplus should proceed to redistribution.";
+
+                }
+
+                else {
+
+                    insight =
+                        "The current storage conditions produce a low screening score. Further food safety assessment is recommended before redistribution.";
+
+                }
+
+
+                document.getElementById(
+                    "aiInsight"
+                ).textContent =
+                    insight;
+
+
+                /* SUCCESS FEEDBACK */
+
+                button.innerHTML =
+                    "✓ Analysis Completed";
+
+
+                setTimeout(() => {
+
+                    button.innerHTML =
+                        "✨ Analyze Food Quality";
+
+                    button.disabled = false;
+
+                }, 1800);
+
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Unable to complete quality analysis."
+                );
+
+                button.innerHTML =
+                    "✨ Analyze Food Quality";
+
+                button.disabled = false;
+            }
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

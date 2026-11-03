@@ -1,0 +1,255 @@
+<aside class="sidebar">
+
+    <style>
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 260px;
+            padding: 22px 16px;
+            background:
+                linear-gradient(180deg,
+                    rgba(7, 25, 16, .98),
+                    rgba(3, 14, 9, .98));
+            border-right: 1px solid rgba(53, 245, 139, .12);
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 10px 25px;
+        }
+
+        .brand-logo {
+            width: 45px;
+            height: 45px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: linear-gradient(135deg,
+                    #51ff99,
+                    #11a95a);
+            color: #031008;
+            font-size: 24px;
+            box-shadow:
+                0 0 30px rgba(53, 245, 139, .18);
+        }
+
+        .brand-name {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .brand-name span {
+            color: #42f68d;
+        }
+
+        .brand-sub {
+            color: #637d70;
+            font-size: 10px;
+            margin-top: 2px;
+        }
+
+        .nav-label {
+            color: #526b5e;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.7px;
+            text-transform: uppercase;
+            padding: 14px 12px 9px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin: 4px 0;
+            border-radius: 13px;
+            color: #91a99d;
+            font-size: 13px;
+            font-weight: 700;
+            border: 1px solid transparent;
+            transition: .2s ease;
+        }
+
+        .nav-link:hover {
+            color: #ecfff3;
+            background: rgba(53, 245, 139, .06);
+            border-color: rgba(53, 245, 139, .08);
+        }
+
+        .nav-link.active {
+            color: #63ffa2;
+            background:
+                linear-gradient(90deg,
+                    rgba(53, 245, 139, .13),
+                    rgba(53, 245, 139, .03));
+            border-color: rgba(53, 245, 139, .14);
+            box-shadow: inset 3px 0 #35f58b;
+        }
+
+        .nav-icon {
+            width: 28px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .system-card {
+            margin: 25px 4px 0;
+            padding: 16px;
+            border-radius: 17px;
+            background: rgba(53, 245, 139, .05);
+            border: 1px solid rgba(53, 245, 139, .1);
+        }
+
+        .system-dot {
+            width: 8px;
+            height: 8px;
+            display: inline-block;
+            border-radius: 50%;
+            background: #35f58b;
+            box-shadow: 0 0 12px #35f58b;
+            margin-right: 7px;
+        }
+
+        .system-title {
+            font-size: 11px;
+            font-weight: 800;
+            color: #d8f9e4;
+        }
+
+        .system-text {
+            margin-top: 7px;
+            color: #617c6d;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+    </style>
+
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            🌱
+        </div>
+
+        <div>
+
+            <div class="brand-name">
+                Eco<span>Nex</span>
+            </div>
+
+            <div class="brand-sub">
+                FOOD RESCUE INTELLIGENCE
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="nav-label">
+        Main
+    </div>
+
+
+    <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">
+
+        <span class="nav-icon">🏠</span>
+
+        <span>Home</span>
+
+    </a>
+
+
+    <a href="/dashboard" class="nav-link {% if request.path == '/dashboard' %}active{% endif %}">
+
+        <span class="nav-icon">📊</span>
+
+        <span>Dashboard</span>
+
+    </a>
+
+
+    <div class="nav-label">
+        AI Operations
+    </div>
+
+
+    <a href="/demand" class="nav-link {% if request.path == '/demand' %}active{% endif %}">
+
+        <span class="nav-icon">🧠</span>
+
+        <span>AI Demand</span>
+
+    </a>
+
+
+    <a href="/surplus" class="nav-link {% if request.path == '/surplus' %}active{% endif %}">
+
+        <span class="nav-icon">🍱</span>
+
+        <span>Surplus Detection</span>
+
+    </a>
+
+
+    <a href="/quality" class="nav-link {% if request.path == '/quality' %}active{% endif %}">
+
+        <span class="nav-icon">🛡️</span>
+
+        <span>Food Quality</span>
+
+    </a>
+
+
+    <a href="/redistribution" class="nav-link {% if request.path == '/redistribution' %}active{% endif %}">
+
+        <span class="nav-icon">🚚</span>
+
+        <span>Redistribution</span>
+
+    </a>
+
+
+    <div class="nav-label">
+        Impact
+    </div>
+
+
+    <a href="/impact" class="nav-link {% if request.path == '/impact' %}active{% endif %}">
+
+        <span class="nav-icon">🌍</span>
+
+        <span>Impact Analytics</span>
+
+    </a>
+
+
+    <div class="system-card">
+
+        <div class="system-title">
+
+            <span class="system-dot"></span>
+
+            EcoNex AI Online
+
+        </div>
+
+        <div class="system-text">
+
+            Dynamic consumption analysis,
+            surplus detection and sustainable
+            food redistribution.
+
+        </div>
+
+    </div>
+
+</aside>

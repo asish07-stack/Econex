@@ -1,0 +1,2611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Impact Intelligence | EcoNex</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        :root {
+
+            --bg: #011a12;
+            --bg-dark: #00130d;
+
+            --panel: rgba(5, 53, 39, 0.78);
+            --panel-dark: rgba(2, 34, 25, 0.86);
+
+            --green: #00f5a0;
+            --green-light: #22e8a3;
+
+            --text: #effff8;
+            --muted: #91b9aa;
+            --muted-dark: #638e80;
+
+            --border: rgba(92, 255, 200, 0.15);
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family: "Inter", sans-serif;
+
+            color: var(--text);
+
+            background:
+
+                radial-gradient(circle at 9% 8%,
+                    rgba(0, 255, 170, 0.12),
+                    transparent 28%),
+
+                radial-gradient(circle at 91% 18%,
+                    rgba(0, 224, 145, 0.09),
+                    transparent 30%),
+
+                linear-gradient(135deg,
+                    #01160f,
+                    #02291e 48%,
+                    #01150f);
+
+            overflow-x: hidden;
+        }
+
+
+        /* background grid */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            background-image:
+
+                linear-gradient(rgba(255, 255, 255, 0.017) 1px,
+                    transparent 1px),
+
+                linear-gradient(90deg,
+                    rgba(255, 255, 255, 0.017) 1px,
+                    transparent 1px);
+
+            background-size: 55px 55px;
+
+            mask-image:
+                linear-gradient(to bottom,
+                    black,
+                    transparent 92%);
+
+            z-index: -1;
+        }
+
+
+        /* =========================================================
+           TOP BAR
+        ========================================================= */
+
+        .topbar {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+            height: 76px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 34px;
+
+            background:
+                rgba(1, 23, 16, 0.82);
+
+            border-bottom:
+                1px solid rgba(100, 255, 200, 0.11);
+
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .brand-logo {
+
+            width: 42px;
+            height: 42px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(0, 255, 170, 0.22),
+                    rgba(0, 120, 80, 0.12));
+
+            border:
+                1px solid rgba(0, 255, 170, 0.21);
+
+            box-shadow:
+                0 0 25px rgba(0, 255, 170, 0.09);
+        }
+
+
+        .brand-logo span {
+            font-size: 21px;
+        }
+
+
+        .brand-name {
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 21px;
+
+            font-weight: 800;
+        }
+
+
+        .brand-name span {
+            color: var(--green);
+        }
+
+
+        .workspace {
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        .top-actions {
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+
+        .top-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 10px 15px;
+
+            border-radius: 12px;
+
+            color: #dffff2;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            background:
+                rgba(0, 255, 170, 0.055);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.12);
+
+            transition: .25s ease;
+        }
+
+
+        .top-btn:hover {
+
+            transform: translateY(-2px);
+
+            background:
+                rgba(0, 255, 170, 0.11);
+
+            border-color:
+                rgba(0, 255, 170, 0.28);
+
+            box-shadow:
+                0 0 22px rgba(0, 255, 170, 0.08);
+        }
+
+
+        /* =========================================================
+           PAGE
+        ========================================================= */
+
+        .page {
+
+            width:
+                min(1480px, calc(100% - 42px));
+
+            margin:
+                30px auto 70px;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+
+            position: relative;
+
+            overflow: hidden;
+
+            min-height: 395px;
+
+            padding: 58px 42px 42px;
+
+            border-radius: 28px;
+
+            background:
+
+                linear-gradient(135deg,
+                    rgba(6, 67, 48, 0.84),
+                    rgba(2, 40, 29, 0.80));
+
+            border:
+                1px solid rgba(103, 255, 204, 0.17);
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.28);
+        }
+
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 600px;
+            height: 600px;
+
+            right: -250px;
+            top: -340px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(0, 255, 170, 0.15),
+                    transparent 68%);
+        }
+
+
+        .hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 420px;
+            height: 420px;
+
+            left: 42%;
+            bottom: -350px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(0, 220, 145, 0.09),
+                    transparent 70%);
+        }
+
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .eyebrow {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 8px 13px;
+
+            border-radius: 999px;
+
+            color: #9effdc;
+
+            background:
+                rgba(0, 255, 170, 0.07);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.15);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.15px;
+
+            text-transform: uppercase;
+        }
+
+
+        .eyebrow-dot {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 12px rgba(0, 255, 170, 0.8);
+
+            animation:
+                pulse 1.8s infinite;
+        }
+
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .5;
+                transform: scale(.72);
+            }
+        }
+
+
+        .hero h1 {
+
+            margin-top: 22px;
+
+            max-width: 800px;
+
+            font-family: "Outfit", sans-serif;
+
+            font-size:
+                clamp(43px, 5.2vw, 72px);
+
+            line-height: .97;
+
+            letter-spacing: -2.8px;
+
+            font-weight: 800;
+        }
+
+
+        .hero h1 .green {
+
+            color: var(--green);
+
+            text-shadow:
+                0 0 32px rgba(0, 255, 170, 0.14);
+        }
+
+
+        .hero-description {
+
+            max-width: 850px;
+
+            margin-top: 22px;
+
+            color: #9bbfb2;
+
+            font-size: 14px;
+
+            line-height: 1.85;
+        }
+
+
+        /* =========================================================
+           WORKFLOW
+        ========================================================= */
+
+        .workflow {
+
+            position: relative;
+
+            z-index: 4;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(6, 1fr);
+
+            gap: 10px;
+
+            margin-top: 30px;
+        }
+
+
+        .workflow-step {
+
+            min-height: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 11px 10px;
+
+            border-radius: 15px;
+
+            color:
+                rgba(235, 255, 247, 0.76);
+
+            background:
+                rgba(0, 91, 63, 0.22);
+
+            border:
+                1px solid rgba(72, 255, 185, 0.15);
+
+            box-shadow:
+
+                0 0 12px rgba(0, 255, 170, 0.06),
+
+                inset 0 0 14px rgba(0, 255, 170, 0.02);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            transition: .3s ease;
+        }
+
+
+        .workflow-step:hover {
+
+            transform:
+                translateY(-1px);
+
+            background:
+                rgba(0, 110, 75, 0.30);
+
+            border-color:
+                rgba(72, 255, 185, 0.30);
+
+            color:
+                #eafff5;
+
+            box-shadow:
+                0 0 18px rgba(0, 255, 170, 0.12);
+        }
+
+
+        .workflow-step.active {
+
+            color: #eafff6;
+
+            background:
+                rgba(0, 120, 80, 0.34);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.50);
+
+            box-shadow:
+
+                0 0 17px rgba(0, 255, 170, 0.21),
+
+                0 0 32px rgba(0, 255, 170, 0.07),
+
+                inset 0 0 18px rgba(0, 255, 170, 0.05);
+        }
+
+
+        /* =========================================================
+           KPI GRID
+        ========================================================= */
+
+        .metrics {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+            margin-top: 20px;
+        }
+
+
+        .metric {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 23px;
+
+            min-height: 145px;
+
+            border-radius: 21px;
+
+            background:
+
+                linear-gradient(145deg,
+                    rgba(6, 57, 42, 0.82),
+                    rgba(2, 34, 25, 0.88));
+
+            border:
+                1px solid rgba(95, 255, 200, 0.13);
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.19);
+
+            transition: .3s ease;
+        }
+
+
+        .metric::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 130px;
+            height: 130px;
+
+            right: -70px;
+            bottom: -80px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(0, 255, 170, 0.13),
+                    transparent 70%);
+        }
+
+
+        .metric:hover {
+
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(0, 255, 170, 0.28);
+
+            box-shadow:
+                0 25px 55px rgba(0, 0, 0, 0.25),
+                0 0 25px rgba(0, 255, 170, 0.05);
+        }
+
+
+        .metric-icon {
+
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 11px;
+
+            background:
+                rgba(0, 255, 170, 0.08);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.10);
+
+            font-size: 17px;
+        }
+
+
+        .metric-label {
+
+            margin-top: 17px;
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: .9px;
+
+            text-transform: uppercase;
+        }
+
+
+        .metric-value {
+
+            margin-top: 5px;
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            letter-spacing: -.7px;
+        }
+
+
+        .metric-value span {
+
+            color: var(--green);
+
+            font-size: 13px;
+
+            font-family: "Inter", sans-serif;
+        }
+
+
+        /* =========================================================
+           MAIN GRID
+        ========================================================= */
+
+        .main-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1.05fr .95fr;
+
+            gap: 20px;
+
+            margin-top: 20px;
+        }
+
+
+        .panel {
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-radius: 25px;
+
+            background:
+
+                linear-gradient(145deg,
+                    rgba(6, 53, 40, 0.84),
+                    rgba(2, 30, 23, 0.88));
+
+            border:
+                1px solid var(--border);
+
+            box-shadow:
+                0 25px 65px rgba(0, 0, 0, 0.25);
+        }
+
+
+        .panel-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 22px 25px;
+
+            border-bottom:
+                1px solid rgba(111, 255, 204, 0.08);
+        }
+
+
+        .panel-title {
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 19px;
+
+            font-weight: 800;
+        }
+
+
+        .panel-caption {
+
+            color: var(--muted-dark);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        .panel-body {
+
+            padding: 25px;
+        }
+
+
+        /* =========================================================
+           IMPACT SCORE
+        ========================================================= */
+
+        .score-layout {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 28px;
+
+            padding: 21px;
+
+            border-radius: 21px;
+
+            background:
+
+                linear-gradient(135deg,
+                    rgba(0, 255, 170, 0.09),
+                    rgba(0, 255, 170, 0.025));
+
+            border:
+                1px solid rgba(0, 255, 170, 0.13);
+        }
+
+
+        .score-ring {
+
+            position: relative;
+
+            width: 165px;
+            height: 165px;
+
+            flex-shrink: 0;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 50%;
+
+            background:
+
+                radial-gradient(circle,
+                    #062f23 56%,
+                    transparent 57%),
+
+                conic-gradient(var(--green) calc(var(--score, 0) * 1%),
+                    rgba(0, 255, 170, 0.065) 0);
+
+            box-shadow:
+                0 0 40px rgba(0, 255, 170, 0.10);
+        }
+
+
+        .score-ring::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 8px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid rgba(0, 255, 170, 0.13);
+        }
+
+
+        .score-ring::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: -7px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid rgba(0, 255, 170, 0.05);
+        }
+
+
+        .score-number {
+
+            position: relative;
+
+            z-index: 2;
+
+            text-align: center;
+        }
+
+
+        .score-number strong {
+
+            display: block;
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 40px;
+
+            font-weight: 800;
+
+            color: var(--green);
+        }
+
+
+        .score-number span {
+
+            color: var(--muted);
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            letter-spacing: .8px;
+
+            text-transform: uppercase;
+        }
+
+
+        .score-copy h2 {
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 24px;
+
+            font-weight: 800;
+        }
+
+
+        .impact-badge {
+
+            display: inline-flex;
+
+            margin-top: 9px;
+
+            padding: 6px 11px;
+
+            border-radius: 999px;
+
+            color: #9effdc;
+
+            background:
+                rgba(0, 255, 170, 0.08);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.14);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: .4px;
+        }
+
+
+        .score-copy p {
+
+            max-width: 420px;
+
+            margin-top: 12px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            line-height: 1.75;
+        }
+
+
+        /* =========================================================
+           RECIPIENT MATCH
+        ========================================================= */
+
+        .recipient-card {
+
+            position: relative;
+
+            padding: 21px;
+
+            border-radius: 20px;
+
+            background:
+
+                linear-gradient(135deg,
+                    rgba(0, 116, 78, 0.18),
+                    rgba(0, 255, 170, 0.035));
+
+            border:
+                1px solid rgba(0, 255, 170, 0.13);
+
+            overflow: hidden;
+        }
+
+
+        .recipient-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            right: -90px;
+            top: -90px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(0, 255, 170, 0.12),
+                    transparent 70%);
+        }
+
+
+        .recipient-top {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 15px;
+        }
+
+
+        .recipient-label {
+
+            color: var(--muted-dark);
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        .recipient-name {
+
+            margin-top: 6px;
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 21px;
+
+            font-weight: 800;
+        }
+
+
+        .match-score {
+
+            position: relative;
+
+            z-index: 2;
+
+            min-width: 73px;
+
+            padding: 9px 10px;
+
+            text-align: center;
+
+            border-radius: 13px;
+
+            background:
+                rgba(0, 255, 170, 0.08);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.17);
+        }
+
+
+        .match-score strong {
+
+            display: block;
+
+            color: var(--green);
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 21px;
+        }
+
+
+        .match-score span {
+
+            color: var(--muted);
+
+            font-size: 7px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+        }
+
+
+        .recipient-stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 9px;
+
+            margin-top: 20px;
+        }
+
+
+        .recipient-stat {
+
+            padding: 12px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(0, 0, 0, 0.16);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.035);
+        }
+
+
+        .recipient-stat-label {
+
+            color: var(--muted-dark);
+
+            font-size: 7px;
+
+            font-weight: 800;
+
+            letter-spacing: .5px;
+
+            text-transform: uppercase;
+        }
+
+
+        .recipient-stat-value {
+
+            margin-top: 5px;
+
+            color: #dffff4;
+
+            font-size: 11px;
+
+            font-weight: 800;
+        }
+
+
+        /* =========================================================
+           SUSTAINABILITY
+        ========================================================= */
+
+        .sustainability {
+
+            margin-top: 20px;
+        }
+
+
+        .sustainability-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 11px;
+        }
+
+
+        .sustain-card {
+
+            padding: 18px;
+
+            border-radius: 17px;
+
+            background:
+                rgba(0, 255, 170, 0.035);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.08);
+
+            transition: .25s ease;
+        }
+
+
+        .sustain-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            background:
+                rgba(0, 255, 170, 0.055);
+
+            border-color:
+                rgba(0, 255, 170, 0.17);
+        }
+
+
+        .sustain-icon {
+
+            font-size: 18px;
+        }
+
+
+        .sustain-value {
+
+            margin-top: 11px;
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 22px;
+
+            font-weight: 800;
+        }
+
+
+        .sustain-value span {
+
+            color: var(--green);
+
+            font-size: 10px;
+        }
+
+
+        .sustain-label {
+
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 8px;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================================================
+           EVENT SUMMARY
+        ========================================================= */
+
+        .summary-list {
+
+            display: grid;
+
+            gap: 10px;
+        }
+
+
+        .summary-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 13px 14px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(0, 255, 170, 0.032);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.06);
+        }
+
+
+        .summary-label {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            font-weight: 700;
+        }
+
+
+        .summary-value {
+
+            color: #dffff4;
+
+            font-size: 10px;
+
+            font-weight: 800;
+        }
+
+
+        /* =========================================================
+           JOURNEY
+        ========================================================= */
+
+        .journey {
+
+            margin-top: 20px;
+        }
+
+
+        .journey-track {
+
+            position: relative;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 0;
+
+            padding: 25px 12px 16px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(0, 255, 170, 0.025);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.07);
+        }
+
+
+        .journey-track::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 43px;
+
+            left: 10%;
+
+            right: 10%;
+
+            height: 2px;
+
+            background:
+                linear-gradient(90deg,
+                    rgba(0, 255, 170, 0.12),
+                    rgba(0, 255, 170, 0.55),
+                    rgba(0, 255, 170, 0.16));
+
+            box-shadow:
+                0 0 10px rgba(0, 255, 170, 0.08);
+        }
+
+
+        .journey-step {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            align-items: center;
+
+            flex-direction: column;
+
+            text-align: center;
+        }
+
+
+        .journey-icon {
+
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 50%;
+
+            background:
+                #063a2a;
+
+            border:
+                1px solid rgba(0, 255, 170, 0.25);
+
+            box-shadow:
+                0 0 16px rgba(0, 255, 170, 0.08);
+
+            font-size: 14px;
+        }
+
+
+        .journey-step.active .journey-icon {
+
+            background:
+                linear-gradient(135deg,
+                    #00c982,
+                    #00f5a0);
+
+            color: #003224;
+
+            border-color:
+                rgba(0, 255, 170, 0.65);
+
+            box-shadow:
+                0 0 25px rgba(0, 255, 170, 0.25);
+        }
+
+
+        .journey-name {
+
+            margin-top: 10px;
+
+            color: #c7e6dc;
+
+            font-size: 8px;
+
+            font-weight: 800;
+        }
+
+
+        .journey-step.active .journey-name {
+
+            color: var(--green);
+        }
+
+
+        /* =========================================================
+           FINAL ACTION
+        ========================================================= */
+
+        .final-action {
+
+            position: relative;
+
+            overflow: hidden;
+
+            margin-top: 20px;
+
+            padding: 27px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            border-radius: 22px;
+
+            background:
+
+                linear-gradient(110deg,
+                    rgba(0, 115, 77, 0.24),
+                    rgba(0, 255, 170, 0.045));
+
+            border:
+                1px solid rgba(0, 255, 170, 0.14);
+        }
+
+
+        .final-action::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 230px;
+            height: 230px;
+
+            right: -120px;
+            top: -120px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(0, 255, 170, 0.14),
+                    transparent 70%);
+        }
+
+
+        .final-copy {
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .final-copy h2 {
+
+            font-family: "Outfit", sans-serif;
+
+            font-size: 23px;
+
+            font-weight: 800;
+        }
+
+
+        .final-copy p {
+
+            margin-top: 7px;
+
+            max-width: 610px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            line-height: 1.7;
+        }
+
+
+        .home-btn {
+
+            position: relative;
+
+            z-index: 3;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 46px;
+
+            padding: 0 20px;
+
+            border-radius: 13px;
+
+            color: #00291d;
+
+            background:
+                linear-gradient(135deg,
+                    #00f5a0,
+                    #25e6a2);
+
+            text-decoration: none;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+
+            box-shadow:
+                0 0 28px rgba(0, 255, 170, 0.15);
+
+            transition: .25s ease;
+        }
+
+
+        .home-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 0 38px rgba(0, 255, 170, 0.26);
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+
+            padding: 26px 5px;
+
+            text-align: center;
+
+            color: #55796e;
+
+            font-size: 10px;
+        }
+
+
+        footer span {
+            color: var(--green);
+        }
+
+
+        /* =========================================================
+           ANIMATIONS
+        ========================================================= */
+
+        .fade {
+
+            animation:
+                fadeUp .7s ease both;
+        }
+
+
+        .delay-1 {
+            animation-delay: .10s;
+        }
+
+
+        .delay-2 {
+            animation-delay: .18s;
+        }
+
+
+        .delay-3 {
+            animation-delay: .26s;
+        }
+
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(16px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1150px) {
+
+            .metrics {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .main-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+
+
+        @media (max-width: 900px) {
+
+            .workflow {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .topbar {
+
+                padding:
+                    0 18px;
+            }
+
+
+            .workspace {
+
+                display: none;
+            }
+
+
+            .page {
+
+                width:
+                    calc(100% - 24px);
+
+                margin-top:
+                    18px;
+            }
+
+
+            .hero {
+
+                padding:
+                    38px 23px 27px;
+            }
+
+
+            .hero h1 {
+
+                font-size:
+                    43px;
+            }
+
+
+            .workflow {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .metrics {
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+
+            .score-layout {
+
+                flex-direction:
+                    column;
+
+                text-align:
+                    center;
+            }
+
+
+            .score-copy p {
+
+                margin-left:
+                    auto;
+
+                margin-right:
+                    auto;
+            }
+
+
+            .recipient-stats {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .sustainability-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .journey-track {
+
+                grid-template-columns:
+                    repeat(5, 1fr);
+
+                overflow-x:
+                    auto;
+            }
+
+
+            .journey-track::before {
+
+                left: 8%;
+
+                right: 8%;
+
+                min-width:
+                    500px;
+            }
+
+
+            .final-action {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+            }
+
+
+            .home-btn {
+
+                width:
+                    100%;
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .metrics {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .workflow {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .hero h1 {
+
+                font-size:
+                    38px;
+
+                letter-spacing:
+                    -1.8px;
+            }
+
+
+            .top-actions {
+
+                gap: 5px;
+            }
+
+
+            .top-btn {
+
+                padding:
+                    9px;
+            }
+
+
+            .top-btn span {
+
+                display:
+                    none;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+     TOP BAR
+========================================================= -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <span>🌿</span>
+            </div>
+
+            <div class="brand-name">
+                Eco<span>Nex</span>
+            </div>
+
+        </div>
+
+
+        <div class="workspace">
+            Caterer Workspace · Impact Intelligence
+        </div>
+
+
+        <div class="top-actions">
+
+            <a href="/caterer" class="top-btn">
+                🏠 <span>Home</span>
+            </a>
+
+            <a href="/" class="top-btn">
+                🔄 <span>Change Category</span>
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <main class="page">
+
+
+        <!-- =========================================================
+     HERO
+========================================================= -->
+
+        <section class="hero fade">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+
+                    <span class="eyebrow-dot"></span>
+
+                    EcoNex Impact Intelligence
+
+                </div>
+
+
+                <h1>
+
+                    Turn rescued food
+                    <span class="green">
+                        into measurable impact.
+                    </span>
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    EcoNex transforms your event's surplus, food quality,
+                    recipient compatibility and redistribution decisions
+                    into measurable sustainability outcomes.
+
+                </p>
+
+
+                <!-- WORKFLOW -->
+
+                <div class="workflow">
+
+                    <div class="workflow-step">
+                        🍱 &nbsp; Surplus
+                    </div>
+
+                    <div class="workflow-step">
+                        📦 &nbsp; Inventory
+                    </div>
+
+                    <div class="workflow-step">
+                        🧪 &nbsp; Quality
+                    </div>
+
+                    <div class="workflow-step">
+                        🤖 &nbsp; AI Match
+                    </div>
+
+                    <div class="workflow-step">
+                        🚚 &nbsp; Redistribution
+                    </div>
+
+                    <div class="workflow-step active">
+                        🌱 &nbsp; Impact
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================================
+     IMPACT METRICS
+========================================================= -->
+
+        <section class="metrics fade delay-1">
+
+
+            <div class="metric">
+
+                <div class="metric-icon">
+                    🍱
+                </div>
+
+                <div class="metric-label">
+                    Food Rescued
+                </div>
+
+                <div class="metric-value">
+
+                    {{ food_rescued_kg }}
+
+                    <span>KG</span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="metric">
+
+                <div class="metric-icon">
+                    ♻️
+                </div>
+
+                <div class="metric-label">
+                    Waste Prevented
+                </div>
+
+                <div class="metric-value">
+
+                    {{ waste_prevented_kg }}
+
+                    <span>KG</span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="metric">
+
+                <div class="metric-icon">
+                    🌍
+                </div>
+
+                <div class="metric-label">
+                    CO₂ Avoided
+                </div>
+
+                <div class="metric-value">
+
+                    {{ co2_avoided }}
+
+                    <span>KG CO₂e</span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="metric">
+
+                <div class="metric-icon">
+                    🤖
+                </div>
+
+                <div class="metric-label">
+                    AI Recipient Match
+                </div>
+
+                <div class="metric-value">
+
+                    {{ recipient_match }}
+
+                    <span>/100</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+        <section class="main-grid fade delay-2">
+
+
+            <!-- =========================================================
+     LEFT COLUMN
+========================================================= -->
+
+            <div>
+
+
+                <!-- IMPACT SCORE -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div class="panel-title">
+                            🏆 Overall Event Impact
+                        </div>
+
+                        <div class="panel-caption">
+                            EcoNex Performance
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel-body">
+
+                        <div class="score-layout">
+
+
+                            <div class="score-ring" style="--score: {{ impact_score }};">
+
+                                <div class="score-number">
+
+                                    <strong>
+                                        {{ impact_score }}
+                                    </strong>
+
+                                    <span>
+                                        Impact Score
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="score-copy">
+
+                                <h2>
+                                    {{ impact_level }}
+                                </h2>
+
+
+                                <div class="impact-badge">
+                                    🌱 EVENT SUSTAINABILITY STATUS
+                                </div>
+
+
+                                <p>
+
+                                    EcoNex evaluates the event based on
+                                    rescued food, available surplus formats,
+                                    food quality verification and AI-powered
+                                    recipient matching.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- AI RECIPIENT -->
+
+                        <div class="sustainability">
+
+                            <div class="panel-title" style="font-size:16px; margin-bottom:13px;">
+
+                                🤖 AI Recipient Analysis
+
+                            </div>
+
+
+                            <div class="recipient-card">
+
+                                <div class="recipient-top">
+
+
+                                    <div>
+
+                                        <div class="recipient-label">
+                                            Best Matched Recipient
+                                        </div>
+
+                                        <div class="recipient-name">
+
+                                            {{ best_recipient.name }}
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="match-score">
+
+                                        <strong>
+                                            {{ best_recipient.match_score }}
+                                        </strong>
+
+                                        <span>
+                                            Match
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="recipient-stats">
+
+
+                                    <div class="recipient-stat">
+
+                                        <div class="recipient-stat-label">
+                                            Distance
+                                        </div>
+
+                                        <div class="recipient-stat-value">
+
+                                            {{ best_recipient.distance }}
+                                            km
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="recipient-stat">
+
+                                        <div class="recipient-stat-label">
+                                            Capacity
+                                        </div>
+
+                                        <div class="recipient-stat-value">
+
+                                            {{ best_recipient.capacity }}
+
+                                            units
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="recipient-stat">
+
+                                        <div class="recipient-stat-label">
+                                            Pickup Ready
+                                        </div>
+
+                                        <div class="recipient-stat-value">
+
+                                            {{ best_recipient.pickup_ready }}%
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SUSTAINABILITY -->
+
+                <div class="panel sustainability">
+
+                    <div class="panel-header">
+
+                        <div class="panel-title">
+                            🌍 Sustainability Performance
+                        </div>
+
+                        <div class="panel-caption">
+                            Measurable Outcomes
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel-body">
+
+                        <div class="sustainability-grid">
+
+
+                            <div class="sustain-card">
+
+                                <div class="sustain-icon">
+                                    🍱
+                                </div>
+
+                                <div class="sustain-value">
+
+                                    {{ food_rescued_kg }}
+
+                                    <span>KG</span>
+
+                                </div>
+
+                                <div class="sustain-label">
+                                    Food successfully rescued
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="sustain-card">
+
+                                <div class="sustain-icon">
+                                    ♻️
+                                </div>
+
+                                <div class="sustain-value">
+
+                                    {{ waste_prevented_kg }}
+
+                                    <span>KG</span>
+
+                                </div>
+
+                                <div class="sustain-label">
+                                    Potential waste prevented
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="sustain-card">
+
+                                <div class="sustain-icon">
+                                    🌎
+                                </div>
+
+                                <div class="sustain-value">
+
+                                    {{ co2_avoided }}
+
+                                    <span>KG</span>
+
+                                </div>
+
+                                <div class="sustain-label">
+                                    Estimated CO₂e avoided
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================================
+     RIGHT COLUMN
+========================================================= -->
+
+            <div>
+
+
+                <!-- EVENT SUMMARY -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div class="panel-title">
+                            📋 Event Summary
+                        </div>
+
+                        <div class="panel-caption">
+                            Current Data
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel-body">
+
+                        <div class="summary-list">
+
+
+                            <div class="summary-row">
+
+                                <div class="summary-label">
+                                    🍱 Food items registered
+                                </div>
+
+                                <div class="summary-value">
+                                    {{ food_items_registered }}
+                                </div>
+
+                            </div>
+
+
+                            <div class="summary-row">
+
+                                <div class="summary-label">
+                                    ⚖️ Solid food
+                                </div>
+
+                                <div class="summary-value">
+                                    {{ total_kg }} KG
+                                </div>
+
+                            </div>
+
+
+                            <div class="summary-row">
+
+                                <div class="summary-label">
+                                    💧 Liquid food
+                                </div>
+
+                                <div class="summary-value">
+                                    {{ total_litres }} L
+                                </div>
+
+                            </div>
+
+
+                            <div class="summary-row">
+
+                                <div class="summary-label">
+                                    🍽️ Individual items
+                                </div>
+
+                                <div class="summary-value">
+                                    {{ total_pieces }} PCS
+                                </div>
+
+                            </div>
+
+
+                            <div class="summary-row">
+
+                                <div class="summary-label">
+                                    🧪 Quality status
+                                </div>
+
+                                <div class="summary-value">
+                                    {{ quality_status }}
+                                </div>
+
+                            </div>
+
+
+                            <div class="summary-row">
+
+                                <div class="summary-label">
+                                    📊 Quality score
+                                </div>
+
+                                <div class="summary-value">
+                                    {{ quality_score }}/100
+                                </div>
+
+                            </div>
+
+
+                            <div class="summary-row">
+
+                                <div class="summary-label">
+                                    🤖 Recipient match
+                                </div>
+
+                                <div class="summary-value">
+                                    {{ recipient_match }}/100
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- IMPACT JOURNEY -->
+
+                <div class="panel journey" style="margin-top:20px;">
+
+                    <div class="panel-header">
+
+                        <div class="panel-title">
+                            🔄 EcoNex Impact Journey
+                        </div>
+
+                        <div class="panel-caption">
+                            End-to-End Flow
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel-body">
+
+
+                        <div class="journey-track">
+
+
+                            <div class="journey-step">
+
+                                <div class="journey-icon">
+                                    🍱
+                                </div>
+
+                                <div class="journey-name">
+                                    Surplus
+                                </div>
+
+                            </div>
+
+
+                            <div class="journey-step">
+
+                                <div class="journey-icon">
+                                    📦
+                                </div>
+
+                                <div class="journey-name">
+                                    Inventory
+                                </div>
+
+                            </div>
+
+
+                            <div class="journey-step">
+
+                                <div class="journey-icon">
+                                    🧪
+                                </div>
+
+                                <div class="journey-name">
+                                    Quality
+                                </div>
+
+                            </div>
+
+
+                            <div class="journey-step">
+
+                                <div class="journey-icon">
+                                    🤖
+                                </div>
+
+                                <div class="journey-name">
+                                    AI Match
+                                </div>
+
+                            </div>
+
+
+                            <div class="journey-step active">
+
+                                <div class="journey-icon">
+                                    🌱
+                                </div>
+
+                                <div class="journey-name">
+                                    Impact
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FINAL AI INSIGHT -->
+
+                <div class="final-action">
+
+                    <div class="final-copy">
+
+                        <h2>
+                            🌱 Your event made an impact.
+                        </h2>
+
+                        <p>
+
+                            EcoNex connected surplus food management,
+                            quality intelligence and recipient matching
+                            into one measurable sustainability workflow.
+
+                        </p>
+
+                    </div>
+
+
+                    <a href="/caterer" class="home-btn">
+
+                        Return to Caterer Home →
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <footer>
+
+            <span>EcoNex</span>
+            · Technology → Coordination → Measurable Impact
+
+        </footer>
+
+
+    </main>
+
+
+</body>
+
+</html>

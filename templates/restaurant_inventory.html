@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EcoNex • Surplus Inventory</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #04110b;
+            --green: #4ade80;
+            --green-bright: #86efac;
+            --emerald: #10b981;
+            --text: #ecfdf5;
+            --muted: #789586;
+            --muted-dark: #557466;
+            --border: rgba(74, 222, 128, 0.11);
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+
+            background:
+                radial-gradient(circle at 10% 5%,
+                    rgba(34, 197, 94, 0.12),
+                    transparent 28%),
+                radial-gradient(circle at 90% 30%,
+                    rgba(16, 185, 129, 0.08),
+                    transparent 28%),
+                radial-gradient(circle at 65% 95%,
+                    rgba(34, 197, 94, 0.07),
+                    transparent 30%),
+                var(--bg);
+
+            color: var(--text);
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+        }
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 250px;
+            height: 100vh;
+
+            padding: 26px 17px;
+
+            background:
+                linear-gradient(180deg,
+                    rgba(4, 18, 12, 0.98),
+                    rgba(3, 14, 9, 0.97));
+
+            border-right:
+                1px solid rgba(74, 222, 128, 0.12);
+
+            backdrop-filter: blur(20px);
+
+            box-shadow:
+                10px 0 50px rgba(0, 0, 0, 0.20);
+
+            z-index: 1000;
+        }
+
+        .brand {
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            padding:
+                3px 12px 23px;
+
+            margin-bottom: 20px;
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.055);
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(135deg,
+                    #10b981,
+                    #047857);
+
+            box-shadow:
+                0 0 25px rgba(16, 185, 129, 0.22);
+
+            font-size: 20px;
+        }
+
+        .brand-name {
+            font-size: 22px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.8px;
+
+            color: #ecfdf5;
+        }
+
+        .brand-name span {
+            color: #4ade80;
+        }
+
+        .workspace {
+            margin:
+                0 7px 22px;
+
+            padding:
+                12px 13px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(16, 185, 129, 0.065);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.10);
+
+            color: #6ee7a0;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.8px;
+        }
+
+        .workspace strong {
+            display: block;
+
+            margin-top: 5px;
+
+            color: #dff9e9;
+
+            font-size: 12px;
+
+            letter-spacing: 0;
+
+            font-weight: 700;
+        }
+
+        .nav-title {
+            padding:
+                0 13px;
+
+            margin-bottom: 10px;
+
+            color: #4f6d5d;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.7px;
+        }
+
+        .nav {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 4px;
+        }
+
+        .nav a {
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding:
+                11px 13px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            color: #8da99a;
+
+            font-size: 12.5px;
+
+            font-weight: 600;
+
+            border:
+                1px solid transparent;
+
+            transition:
+                background 0.25s ease,
+                color 0.25s ease,
+                transform 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .nav a:hover {
+            color: #ecfdf5;
+
+            background:
+                rgba(74, 222, 128, 0.065);
+
+            border-color:
+                rgba(74, 222, 128, 0.08);
+
+            transform:
+                translateX(3px);
+        }
+
+        .nav a.active {
+            color: #86efac;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(34, 197, 94, 0.18),
+                    rgba(16, 185, 129, 0.07));
+
+            border-color:
+                rgba(74, 222, 128, 0.13);
+
+            box-shadow:
+                inset 0 0 20px rgba(74, 222, 128, 0.025);
+        }
+
+        .nav a.active::before {
+            content: "";
+
+            position: absolute;
+
+            left: -17px;
+
+            top: 8px;
+            bottom: 8px;
+
+            width: 3px;
+
+            border-radius:
+                0 5px 5px 0;
+
+            background:
+                linear-gradient(180deg,
+                    #86efac,
+                    #10b981);
+
+            box-shadow:
+                0 0 12px rgba(74, 222, 128, 0.5);
+        }
+
+        .nav-icon {
+            width: 23px;
+
+            text-align: center;
+
+            font-size: 16px;
+
+            flex-shrink: 0;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+
+            left: 17px;
+            right: 17px;
+
+            bottom: 22px;
+
+            padding-top: 15px;
+
+            border-top:
+                1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .change-category {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            width: 100%;
+
+            padding:
+                11px;
+
+            border-radius: 11px;
+
+            color: #86efac;
+
+            text-decoration: none;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            background:
+                rgba(16, 185, 129, 0.055);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.08);
+
+            transition:
+                0.25s ease;
+        }
+
+        .change-category:hover {
+            color: #ecfdf5;
+
+            background:
+                rgba(16, 185, 129, 0.11);
+        }
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+            margin-left: 250px;
+
+            min-height: 100vh;
+
+            padding:
+                36px 42px 55px;
+
+            animation:
+                pageIn 0.65s ease both;
+        }
+
+        @keyframes pageIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 20px;
+
+            margin-bottom: 28px;
+        }
+
+        .top-label {
+            color: #4ade80;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+        .top-title {
+            margin-top: 7px;
+
+            color: #dff8e8;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+        .status {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                9px 14px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(34, 197, 94, 0.065);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.12);
+
+            color: #86efac;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.6px;
+
+            white-space: nowrap;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #4ade80;
+
+            box-shadow:
+                0 0 12px rgba(74, 222, 128, 0.8);
+        }
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            position: relative;
+
+            overflow: hidden;
+
+            padding:
+                34px 36px;
+
+            margin-bottom: 20px;
+
+            border-radius: 23px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(16, 185, 129, 0.13),
+                    rgba(6, 30, 23, 0.80));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.13);
+
+            box-shadow:
+                0 20px 65px rgba(0, 0, 0, 0.20),
+                inset 0 1px 0 rgba(255, 255, 255, 0.025);
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 260px;
+            height: 260px;
+
+            right: -110px;
+            top: -140px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(74, 222, 128, 0.12),
+                    transparent 68%);
+        }
+
+        .hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            right: 120px;
+            bottom: -150px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(16, 185, 129, 0.08),
+                    transparent 68%);
+        }
+
+        .hero-content {
+            position: relative;
+
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding:
+                7px 11px;
+
+            margin-bottom: 16px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(16, 185, 129, 0.09);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.13);
+
+            color: #86efac;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.6px;
+        }
+
+        .hero h1 {
+            font-size:
+                clamp(30px, 4vw, 44px);
+
+            line-height: 1.08;
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 13px;
+
+            color: #ecfdf5;
+        }
+
+        .hero h1 span {
+            background:
+                linear-gradient(135deg,
+                    #86efac,
+                    #34d399,
+                    #10b981);
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            position: relative;
+
+            max-width: 730px;
+
+            color: #789b8b;
+
+            font-size: 12px;
+
+            line-height: 1.75;
+        }
+
+        /* =====================================================
+           SUMMARY
+        ===================================================== */
+
+        .summary {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .summary-card {
+            position: relative;
+
+            overflow: hidden;
+
+            padding:
+                20px;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(145deg,
+                    rgba(11, 39, 29, 0.88),
+                    rgba(5, 24, 18, 0.76));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.09);
+
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .summary-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 100px;
+            height: 100px;
+
+            right: -45px;
+            top: -45px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(74, 222, 128, 0.10),
+                    transparent 68%);
+        }
+
+        .summary-card:hover {
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(74, 222, 128, 0.19);
+
+            box-shadow:
+                0 16px 35px rgba(0, 0, 0, 0.18);
+        }
+
+        .summary-icon {
+            position: relative;
+
+            z-index: 2;
+
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 14px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(74, 222, 128, 0.065);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.09);
+
+            font-size: 18px;
+        }
+
+        .summary-label {
+            position: relative;
+
+            z-index: 2;
+
+            color: #698878;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.1px;
+        }
+
+        .summary-value {
+            position: relative;
+
+            z-index: 2;
+
+            margin-top: 6px;
+
+            color: #ecfdf5;
+
+            font-size: 27px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.7px;
+        }
+
+        .summary-value span {
+            color: #6ee7a0;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            letter-spacing: 0;
+        }
+
+        /* =====================================================
+           INVENTORY PANEL
+        ===================================================== */
+
+        .inventory-panel {
+            padding:
+                24px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(145deg,
+                    rgba(10, 33, 22, 0.88),
+                    rgba(6, 24, 16, 0.78));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.085);
+
+            box-shadow:
+                0 18px 55px rgba(0, 0, 0, 0.16);
+
+            backdrop-filter: blur(18px);
+        }
+
+        .panel-header {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .panel-title {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #e5f9ed;
+
+            font-size: 15px;
+
+            font-weight: 750;
+        }
+
+        .panel-icon {
+            width: 37px;
+            height: 37px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background:
+                rgba(74, 222, 128, 0.065);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.09);
+
+            font-size: 17px;
+        }
+
+        .add-more {
+            text-decoration: none;
+
+            padding:
+                9px 13px;
+
+            border-radius: 10px;
+
+            color: #c9f6d9;
+
+            background:
+                rgba(16, 185, 129, 0.065);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.10);
+
+            font-size: 10px;
+
+            font-weight: 750;
+
+            transition:
+                0.25s ease;
+        }
+
+        .add-more:hover {
+            color: #ecfdf5;
+
+            background:
+                rgba(16, 185, 129, 0.13);
+
+            transform:
+                translateY(-1px);
+        }
+
+        /* =====================================================
+           ITEM LIST
+        ===================================================== */
+
+        .item-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 9px;
+        }
+
+        .item {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding:
+                14px 16px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(2, 15, 11, 0.38);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.065);
+
+            transition:
+                background 0.25s ease,
+                border-color 0.25s ease,
+                transform 0.25s ease;
+        }
+
+        .item:hover {
+            background:
+                rgba(16, 185, 129, 0.045);
+
+            border-color:
+                rgba(74, 222, 128, 0.13);
+
+            transform:
+                translateX(3px);
+        }
+
+        .item-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            min-width: 0;
+        }
+
+        .food-icon {
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background:
+                rgba(16, 185, 129, 0.075);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.075);
+
+            font-size: 18px;
+        }
+
+        .food-name {
+            color: #d9f7eb;
+
+            font-size: 12px;
+
+            font-weight: 750;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+        .food-status {
+            margin-top: 4px;
+
+            color: #5f8173;
+
+            font-size: 8px;
+
+            font-weight: 600;
+        }
+
+        .item-right {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            flex-shrink: 0;
+        }
+
+        .quantity {
+            color: #6ee7a0;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            text-align: right;
+        }
+
+        .quantity small {
+            color: #6d8d7f;
+
+            font-size: 9px;
+
+            font-weight: 600;
+
+            margin-left: 2px;
+        }
+
+        .remove-btn {
+            width: 31px;
+            height: 31px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            border:
+                1px solid rgba(239, 68, 68, 0.10);
+
+            background:
+                rgba(239, 68, 68, 0.045);
+
+            color: #ef9a9a;
+
+            cursor: pointer;
+
+            font-size: 16px;
+
+            transition:
+                0.2s ease;
+        }
+
+        .remove-btn:hover {
+            background:
+                rgba(239, 68, 68, 0.12);
+
+            border-color:
+                rgba(239, 68, 68, 0.20);
+
+            transform:
+                scale(1.06);
+        }
+
+        /* =====================================================
+           EMPTY STATE
+        ===================================================== */
+
+        .empty {
+            text-align: center;
+
+            padding:
+                60px 20px 55px;
+        }
+
+        .empty-icon {
+            width: 68px;
+            height: 68px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin:
+                0 auto 17px;
+
+            border-radius: 19px;
+
+            background:
+                rgba(16, 185, 129, 0.07);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.08);
+
+            font-size: 29px;
+        }
+
+        .empty h3 {
+            color: #e4f8ec;
+
+            font-size: 16px;
+
+            margin-bottom: 8px;
+        }
+
+        .empty p {
+            max-width: 430px;
+
+            margin: auto;
+
+            color: #648577;
+
+            font-size: 10px;
+
+            line-height: 1.75;
+        }
+
+        .empty-btn {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            margin-top: 19px;
+
+            padding:
+                11px 16px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            color: white;
+
+            background:
+                linear-gradient(135deg,
+                    #10b981,
+                    #059669);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 10px 25px rgba(16, 185, 129, 0.15);
+
+            transition:
+                0.25s ease;
+        }
+
+        .empty-btn:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 14px 30px rgba(16, 185, 129, 0.23);
+        }
+
+        /* =====================================================
+           BOTTOM ACTION
+        ===================================================== */
+
+        .bottom-action {
+            display: flex;
+
+            justify-content: flex-end;
+
+            margin-top: 18px;
+        }
+
+        .quality-btn {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding:
+                12px 17px;
+
+            border-radius: 11px;
+
+            text-decoration: none;
+
+            color: white;
+
+            background:
+                linear-gradient(135deg,
+                    #10b981,
+                    #059669);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 10px 27px rgba(16, 185, 129, 0.16);
+
+            transition:
+                0.25s ease;
+        }
+
+        .quality-btn:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 14px 32px rgba(16, 185, 129, 0.24);
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .main {
+                padding-left: 28px;
+                padding-right: 28px;
+            }
+
+            .summary {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+        }
+
+        @media (max-width: 850px) {
+
+            .sidebar {
+                width: 220px;
+            }
+
+            .main {
+                margin-left: 220px;
+            }
+
+            .summary {
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+                height: auto;
+
+                min-height: auto;
+
+                padding:
+                    18px;
+            }
+
+            .brand {
+                margin-bottom: 17px;
+            }
+
+            .nav {
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .sidebar-bottom {
+                position: static;
+
+                margin-top: 15px;
+
+                padding-top: 15px;
+            }
+
+            .main {
+                margin-left: 0;
+
+                padding:
+                    20px 16px 40px;
+            }
+
+            .topbar {
+                flex-direction: column;
+
+                margin-bottom: 22px;
+            }
+
+            .hero {
+                padding:
+                    27px 23px;
+            }
+
+            .hero h1 {
+                font-size: 31px;
+            }
+
+            .panel-header {
+                align-items: flex-start;
+            }
+
+            .item {
+                align-items: flex-start;
+            }
+
+            .item-right {
+                gap: 8px;
+            }
+
+        }
+
+        @media (max-width: 470px) {
+
+            .nav {
+                grid-template-columns: 1fr;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 27px;
+            }
+
+            .hero p {
+                font-size: 11px;
+            }
+
+            .item {
+                padding:
+                    12px;
+            }
+
+            .item-left {
+                min-width: 0;
+            }
+
+            .food-name {
+                max-width: 130px;
+            }
+
+            .quantity {
+                font-size: 12px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🌿
+            </div>
+
+            <div class="brand-name">
+                Eco<span>Nex</span>
+            </div>
+
+        </div>
+
+
+        <div class="workspace">
+
+            🍴 RESTAURANT WORKSPACE
+
+            <strong>
+                Food Rescue Operations
+            </strong>
+
+        </div>
+
+
+        <div class="nav-title">
+            RESTAURANT OPERATIONS
+        </div>
+
+
+        <nav class="nav">
+
+
+            <a href="/restaurant">
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                Home
+
+            </a>
+
+
+            <a href="/restaurant/dashboard">
+
+                <span class="nav-icon">
+                    ◈
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a href="/restaurant/add-surplus">
+
+                <span class="nav-icon">
+                    ＋
+                </span>
+
+                Add Surplus
+
+            </a>
+
+
+            <a href="/restaurant/inventory" class="active">
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                Surplus Inventory
+
+            </a>
+
+
+            <a href="/restaurant/quality">
+
+                <span class="nav-icon">
+                    🛡
+                </span>
+
+                Food Quality
+
+            </a>
+
+
+            <a href="/restaurant/redistribution">
+
+                <span class="nav-icon">
+                    🚚
+                </span>
+
+                Redistribution
+
+            </a>
+
+
+            <a href="/restaurant/impact">
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                Impact
+
+            </a>
+
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="/" class="change-category">
+
+                ⇄
+
+                Change Category
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+
+            <div>
+
+                <div class="top-label">
+                    SMART SURPLUS MANAGEMENT
+                </div>
+
+                <div class="top-title">
+                    Restaurant Surplus Inventory
+                </div>
+
+            </div>
+
+
+            <div class="status">
+
+                <span class="status-dot"></span>
+
+                ECO-NEX AI ONLINE
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             HERO
+        ================================================= -->
+
+        <section class="hero">
+
+
+            <div class="hero-content">
+
+
+                <div class="hero-badge">
+
+                    📦 LIVE SURPLUS INVENTORY
+
+                </div>
+
+
+                <h1>
+
+                    Your
+                    <span>
+                        Rescue Inventory.
+                    </span>
+
+                </h1>
+
+
+                <p>
+
+                    All surplus food recorded by your restaurant appears
+                    here. EcoNex keeps solid food, liquids, and individual
+                    items separately so your surplus data remains accurate
+                    and ready for the next stage of food quality
+                    verification and rescue.
+
+                </p>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             SUMMARY
+        ================================================= -->
+
+        <section class="summary">
+
+
+            <div class="summary-card">
+
+
+                <div class="summary-icon">
+                    📦
+                </div>
+
+
+                <div class="summary-label">
+                    Total Items
+                </div>
+
+
+                <div class="summary-value">
+
+                    {{ items|length }}
+
+                </div>
+
+
+            </div>
+
+
+            <div class="summary-card">
+
+
+                <div class="summary-icon">
+                    ⚖️
+                </div>
+
+
+                <div class="summary-label">
+                    Solid Surplus
+                </div>
+
+
+                <div class="summary-value">
+
+                    {{ total_kg|round(1) }}
+
+                    <span>
+                        KG
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="summary-card">
+
+
+                <div class="summary-icon">
+                    💧
+                </div>
+
+
+                <div class="summary-label">
+                    Liquid Surplus
+                </div>
+
+
+                <div class="summary-value">
+
+                    {{ total_litres|round(1) }}
+
+                    <span>
+                        L
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             INVENTORY
+        ================================================= -->
+
+        <section class="inventory-panel">
+
+
+            <div class="panel-header">
+
+
+                <div class="panel-title">
+
+
+                    <div class="panel-icon">
+                        🧺
+                    </div>
+
+
+                    Current Surplus Items
+
+
+                </div>
+
+
+                <a href="/restaurant/add-surplus" class="add-more">
+
+                    ＋ Add More
+
+                </a>
+
+
+            </div>
+
+
+            {% if items %}
+
+
+            <div class="item-list">
+
+
+                {% for item in items %}
+
+
+                <div class="item">
+
+
+                    <div class="item-left">
+
+
+                        <div class="food-icon">
+                            🍽️
+                        </div>
+
+
+                        <div>
+
+
+                            <div class="food-name">
+                                {{ item.name }}
+                            </div>
+
+
+                            <div class="food-status">
+                                ✓ Recorded for rescue
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="item-right">
+
+
+                        <div class="quantity">
+
+                            {{ item.quantity|round(1) }}
+
+                            <small>
+                                {{ item.unit }}
+                            </small>
+
+                        </div>
+
+
+                        <form method="POST" action="/restaurant/remove-surplus/{{ loop.index0 }}">
+
+
+                            <button type="submit" class="remove-btn" title="Remove item">
+
+                                ×
+
+                            </button>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+            <div class="bottom-action">
+
+
+                <a href="/restaurant/quality" class="quality-btn">
+
+                    🛡 Continue to Food Quality
+
+                </a>
+
+
+            </div>
+
+
+            {% else %}
+
+
+            <div class="empty">
+
+
+                <div class="empty-icon">
+                    🧺
+                </div>
+
+
+                <h3>
+                    No surplus items yet
+                </h3>
+
+
+                <p>
+
+                    Your restaurant hasn't added any surplus food.
+                    Start by recording excess food from your kitchen.
+
+                </p>
+
+
+                <a href="/restaurant/add-surplus" class="empty-btn">
+
+                    ＋ Add First Surplus Item
+
+                </a>
+
+
+            </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

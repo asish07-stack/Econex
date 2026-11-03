@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EcoNex • Impact</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            font-family: "Inter", sans-serif;
+
+            background:
+                radial-gradient(circle at 80% 0%,
+                    rgba(16, 185, 129, .13),
+                    transparent 30%),
+                #06120d;
+
+            color: #ecfdf5;
+
+            min-height: 100vh;
+        }
+
+
+        /* ==========================================
+           SIDEBAR
+        ========================================== */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 223px;
+            height: 100vh;
+
+            background:
+                linear-gradient(180deg,
+                    #061b13 0%,
+                    #03130e 100%);
+
+            border-right:
+                1px solid rgba(52, 211, 153, .14);
+
+            padding: 22px 14px;
+
+            z-index: 100;
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding:
+                0 8px 26px;
+        }
+
+
+        .brand-logo {
+
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(135deg,
+                    #39f58a,
+                    #18c978);
+
+            font-size: 21px;
+
+            box-shadow:
+                0 8px 25px rgba(34, 197, 94, .22);
+        }
+
+
+        .brand-name {
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            color: #f1fff8;
+        }
+
+
+        .brand-subtitle {
+
+            color: #58766a;
+
+            font-size: 8px;
+
+            letter-spacing: .7px;
+
+            margin-top: 2px;
+        }
+
+
+        .section-title {
+
+            color: #4d695f;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+
+            margin:
+                18px 8px 10px;
+        }
+
+
+        .nav {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 4px;
+        }
+
+
+        .nav a {
+
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding:
+                0 12px;
+
+            border-radius: 12px;
+
+            color: #8da69d;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            border:
+                1px solid transparent;
+
+            transition: .25s ease;
+        }
+
+
+        .nav a:hover {
+
+            color: #dfffee;
+
+            background:
+                rgba(34, 197, 94, .07);
+
+            transform:
+                translateX(2px);
+        }
+
+
+        .nav a.active {
+
+            color: #42f394;
+
+            background:
+                linear-gradient(90deg,
+                    rgba(34, 197, 94, .15),
+                    rgba(34, 197, 94, .05));
+
+            border:
+                1px solid rgba(34, 197, 94, .30);
+
+            box-shadow:
+                inset 3px 0 #32ed8a;
+        }
+
+
+        .nav-icon {
+
+            width: 20px;
+
+            text-align: center;
+
+            font-size: 16px;
+        }
+
+
+        .system-card {
+
+            position: absolute;
+
+            left: 14px;
+            right: 14px;
+
+            bottom: 20px;
+
+            padding: 15px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(9, 43, 30, .78);
+
+            border:
+                1px solid rgba(34, 197, 94, .18);
+        }
+
+
+        .system-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 11px;
+
+            font-weight: 800;
+        }
+
+
+        .system-dot {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #2df58a;
+
+            box-shadow:
+                0 0 10px #2df58a;
+        }
+
+
+        .system-card p {
+
+            color: #69857a;
+
+            font-size: 9px;
+
+            line-height: 1.5;
+
+            margin-top: 8px;
+        }
+
+
+        /* ==========================================
+           MAIN
+        ========================================== */
+
+        .main {
+
+            margin-left: 223px;
+
+            padding:
+                34px 42px 50px;
+        }
+
+
+        .topbar {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 27px;
+        }
+
+
+        .eyebrow {
+
+            color: #6ee7b7;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+        }
+
+
+        .topbar h1 {
+
+            font-size: 30px;
+
+            margin-top: 7px;
+        }
+
+
+        .topbar p {
+
+            color: #6f9481;
+
+            font-size: 12px;
+
+            margin-top: 7px;
+        }
+
+
+        .status {
+
+            padding:
+                10px 15px;
+
+            border-radius: 30px;
+
+            color: #9be7c6;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            background:
+                rgba(16, 185, 129, .08);
+
+            border:
+                1px solid rgba(52, 211, 153, .14);
+        }
+
+
+        /* ==========================================
+           HERO
+        ========================================== */
+
+        .hero {
+
+            padding: 28px;
+
+            border-radius: 22px;
+
+            margin-bottom: 20px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(16, 185, 129, .15),
+                    rgba(6, 78, 59, .04));
+
+            border:
+                1px solid rgba(52, 211, 153, .13);
+        }
+
+
+        .hero-content {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 25px;
+        }
+
+
+        .hero-label {
+
+            color: #6ee7b7;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.2px;
+
+            margin-bottom: 9px;
+        }
+
+
+        .hero h2 {
+
+            font-size: 22px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .hero p {
+
+            max-width: 650px;
+
+            color: #769889;
+
+            font-size: 10px;
+
+            line-height: 1.7;
+        }
+
+
+        .impact-score {
+
+            min-width: 150px;
+
+            padding: 17px;
+
+            text-align: center;
+
+            border-radius: 18px;
+
+            background:
+                rgba(16, 185, 129, .08);
+
+            border:
+                1px solid rgba(52, 211, 153, .14);
+        }
+
+
+        .impact-score strong {
+
+            display: block;
+
+            font-size: 39px;
+        }
+
+
+        .impact-score span {
+
+            color: #6ee7b7;
+
+            font-size: 9px;
+
+            font-weight: 700;
+        }
+
+
+        /* ==========================================
+           METRICS
+        ========================================== */
+
+        .metrics {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 14px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .metric {
+
+            padding: 19px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(8, 30, 20, .72);
+
+            border:
+                1px solid rgba(74, 222, 128, .10);
+
+            transition: .25s ease;
+        }
+
+
+        .metric:hover {
+
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(52, 211, 153, .20);
+        }
+
+
+        .metric-icon {
+
+            width: 37px;
+            height: 37px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background:
+                rgba(16, 185, 129, .09);
+
+            margin-bottom: 13px;
+        }
+
+
+        .metric-label {
+
+            color: #6e8e7d;
+
+            font-size: 9px;
+
+            font-weight: 700;
+        }
+
+
+        .metric-value {
+
+            font-size: 23px;
+
+            font-weight: 800;
+
+            margin-top: 5px;
+        }
+
+
+        .unit {
+
+            color: #527563;
+
+            font-size: 9px;
+        }
+
+
+        /* ==========================================
+           MATCH ANALYSIS
+        ========================================== */
+
+        .analysis {
+
+            padding: 23px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(8, 39, 27, .90),
+                    rgba(6, 25, 17, .82));
+
+            border:
+                1px solid rgba(52, 211, 153, .13);
+
+            margin-bottom: 20px;
+        }
+
+
+        .analysis-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+
+        .analysis-header h3 {
+
+            font-size: 16px;
+        }
+
+
+        .analysis-header p {
+
+            color: #668676;
+
+            font-size: 9px;
+
+            margin-top: 5px;
+        }
+
+
+        .ai-badge {
+
+            padding:
+                8px 12px;
+
+            border-radius: 20px;
+
+            color: #6ee7b7;
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            letter-spacing: .7px;
+
+            background:
+                rgba(16, 185, 129, .08);
+
+            border:
+                1px solid rgba(52, 211, 153, .15);
+        }
+
+
+        .analysis-summary {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 10px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .analysis-factor {
+
+            padding: 14px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(16, 185, 129, .045);
+
+            border:
+                1px solid rgba(52, 211, 153, .08);
+        }
+
+
+        .factor-icon {
+
+            font-size: 16px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .factor-label {
+
+            color: #5f806e;
+
+            font-size: 8px;
+
+            font-weight: 700;
+        }
+
+
+        .factor-value {
+
+            color: #dfffee;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            margin-top: 4px;
+        }
+
+
+        /* ==========================================
+           RECIPIENT TABLE
+        ========================================== */
+
+        .recipient-table {
+
+            overflow: hidden;
+
+            border-radius: 14px;
+
+            border:
+                1px solid rgba(52, 211, 153, .08);
+        }
+
+
+        .recipient-row {
+
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr 1fr 1fr;
+
+            align-items: center;
+
+            min-height: 56px;
+
+            padding:
+                0 16px;
+
+            border-bottom:
+                1px solid rgba(52, 211, 153, .06);
+        }
+
+
+        .recipient-row:last-child {
+
+            border-bottom: none;
+        }
+
+
+        .recipient-row.header {
+
+            min-height: 40px;
+
+            background:
+                rgba(16, 185, 129, .055);
+
+            color: #527563;
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            letter-spacing: .6px;
+        }
+
+
+        .recipient-name {
+
+            color: #c8e7d8;
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+
+        .recipient-value {
+
+            color: #83a996;
+
+            font-size: 10px;
+        }
+
+
+        .match-badge {
+
+            width: fit-content;
+
+            padding:
+                5px 9px;
+
+            border-radius: 20px;
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            color: #6ee7b7;
+
+            background:
+                rgba(34, 197, 94, .09);
+
+            border:
+                1px solid rgba(34, 197, 94, .14);
+        }
+
+
+        /* ==========================================
+           FLOW
+        ========================================== */
+
+        .flow {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 8px;
+
+            margin-top: 20px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid rgba(52, 211, 153, .07);
+        }
+
+
+        .flow-step {
+
+            flex: 1;
+
+            text-align: center;
+        }
+
+
+        .flow-icon {
+
+            width: 35px;
+            height: 35px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin: auto;
+
+            border-radius: 10px;
+
+            background:
+                rgba(16, 185, 129, .08);
+        }
+
+
+        .flow-step span {
+
+            display: block;
+
+            color: #527563;
+
+            font-size: 7px;
+
+            font-weight: 800;
+
+            margin-top: 6px;
+        }
+
+
+        /* ==========================================
+           BOTTOM
+        ========================================== */
+
+        .bottom-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr .9fr;
+
+            gap: 20px;
+        }
+
+
+        .panel {
+
+            padding: 23px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(8, 30, 20, .72);
+
+            border:
+                1px solid rgba(74, 222, 128, .10);
+        }
+
+
+        .panel h3 {
+
+            font-size: 15px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .indicator {
+
+            margin-bottom: 16px;
+        }
+
+
+        .indicator-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            color: #9bc3ae;
+
+            font-size: 9px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .bar {
+
+            height: 7px;
+
+            border-radius: 10px;
+
+            background: #10271c;
+
+            overflow: hidden;
+        }
+
+
+        .bar-fill {
+
+            height: 100%;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(90deg,
+                    #059669,
+                    #34d399);
+        }
+
+
+        .p82 {
+            width: 82%;
+        }
+
+        .p74 {
+            width: 74%;
+        }
+
+        .p91 {
+            width: 91%;
+        }
+
+        .p78 {
+            width: 78%;
+        }
+
+
+        .score-card {
+
+            min-height: 280px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+        }
+
+
+        .big-score {
+
+            width: 145px;
+            height: 145px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            border:
+                8px solid rgba(52, 211, 153, .13);
+
+            background:
+                rgba(16, 185, 129, .05);
+
+            margin-bottom: 17px;
+        }
+
+
+        .big-score strong {
+
+            font-size: 42px;
+        }
+
+
+        .big-score span {
+
+            color: #527563;
+
+            font-size: 8px;
+        }
+
+
+        .score-card p {
+
+            max-width: 300px;
+
+            color: #668676;
+
+            font-size: 9px;
+
+            line-height: 1.7;
+        }
+
+
+        .footer {
+
+            text-align: center;
+
+            color: #345542;
+
+            font-size: 9px;
+
+            margin-top: 28px;
+        }
+
+
+        @media(max-width:1000px) {
+
+            .metrics,
+            .analysis-summary {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .bottom-grid {
+
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        @media(max-width:800px) {
+
+            .sidebar {
+
+                width: 72px;
+            }
+
+            .brand-name,
+            .brand-subtitle,
+            .section-title,
+            .nav a span,
+            .system-card {
+
+                display: none;
+            }
+
+            .main {
+
+                margin-left: 72px;
+
+                padding:
+                    25px 20px;
+            }
+        }
+
+
+        @media(max-width:600px) {
+
+            .metrics,
+            .analysis-summary {
+
+                grid-template-columns: 1fr;
+            }
+
+            .recipient-row {
+
+                grid-template-columns:
+                    1.7fr 1fr 1fr 1fr;
+
+                padding:
+                    0 10px;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                🌱
+            </div>
+
+            <div>
+
+                <div class="brand-name">
+                    EcoNex
+                </div>
+
+                <div class="brand-subtitle">
+                    FOOD RESCUE INTELLIGENCE
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="section-title">
+            MAIN
+        </div>
+
+
+        <nav class="nav">
+
+            <a href="/">
+                <span class="nav-icon">🏠</span>
+                <span>Home</span>
+            </a>
+
+            <a href="/dashboard">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+
+        </nav>
+
+
+        <div class="section-title">
+            AI OPERATIONS
+        </div>
+
+
+        <nav class="nav">
+
+            <a href="/demand">
+                <span class="nav-icon">🧠</span>
+                <span>AI Demand</span>
+            </a>
+
+            <a href="/surplus">
+                <span class="nav-icon">🍱</span>
+                <span>Surplus Detection</span>
+            </a>
+
+            <a href="/quality">
+                <span class="nav-icon">🛡️</span>
+                <span>Food Quality</span>
+            </a>
+
+            <a href="/redistribution">
+                <span class="nav-icon">🚚</span>
+                <span>Redistribution</span>
+            </a>
+
+        </nav>
+
+
+        <div class="section-title">
+            IMPACT
+        </div>
+
+
+        <nav class="nav">
+
+            <a href="/impact" class="active">
+
+                <span class="nav-icon">
+                    🌍
+                </span>
+
+                <span>
+                    Impact Analytics
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="system-card">
+
+            <div class="system-title">
+
+                <span class="system-dot"></span>
+
+                EcoNex AI Online
+
+            </div>
+
+            <p>
+                Dynamic consumption analysis,
+                surplus detection and sustainable
+                food redistribution.
+            </p>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <div class="eyebrow">
+                    SUSTAINABILITY & IMPACT ANALYTICS
+                </div>
+
+                <h1>
+                    EcoNex Impact
+                </h1>
+
+                <p>
+                    Measure how recovered food becomes environmental and social value.
+                </p>
+
+            </div>
+
+
+            <div class="status">
+                ● IMPACT TRACKING ACTIVE
+            </div>
+
+        </header>
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div>
+
+                    <div class="hero-label">
+                        ✦ MISSION COMPLETED
+                    </div>
+
+                    <h2>
+                        From surplus to measurable impact.
+                    </h2>
+
+                    <p>
+                        EcoNex analyzes surplus food, recipient capacity,
+                        travel distance and food quality to identify the
+                        most suitable redistribution opportunities.
+                    </p>
+
+                </div>
+
+
+                <div class="impact-score">
+
+                    <strong>
+                        {{ impact_score }}
+                    </strong>
+
+                    <span>
+                        ECO IMPACT SCORE
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- METRICS -->
+
+        <section class="metrics">
+
+
+            <div class="metric">
+
+                <div class="metric-icon">
+                    🍱
+                </div>
+
+                <div class="metric-label">
+                    MEALS SAVED
+                </div>
+
+                <div class="metric-value">
+                    {{ surplus }}
+                </div>
+
+            </div>
+
+
+            <div class="metric">
+
+                <div class="metric-icon">
+                    🧠
+                </div>
+
+                <div class="metric-label">
+                    AI RECIPIENT MATCH
+                </div>
+
+                <div class="metric-value">
+                    {{ recipient_match }}%
+                </div>
+
+            </div>
+
+
+            <div class="metric">
+
+                <div class="metric-icon">
+                    ♻️
+                </div>
+
+                <div class="metric-label">
+                    FOOD WASTE PREVENTED
+                </div>
+
+                <div class="metric-value">
+
+                    {{ food_waste }}
+
+                    <span class="unit">
+                        kg
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="metric">
+
+                <div class="metric-icon">
+                    🌍
+                </div>
+
+                <div class="metric-label">
+                    CO₂ AVOIDED
+                </div>
+
+                <div class="metric-value">
+
+                    {{ co2_avoided }}
+
+                    <span class="unit">
+                        kg
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             AI MATCH ANALYSIS
+        ========================================== -->
+
+        <section class="analysis">
+
+
+            <div class="analysis-header">
+
+                <div>
+
+                    <h3>
+                        🧠 AI Recipient Match Analysis
+                    </h3>
+
+                    <p>
+                        EcoNex evaluates surplus, distance, recipient capacity,
+                        food quality and pickup readiness.
+                    </p>
+
+                </div>
+
+
+                <div class="ai-badge">
+                    AI MATCH ENGINE
+                </div>
+
+            </div>
+
+
+            <!-- FACTOR SUMMARY -->
+
+            <div class="analysis-summary">
+
+
+                <div class="analysis-factor">
+
+                    <div class="factor-icon">
+                        🍱
+                    </div>
+
+                    <div class="factor-label">
+                        SURPLUS AVAILABLE
+                    </div>
+
+                    <div class="factor-value">
+                        {{ surplus }} meals
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-factor">
+
+                    <div class="factor-icon">
+                        📍
+                    </div>
+
+                    <div class="factor-label">
+                        NEAREST RECIPIENT
+                    </div>
+
+                    <div class="factor-value">
+                        2.4 km
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-factor">
+
+                    <div class="factor-icon">
+                        🏠
+                    </div>
+
+                    <div class="factor-label">
+                        NETWORK CAPACITY
+                    </div>
+
+                    <div class="factor-value">
+                        300 meals
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-factor">
+
+                    <div class="factor-icon">
+                        🤝
+                    </div>
+
+                    <div class="factor-label">
+                        FINAL MATCH
+                    </div>
+
+                    <div class="factor-value">
+                        {{ recipient_match }}%
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- RECIPIENT TABLE -->
+
+            <div class="recipient-table">
+
+
+                <div class="recipient-row header">
+
+                    <div>
+                        RECIPIENT
+                    </div>
+
+                    <div>
+                        DISTANCE
+                    </div>
+
+                    <div>
+                        CAPACITY
+                    </div>
+
+                    <div>
+                        MATCH
+                    </div>
+
+                </div>
+
+
+                {% for recipient in recipient_analysis %}
+
+                <div class="recipient-row">
+
+
+                    <div class="recipient-name">
+                        {{ recipient.name }}
+                    </div>
+
+
+                    <div class="recipient-value">
+                        {{ recipient.distance }} km
+                    </div>
+
+
+                    <div class="recipient-value">
+                        {{ recipient.capacity }} meals
+                    </div>
+
+
+                    <div>
+
+                        <span class="match-badge">
+                            {{ recipient.match_level }}
+                            ·
+                            {{ recipient.match_score }}%
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+                {% endfor %}
+
+
+            </div>
+
+
+            <!-- ECO NEX DECISION FLOW -->
+
+            <div class="flow">
+
+
+                <div class="flow-step">
+
+                    <div class="flow-icon">
+                        🍱
+                    </div>
+
+                    <span>
+                        SURPLUS
+                    </span>
+
+                </div>
+
+
+                <div class="flow-step">
+
+                    <div class="flow-icon">
+                        🏠
+                    </div>
+
+                    <span>
+                        CAPACITY
+                    </span>
+
+                </div>
+
+
+                <div class="flow-step">
+
+                    <div class="flow-icon">
+                        📍
+                    </div>
+
+                    <span>
+                        DISTANCE
+                    </span>
+
+                </div>
+
+
+                <div class="flow-step">
+
+                    <div class="flow-icon">
+                        🛡️
+                    </div>
+
+                    <span>
+                        QUALITY
+                    </span>
+
+                </div>
+
+
+                <div class="flow-step">
+
+                    <div class="flow-icon">
+                        🚚
+                    </div>
+
+                    <span>
+                        ROUTE
+                    </span>
+
+                </div>
+
+
+                <div class="flow-step">
+
+                    <div class="flow-icon">
+                        🤝
+                    </div>
+
+                    <span>
+                        MATCH
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- BOTTOM -->
+
+        <section class="bottom-grid">
+
+
+            <div class="panel">
+
+                <h3>
+                    Sustainability Indicators
+                </h3>
+
+
+                <div class="indicator">
+
+                    <div class="indicator-top">
+
+                        <span>
+                            ♻️ Food Waste Prevention
+                        </span>
+
+                        <span>
+                            82%
+                        </span>
+
+                    </div>
+
+                    <div class="bar">
+                        <div class="bar-fill p82"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="indicator">
+
+                    <div class="indicator-top">
+
+                        <span>
+                            💧 Resource Efficiency
+                        </span>
+
+                        <span>
+                            74%
+                        </span>
+
+                    </div>
+
+                    <div class="bar">
+                        <div class="bar-fill p74"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="indicator">
+
+                    <div class="indicator-top">
+
+                        <span>
+                            🌍 Environmental Benefit
+                        </span>
+
+                        <span>
+                            91%
+                        </span>
+
+                    </div>
+
+                    <div class="bar">
+                        <div class="bar-fill p91"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="indicator">
+
+                    <div class="indicator-top">
+
+                        <span>
+                            🤝 Community Reach
+                        </span>
+
+                        <span>
+                            78%
+                        </span>
+
+                    </div>
+
+                    <div class="bar">
+                        <div class="bar-fill p78"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel score-card">
+
+                <div class="big-score">
+
+                    <strong>
+                        {{ impact_score }}
+                    </strong>
+
+                    <span>
+                        / 100
+                    </span>
+
+                </div>
+
+
+                <h3>
+                    Ecosystem Impact Score
+                </h3>
+
+
+                <p>
+                    A prototype composite indicator based on
+                    recovered surplus, redistribution readiness
+                    and estimated environmental and social benefits.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+        <div class="footer">
+
+            EcoNex • AI-Powered Food Rescue Ecosystem
+
+        </div>
+
+
+    </main>
+
+
+</body>
+
+</html>

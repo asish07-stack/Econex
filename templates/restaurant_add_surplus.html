@@ -1,0 +1,2176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EcoNex • Add Surplus</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background:
+                radial-gradient(circle at 8% 5%, rgba(16, 185, 129, 0.14), transparent 28%),
+                radial-gradient(circle at 92% 18%, rgba(34, 197, 94, 0.08), transparent 25%),
+                radial-gradient(circle at 70% 95%, rgba(16, 185, 129, 0.06), transparent 30%),
+                #04100c;
+            color: #ecfdf5;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* =====================================================
+           BACKGROUND EFFECTS
+        ===================================================== */
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            left: 45%;
+            top: 20%;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.035);
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 258px;
+            height: 100vh;
+
+            background:
+                linear-gradient(180deg,
+                    rgba(5, 25, 18, 0.98),
+                    rgba(3, 16, 12, 0.97));
+
+            border-right: 1px solid rgba(52, 211, 153, 0.12);
+
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+
+            padding: 24px 17px;
+
+            display: flex;
+            flex-direction: column;
+
+            z-index: 1000;
+
+            box-shadow:
+                12px 0 45px rgba(0, 0, 0, 0.18);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            padding: 3px 11px;
+            margin-bottom: 25px;
+        }
+
+        .brand-icon {
+            width: 43px;
+            height: 43px;
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 21px;
+
+            background:
+                linear-gradient(135deg,
+                    #10b981,
+                    #047857);
+
+            box-shadow:
+                0 0 28px rgba(16, 185, 129, 0.28);
+
+            position: relative;
+        }
+
+        .brand-icon::after {
+            content: "";
+            position: absolute;
+            inset: -4px;
+
+            border-radius: 17px;
+
+            border: 1px solid rgba(52, 211, 153, 0.10);
+        }
+
+        .brand-name {
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -0.7px;
+        }
+
+        .brand-name span {
+            color: #34d399;
+        }
+
+        .workspace {
+            margin: 0 7px 25px;
+
+            padding: 14px 14px;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(16, 185, 129, 0.10),
+                    rgba(16, 185, 129, 0.035));
+
+            border: 1px solid rgba(52, 211, 153, 0.12);
+
+            font-size: 10px;
+            color: #6ee7b7;
+
+            font-weight: 800;
+            letter-spacing: 0.6px;
+
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.025);
+        }
+
+        .workspace strong {
+            display: block;
+
+            color: #e7fff5;
+
+            font-size: 12px;
+
+            margin-top: 5px;
+
+            letter-spacing: 0;
+        }
+
+        .nav-title {
+            font-size: 9px;
+            color: #54766b;
+
+            font-weight: 800;
+
+            letter-spacing: 1.7px;
+
+            padding: 0 13px;
+
+            margin-bottom: 9px;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav a {
+            position: relative;
+
+            text-decoration: none;
+            color: #78988e;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            padding: 12px 13px;
+
+            border-radius: 12px;
+
+            font-size: 12px;
+            font-weight: 650;
+
+            transition:
+                color 0.25s ease,
+                background 0.25s ease,
+                transform 0.25s ease,
+                border-color 0.25s ease;
+
+            border: 1px solid transparent;
+        }
+
+        .nav a:hover {
+            color: #eafff6;
+
+            background:
+                rgba(16, 185, 129, 0.075);
+
+            border-color:
+                rgba(52, 211, 153, 0.07);
+
+            transform: translateX(3px);
+        }
+
+        .nav a.active {
+            color: #ecfdf5;
+
+            background:
+                linear-gradient(90deg,
+                    rgba(16, 185, 129, 0.18),
+                    rgba(16, 185, 129, 0.045));
+
+            border-color:
+                rgba(52, 211, 153, 0.12);
+
+            box-shadow:
+                inset 3px 0 0 #10b981,
+                0 7px 20px rgba(0, 0, 0, 0.10);
+        }
+
+        .nav a.active .nav-icon {
+            color: #6ee7b7;
+        }
+
+        .nav-icon {
+            width: 22px;
+            min-width: 22px;
+
+            text-align: center;
+
+            font-size: 16px;
+
+            transition: 0.25s ease;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+        .sidebar-footer {
+            padding: 0 7px 10px;
+        }
+
+        .sidebar-footer-text {
+            color: #46665b;
+            font-size: 9px;
+            line-height: 1.5;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .change-category {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            width: 100%;
+
+            padding: 12px;
+
+            border-radius: 12px;
+
+            color: #80dcb8;
+
+            text-decoration: none;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            background:
+                rgba(16, 185, 129, 0.055);
+
+            border:
+                1px solid rgba(52, 211, 153, 0.10);
+
+            transition: 0.25s ease;
+        }
+
+        .change-category:hover {
+            background:
+                rgba(16, 185, 129, 0.12);
+
+            color: #ecfdf5;
+
+            border-color:
+                rgba(52, 211, 153, 0.18);
+
+            transform: translateY(-1px);
+        }
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+            margin-left: 258px;
+
+            min-height: 100vh;
+
+            padding:
+                26px 40px 55px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 25px;
+        }
+
+        .topbar-left {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .top-label {
+            font-size: 10px;
+
+            color: #6ee7b7;
+
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+        }
+
+        .top-title {
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #d1fae5;
+        }
+
+        .top-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 12px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(16, 185, 129, 0.055);
+
+            border:
+                1px solid rgba(52, 211, 153, 0.11);
+
+            color: #79dcb4;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.6px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #34d399;
+
+            box-shadow:
+                0 0 12px rgba(52, 211, 153, 0.85);
+
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.55;
+                transform: scale(0.82);
+            }
+        }
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 39px 40px;
+
+            border-radius: 26px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(13, 78, 55, 0.48),
+                    rgba(5, 29, 22, 0.88) 55%,
+                    rgba(3, 19, 14, 0.92));
+
+            border:
+                1px solid rgba(52, 211, 153, 0.14);
+
+            box-shadow:
+                0 25px 75px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+            margin-bottom: 23px;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 420px;
+            height: 420px;
+
+            right: -150px;
+            top: -230px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(16, 185, 129, 0.12);
+
+            filter: blur(60px);
+
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            right: 16%;
+            bottom: -130px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid rgba(52, 211, 153, 0.07);
+
+            box-shadow:
+                0 0 80px rgba(16, 185, 129, 0.06);
+
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 12px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(16, 185, 129, 0.09);
+
+            border:
+                1px solid rgba(52, 211, 153, 0.14);
+
+            color: #86efac;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.7px;
+
+            margin-bottom: 17px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.10);
+        }
+
+        .hero h1 {
+            font-size: clamp(31px, 4vw, 48px);
+
+            line-height: 1.04;
+
+            letter-spacing: -1.9px;
+
+            margin-bottom: 14px;
+
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: #34d399;
+
+            text-shadow:
+                0 0 28px rgba(52, 211, 153, 0.13);
+        }
+
+        .hero p {
+            max-width: 720px;
+
+            color: #88ab9f;
+
+            font-size: 13px;
+
+            line-height: 1.75;
+        }
+
+        .hero-meta {
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-top: 22px;
+        }
+
+        .hero-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            padding: 7px 10px;
+
+            border-radius: 9px;
+
+            color: #83cdb2;
+
+            background:
+                rgba(0, 0, 0, 0.16);
+
+            border:
+                1px solid rgba(52, 211, 153, 0.08);
+
+            font-size: 9px;
+
+            font-weight: 700;
+        }
+
+        /* =====================================================
+           CONTENT GRID
+        ===================================================== */
+
+        .content-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.2fr) minmax(320px, 0.8fr);
+
+            gap: 20px;
+        }
+
+        .panel {
+            background:
+                linear-gradient(145deg,
+                    rgba(10, 38, 28, 0.88),
+                    rgba(4, 21, 15, 0.82));
+
+            border:
+                1px solid rgba(52, 211, 153, 0.10);
+
+            border-radius: 21px;
+
+            padding: 24px;
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.20),
+                inset 0 1px 0 rgba(255, 255, 255, 0.025);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .panel:hover {
+            border-color:
+                rgba(52, 211, 153, 0.14);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 23px;
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 14px;
+
+            font-weight: 800;
+        }
+
+        .panel-title-icon {
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background:
+                rgba(16, 185, 129, 0.09);
+
+            border:
+                1px solid rgba(52, 211, 153, 0.11);
+
+            font-size: 17px;
+        }
+
+        .panel-subtitle {
+            color: #5e8175;
+
+            font-size: 9px;
+
+            font-weight: 600;
+        }
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+
+            color: #b7d7cb;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            margin-bottom: 9px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+
+            left: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-size: 16px;
+
+            opacity: 0.75;
+
+            pointer-events: none;
+        }
+
+        .form-input {
+            width: 100%;
+
+            padding: 14px 15px 14px 43px;
+
+            border-radius: 13px;
+
+            border:
+                1px solid rgba(52, 211, 153, 0.11);
+
+            background:
+                rgba(1, 12, 8, 0.62);
+
+            color: #ecfdf5;
+
+            font-family: inherit;
+
+            font-size: 12px;
+
+            outline: none;
+
+            transition:
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .form-input:hover {
+            border-color:
+                rgba(52, 211, 153, 0.18);
+        }
+
+        .form-input:focus {
+            border-color:
+                rgba(52, 211, 153, 0.45);
+
+            background:
+                rgba(1, 18, 12, 0.78);
+
+            box-shadow:
+                0 0 0 3px rgba(16, 185, 129, 0.07),
+                0 0 28px rgba(16, 185, 129, 0.055);
+        }
+
+        .form-input::placeholder {
+            color: #4e7065;
+        }
+
+        .unit-detection {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-top: 9px;
+
+            padding: 10px 12px;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(90deg,
+                    rgba(16, 185, 129, 0.055),
+                    rgba(16, 185, 129, 0.025));
+
+            border:
+                1px solid rgba(52, 211, 153, 0.075);
+        }
+
+        .unit-detection span:first-child {
+            font-size: 9px;
+
+            color: #64867b;
+
+            font-weight: 600;
+        }
+
+        .unit-value {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            color: #6ee7b7;
+
+            font-size: 10px;
+
+            font-weight: 800;
+        }
+
+        .quantity-row {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr) 125px;
+
+            gap: 10px;
+        }
+
+        .unit-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 48px;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(16, 185, 129, 0.10),
+                    rgba(16, 185, 129, 0.045));
+
+            border:
+                1px solid rgba(52, 211, 153, 0.13);
+
+            color: #6ee7b7;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.4px;
+        }
+
+        .add-btn {
+            position: relative;
+
+            width: 100%;
+
+            border: none;
+
+            padding: 15px;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(135deg,
+                    #10b981,
+                    #059669);
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 32px rgba(16, 185, 129, 0.17);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                filter 0.25s ease;
+
+            overflow: hidden;
+        }
+
+        .add-btn::before {
+            content: "";
+
+            position: absolute;
+
+            left: -120%;
+            top: 0;
+
+            width: 70%;
+            height: 100%;
+
+            background:
+                linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.13),
+                    transparent);
+
+            transform: skewX(-20deg);
+
+            transition: left 0.6s ease;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 16px 40px rgba(16, 185, 129, 0.25);
+
+            filter: brightness(1.05);
+        }
+
+        .add-btn:hover::before {
+            left: 140%;
+        }
+
+        .add-btn:active {
+            transform: translateY(0);
+        }
+
+        /* =====================================================
+           SMART AI PANEL
+        ===================================================== */
+
+        .ai-card {
+            position: relative;
+
+            padding: 18px;
+
+            border-radius: 16px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(16, 185, 129, 0.095),
+                    rgba(5, 28, 21, 0.45));
+
+            border:
+                1px solid rgba(52, 211, 153, 0.10);
+
+            margin-bottom: 22px;
+
+            overflow: hidden;
+        }
+
+        .ai-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 110px;
+            height: 110px;
+
+            right: -50px;
+            top: -55px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(16, 185, 129, 0.08);
+
+            filter: blur(20px);
+        }
+
+        .ai-card-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin-bottom: 13px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .ai-icon {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(16, 185, 129, 0.17),
+                    rgba(5, 150, 105, 0.08));
+
+            border:
+                1px solid rgba(52, 211, 153, 0.10);
+
+            font-size: 19px;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .ai-title {
+            font-size: 12px;
+
+            font-weight: 800;
+
+            color: #ddfff1;
+        }
+
+        .ai-subtitle {
+            color: #5f887b;
+
+            font-size: 9px;
+
+            margin-top: 3px;
+        }
+
+        .ai-card p {
+            position: relative;
+            z-index: 2;
+
+            color: #7fa397;
+
+            font-size: 10px;
+
+            line-height: 1.7;
+        }
+
+        /* =====================================================
+           AI FLOW
+        ===================================================== */
+
+        .classification-flow {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 8px;
+
+            margin-top: 14px;
+        }
+
+        .flow-item {
+            padding: 11px 8px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(1, 12, 8, 0.34);
+
+            border:
+                1px solid rgba(52, 211, 153, 0.07);
+
+            text-align: center;
+        }
+
+        .flow-icon {
+            font-size: 16px;
+
+            margin-bottom: 5px;
+        }
+
+        .flow-label {
+            color: #84aa9e;
+
+            font-size: 8px;
+
+            font-weight: 700;
+        }
+
+        /* =====================================================
+           EXAMPLES
+        ===================================================== */
+
+        .examples-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 12px;
+        }
+
+        .examples-title-main {
+            font-size: 12px;
+
+            font-weight: 800;
+
+            color: #d9f8ed;
+        }
+
+        .examples-title-tag {
+            font-size: 8px;
+
+            color: #5ebf99;
+
+            padding: 5px 8px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(16, 185, 129, 0.055);
+
+            border:
+                1px solid rgba(52, 211, 153, 0.07);
+        }
+
+        .examples {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 8px;
+        }
+
+        .example {
+            padding: 12px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(1, 12, 8, 0.40);
+
+            border:
+                1px solid rgba(52, 211, 153, 0.07);
+
+            transition:
+                transform 0.22s ease,
+                border-color 0.22s ease,
+                background 0.22s ease;
+        }
+
+        .example:hover {
+            transform: translateY(-2px);
+
+            background:
+                rgba(16, 185, 129, 0.055);
+
+            border-color:
+                rgba(52, 211, 153, 0.13);
+        }
+
+        .example-name {
+            color: #c8e8dc;
+
+            font-size: 10px;
+
+            font-weight: 750;
+        }
+
+        .example-unit {
+            color: #5ee6ae;
+
+            font-size: 8px;
+
+            margin-top: 4px;
+
+            font-weight: 700;
+        }
+
+        /* =====================================================
+           INFO BOX
+        ===================================================== */
+
+        .info-box {
+            margin-top: 19px;
+
+            padding: 14px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(245, 158, 11, 0.055),
+                    rgba(245, 158, 11, 0.025));
+
+            border:
+                1px solid rgba(245, 158, 11, 0.09);
+        }
+
+        .info-box-title {
+            color: #fcd34d;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            margin-bottom: 5px;
+        }
+
+        .info-box p {
+            color: #8d7c5c;
+
+            font-size: 9px;
+
+            line-height: 1.65;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .sidebar {
+                width: 225px;
+            }
+
+            .main {
+                margin-left: 225px;
+                padding: 25px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 760px) {
+
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+                height: auto;
+
+                min-height: auto;
+
+                padding: 20px;
+            }
+
+            .nav {
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .sidebar-bottom {
+                margin-top: 20px;
+            }
+
+            .main {
+                margin-left: 0;
+
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 28px 25px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .quantity-row {
+                grid-template-columns: 1fr;
+            }
+
+            .unit-box {
+                min-height: 45px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .topbar {
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .ai-status {
+                padding: 7px 9px;
+            }
+
+            .hero {
+                border-radius: 20px;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .panel {
+                padding: 19px;
+                border-radius: 18px;
+            }
+
+            .examples {
+                grid-template-columns: 1fr;
+            }
+
+            .classification-flow {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ===================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🌿
+            </div>
+
+            <div class="brand-name">
+                Eco<span>Nex</span>
+            </div>
+
+        </div>
+
+
+        <div class="workspace">
+
+            🍴 RESTAURANT WORKSPACE
+
+            <strong>
+                Food Rescue Operations
+            </strong>
+
+        </div>
+
+
+        <div class="nav-title">
+            RESTAURANT OPERATIONS
+        </div>
+
+
+        <nav class="nav">
+
+            <a href="/restaurant">
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                Home
+
+            </a>
+
+
+            <a href="/restaurant/dashboard">
+
+                <span class="nav-icon">
+                    ◈
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a href="/restaurant/add-surplus" class="active">
+
+                <span class="nav-icon">
+                    ＋
+                </span>
+
+                Add Surplus
+
+            </a>
+
+
+            <a href="/restaurant/inventory">
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                Surplus Inventory
+
+            </a>
+
+
+            <a href="/restaurant/quality">
+
+                <span class="nav-icon">
+                    🛡
+                </span>
+
+                Food Quality
+
+            </a>
+
+
+            <a href="/restaurant/redistribution">
+
+                <span class="nav-icon">
+                    🚚
+                </span>
+
+                Redistribution
+
+            </a>
+
+
+            <a href="/restaurant/impact">
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                Impact
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-footer">
+
+                <div class="sidebar-footer-text">
+                    AI-powered food rescue<br>
+                    for smarter restaurant operations.
+                </div>
+
+                <a href="/" class="change-category">
+                    ⇄ &nbsp; Change Category
+                </a>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <main class="main">
+
+
+        <!-- TOP BAR -->
+
+        <div class="topbar">
+
+            <div class="topbar-left">
+
+                <div class="top-label">
+                    Smart Surplus Management
+                </div>
+
+                <div class="top-title">
+                    Restaurant Food Inventory
+                </div>
+
+            </div>
+
+
+            <div class="top-right">
+
+                <div class="ai-status">
+
+                    <span class="status-dot"></span>
+
+                    ECO-NEX AI ONLINE
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             HERO
+        ================================================= -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+
+                <div class="hero-badge">
+
+                    🤖 AI-ASSISTED FOOD CLASSIFICATION
+
+                </div>
+
+
+                <h1>
+
+                    Add Your
+                    <span>
+                        Surplus Food.
+                    </span>
+
+                </h1>
+
+
+                <p>
+
+                    Record excess food from your restaurant and let
+                    EcoNex intelligently identify the appropriate
+                    measurement unit. Build your surplus inventory
+                    item by item and prepare it for safe redistribution.
+
+                </p>
+
+
+                <div class="hero-meta">
+
+                    <div class="hero-chip">
+                        🧠 AI classification
+                    </div>
+
+                    <div class="hero-chip">
+                        📦 Smart inventory
+                    </div>
+
+                    <div class="hero-chip">
+                        ♻️ Waste reduction
+                    </div>
+
+                    <div class="hero-chip">
+                        🚚 Redistribution ready
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CONTENT
+        ================================================= -->
+
+        <section class="content-grid">
+
+
+            <!-- =================================================
+                 LEFT PANEL — ADD ITEM
+            ================================================= -->
+
+            <div class="panel">
+
+
+                <div class="panel-header">
+
+                    <div class="panel-title">
+
+                        <div class="panel-title-icon">
+                            ➕
+                        </div>
+
+                        Add Surplus Item
+
+                    </div>
+
+
+                    <div class="panel-subtitle">
+                        Restaurant inventory
+                    </div>
+
+                </div>
+
+
+                <form id="surplusForm">
+
+
+                    <!-- FOOD ITEM -->
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Food Item
+                        </label>
+
+
+                        <div class="input-wrap">
+
+                            <span class="input-icon">
+                                🍽️
+                            </span>
+
+
+                            <input type="text" id="foodItem" class="form-input"
+                                placeholder="e.g. Rice, Sambar, Biryani, Ice Cream..." autocomplete="off" required>
+
+                        </div>
+
+
+                        <div class="unit-detection">
+
+                            <span>
+                                EcoNex detected unit
+                            </span>
+
+
+                            <span class="unit-value" id="detectedUnit">
+                                Waiting for food item...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- QUANTITY -->
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Surplus Quantity
+                        </label>
+
+
+                        <div class="quantity-row">
+
+
+                            <div class="input-wrap">
+
+                                <span class="input-icon">
+                                    📦
+                                </span>
+
+
+                                <input type="number" id="quantity" class="form-input" placeholder="Enter quantity"
+                                    min="0.1" step="0.1" required>
+
+                            </div>
+
+
+                            <div class="unit-box" id="unitBox">
+                                —
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADD BUTTON -->
+
+                    <button type="submit" class="add-btn">
+
+                        ＋ Add Item To Surplus
+
+                    </button>
+
+
+                </form>
+
+
+                <!-- INFORMATION -->
+
+                <div class="info-box">
+
+                    <div class="info-box-title">
+
+                        💡 Smart measurement
+
+                    </div>
+
+
+                    <p>
+
+                        EcoNex classifies the food item and suggests
+                        a suitable measurement unit. Liquids are
+                        measured separately from solid food to maintain
+                        accurate surplus records.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 RIGHT PANEL — AI INTELLIGENCE
+            ================================================= -->
+
+            <div class="panel">
+
+
+                <div class="panel-header">
+
+                    <div class="panel-title">
+
+                        <div class="panel-title-icon">
+                            🤖
+                        </div>
+
+                        EcoNex Intelligence
+
+                    </div>
+
+                </div>
+
+
+                <!-- AI CARD -->
+
+                <div class="ai-card">
+
+
+                    <div class="ai-card-top">
+
+                        <div class="ai-icon">
+                            🧠
+                        </div>
+
+
+                        <div>
+
+                            <div class="ai-title">
+                                Smart Food Classification
+                            </div>
+
+                            <div class="ai-subtitle">
+                                Automatic unit recommendation
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <p>
+
+                        Enter any food item available in your restaurant.
+                        EcoNex analyzes the item and recommends whether
+                        the quantity should be recorded in kilograms,
+                        litres, or pieces.
+
+                    </p>
+
+
+                    <div class="classification-flow">
+
+
+                        <div class="flow-item">
+
+                            <div class="flow-icon">
+                                🍚
+                            </div>
+
+                            <div class="flow-label">
+                                SOLIDS → KG
+                            </div>
+
+                        </div>
+
+
+                        <div class="flow-item">
+
+                            <div class="flow-icon">
+                                🥣
+                            </div>
+
+                            <div class="flow-label">
+                                LIQUIDS → L
+                            </div>
+
+                        </div>
+
+
+                        <div class="flow-item">
+
+                            <div class="flow-icon">
+                                🍰
+                            </div>
+
+                            <div class="flow-label">
+                                ITEMS → PIECES
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EXAMPLES -->
+
+                <div class="examples-title">
+
+                    <div class="examples-title-main">
+                        Common Examples
+                    </div>
+
+                    <div class="examples-title-tag">
+                        AI GUIDE
+                    </div>
+
+                </div>
+
+
+                <div class="examples">
+
+
+                    <div class="example">
+
+                        <div class="example-name">
+                            🍚 Rice
+                        </div>
+
+                        <div class="example-unit">
+                            Recommended: KG
+                        </div>
+
+                    </div>
+
+
+                    <div class="example">
+
+                        <div class="example-name">
+                            🍛 Biryani
+                        </div>
+
+                        <div class="example-unit">
+                            Recommended: KG
+                        </div>
+
+                    </div>
+
+
+                    <div class="example">
+
+                        <div class="example-name">
+                            🥣 Sambar
+                        </div>
+
+                        <div class="example-unit">
+                            Recommended: L
+                        </div>
+
+                    </div>
+
+
+                    <div class="example">
+
+                        <div class="example-name">
+                            🍲 Soup
+                        </div>
+
+                        <div class="example-unit">
+                            Recommended: L
+                        </div>
+
+                    </div>
+
+
+                    <div class="example">
+
+                        <div class="example-name">
+                            🍰 Cake
+                        </div>
+
+                        <div class="example-unit">
+                            Recommended: KG
+                        </div>
+
+                    </div>
+
+
+                    <div class="example">
+
+                        <div class="example-name">
+                            🍨 Ice Cream
+                        </div>
+
+                        <div class="example-unit">
+                            Recommended: KG
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         UNIT DETECTION + FORM LOGIC
+         EXISTING FUNCTIONALITY PRESERVED
+    ===================================================== -->
+
+    <script>
+
+
+        const foodItem =
+            document.getElementById("foodItem");
+
+
+        const detectedUnit =
+            document.getElementById("detectedUnit");
+
+
+        const unitBox =
+            document.getElementById("unitBox");
+
+
+        function detectUnit(food) {
+
+
+            food =
+                food.toLowerCase().trim();
+
+
+            if (!food) {
+
+                return null;
+
+            }
+
+
+            const liquidFoods = [
+
+                "sambar",
+                "sambhar",
+                "rasam",
+                "soup",
+                "buttermilk",
+                "butter milk",
+                "milk",
+                "juice",
+                "gravy",
+                "sauce",
+                "dal",
+                "daal",
+                "curry",
+                "tea",
+                "coffee"
+
+            ];
+
+
+            const pieceFoods = [
+
+                "roti",
+                "chapati",
+                "naan",
+                "pizza",
+                "burger",
+                "sandwich",
+                "gulab jamun",
+                "laddu",
+                "ladoo",
+                "samosa",
+                "idli",
+                "dosa"
+
+            ];
+
+
+            for (
+                let item of liquidFoods
+            ) {
+
+                if (
+                    food.includes(item)
+                ) {
+
+                    return "L";
+
+                }
+
+            }
+
+
+            for (
+                let item of pieceFoods
+            ) {
+
+                if (
+                    food.includes(item)
+                ) {
+
+                    return "PIECES";
+
+                }
+
+            }
+
+
+            return "KG";
+
+        }
+
+
+        foodItem.addEventListener(
+            "input",
+            function () {
+
+
+                const unit =
+                    detectUnit(this.value);
+
+
+                if (!unit) {
+
+
+                    detectedUnit.textContent =
+                        "Waiting for food item...";
+
+
+                    unitBox.textContent =
+                        "—";
+
+
+                    return;
+
+                }
+
+
+                detectedUnit.textContent =
+                    "✓ " + unit;
+
+
+                unitBox.textContent =
+                    unit;
+
+            }
+        );
+
+
+        document
+            .getElementById("surplusForm")
+            .addEventListener(
+                "submit",
+                async function (event) {
+
+
+                    event.preventDefault();
+
+
+                    const foodName =
+                        foodItem.value.trim();
+
+
+                    const quantity =
+                        document
+                            .getElementById("quantity")
+                            .value;
+
+
+                    const unit =
+                        unitBox.textContent;
+
+
+                    if (
+                        !foodName ||
+                        !quantity ||
+                        unit === "—"
+                    ) {
+
+
+                        alert(
+                            "Please enter a food item and quantity."
+                        );
+
+
+                        return;
+
+                    }
+
+
+                    try {
+
+
+                        const response =
+                            await fetch(
+                                "/restaurant/add-surplus",
+                                {
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body:
+                                        JSON.stringify({
+                                            food_name:
+                                                foodName,
+
+                                            quantity:
+                                                quantity,
+
+                                            unit:
+                                                unit
+                                        })
+                                }
+                            );
+
+
+                        const result =
+                            await response.json();
+
+
+                        if (result.success) {
+
+
+                            alert(
+                                "✅ " +
+                                result.message +
+                                "\n\n" +
+                                quantity +
+                                " " +
+                                unit +
+                                " of " +
+                                foodName +
+                                " added to surplus."
+                            );
+
+
+                            foodItem.value =
+                                "";
+
+
+                            document
+                                .getElementById(
+                                    "quantity"
+                                )
+                                .value =
+                                "";
+
+
+                            detectedUnit.textContent =
+                                "Waiting for food item...";
+
+
+                            unitBox.textContent =
+                                "—";
+
+
+                        } else {
+
+
+                            alert(
+                                "⚠️ " +
+                                result.message
+                            );
+
+
+                        }
+
+
+                    } catch (error) {
+
+
+                        alert(
+                            "❌ Unable to connect to the EcoNex server."
+                        );
+
+
+                        console.error(error);
+
+                    }
+
+                }
+            );
+
+    </script>
+
+</body>
+
+</html>

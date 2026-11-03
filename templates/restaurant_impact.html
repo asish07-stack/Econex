@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Restaurant Impact | EcoNex</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #04110b;
+            --bg-soft: #071a11;
+            --panel: rgba(9, 30, 20, 0.82);
+            --panel-light: rgba(15, 42, 28, 0.72);
+            --green: #4ade80;
+            --green-bright: #86efac;
+            --emerald: #10b981;
+            --text: #ecfdf5;
+            --muted: #789586;
+            --muted-dark: #557466;
+            --border: rgba(74, 222, 128, 0.11);
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background:
+                radial-gradient(circle at 12% 5%, rgba(34, 197, 94, 0.12), transparent 28%),
+                radial-gradient(circle at 88% 20%, rgba(16, 185, 129, 0.08), transparent 26%),
+                radial-gradient(circle at 70% 90%, rgba(34, 197, 94, 0.07), transparent 30%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* =========================================================
+           SIDEBAR
+        ========================================================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+
+            background:
+                linear-gradient(180deg,
+                    rgba(4, 18, 12, 0.98),
+                    rgba(3, 14, 9, 0.97));
+
+            border-right: 1px solid rgba(74, 222, 128, 0.12);
+
+            padding: 26px 17px;
+
+            z-index: 1000;
+
+            backdrop-filter: blur(20px);
+
+            box-shadow:
+                10px 0 50px rgba(0, 0, 0, 0.20);
+        }
+
+        .logo {
+            position: relative;
+
+            padding:
+                4px 13px 24px;
+
+            margin-bottom: 23px;
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.055);
+        }
+
+        .logo h1 {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -1.3px;
+
+            background:
+                linear-gradient(135deg,
+                    #86efac,
+                    #4ade80,
+                    #10b981);
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo p {
+            margin-top: 5px;
+
+            color: #718f7e;
+
+            font-size: 10px;
+            font-weight: 500;
+
+            letter-spacing: 0.5px;
+        }
+
+        .nav-title {
+            padding: 0 13px;
+
+            margin-bottom: 10px;
+
+            color: #4f6d5d;
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 1.7px;
+        }
+
+        .nav-link {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            text-decoration: none;
+
+            color: #8da99a;
+
+            padding: 11px 13px;
+
+            border-radius: 12px;
+
+            margin-bottom: 5px;
+
+            font-size: 12.5px;
+            font-weight: 600;
+
+            border: 1px solid transparent;
+
+            transition:
+                background 0.25s ease,
+                color 0.25s ease,
+                transform 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .nav-link:hover {
+            color: #ecfdf5;
+
+            background:
+                rgba(74, 222, 128, 0.065);
+
+            border-color:
+                rgba(74, 222, 128, 0.08);
+
+            transform: translateX(3px);
+        }
+
+        .nav-link.active {
+            color: #86efac;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(34, 197, 94, 0.18),
+                    rgba(16, 185, 129, 0.075));
+
+            border-color:
+                rgba(74, 222, 128, 0.14);
+
+            box-shadow:
+                inset 0 0 20px rgba(74, 222, 128, 0.025);
+        }
+
+        .nav-link.active::before {
+            content: "";
+
+            position: absolute;
+
+            left: -17px;
+
+            top: 8px;
+            bottom: 8px;
+
+            width: 3px;
+
+            border-radius: 0 5px 5px 0;
+
+            background:
+                linear-gradient(180deg,
+                    #86efac,
+                    #10b981);
+
+            box-shadow:
+                0 0 12px rgba(74, 222, 128, 0.5);
+        }
+
+        .nav-icon {
+            width: 23px;
+
+            text-align: center;
+
+            font-size: 16px;
+
+            flex-shrink: 0;
+        }
+
+        .change-category {
+            position: absolute;
+
+            bottom: 22px;
+
+            left: 17px;
+            right: 17px;
+
+            padding-top: 15px;
+
+            border-top:
+                1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* =========================================================
+           MAIN
+        ========================================================= */
+
+        .main {
+            margin-left: 250px;
+
+            padding:
+                38px 42px 55px;
+
+            max-width: 1550px;
+
+            animation: pageIn 0.65s ease both;
+        }
+
+        @keyframes pageIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================================================
+           TOPBAR
+        ========================================================= */
+
+        .topbar {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 25px;
+
+            margin-bottom: 31px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #4ade80;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 9px;
+        }
+
+        .eyebrow::before {
+            content: "";
+
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: #4ade80;
+
+            box-shadow:
+                0 0 10px rgba(74, 222, 128, 0.8);
+        }
+
+        .topbar h2 {
+            font-size: 35px;
+
+            line-height: 1.1;
+
+            font-weight: 800;
+
+            letter-spacing: -1.5px;
+
+            background:
+                linear-gradient(135deg,
+                    #f0fdf4,
+                    #bbf7d0);
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .topbar p {
+            color: #718e7d;
+
+            margin-top: 9px;
+
+            font-size: 13px;
+
+            max-width: 680px;
+
+            line-height: 1.6;
+        }
+
+        .status {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 10px 15px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(34, 197, 94, 0.065);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.14);
+
+            color: #6ee7a0;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.5px;
+
+            white-space: nowrap;
+
+            box-shadow:
+                0 0 25px rgba(34, 197, 94, 0.035);
+        }
+
+        .status::first-letter {
+            color: #4ade80;
+        }
+
+        /* =========================================================
+           METRICS
+        ========================================================= */
+
+        .metrics {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 16px;
+
+            margin-bottom: 21px;
+        }
+
+        .metric {
+            position: relative;
+
+            overflow: hidden;
+
+            min-height: 150px;
+
+            padding: 22px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(145deg,
+                    rgba(14, 40, 27, 0.92),
+                    rgba(6, 24, 16, 0.88));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.09);
+
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.16);
+
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .metric:hover {
+            transform: translateY(-5px);
+
+            border-color:
+                rgba(74, 222, 128, 0.22);
+
+            box-shadow:
+                0 20px 45px rgba(0, 0, 0, 0.25),
+                0 0 25px rgba(34, 197, 94, 0.035);
+        }
+
+        .metric::before {
+            content: "";
+
+            position: absolute;
+
+            width: 120px;
+            height: 120px;
+
+            right: -48px;
+            top: -55px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(74, 222, 128, 0.11),
+                    transparent 68%);
+        }
+
+        .metric::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            height: 1px;
+
+            background:
+                linear-gradient(90deg,
+                    transparent,
+                    rgba(74, 222, 128, 0.22),
+                    transparent);
+        }
+
+        .metric-icon {
+            position: relative;
+
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                rgba(74, 222, 128, 0.075);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.09);
+
+            font-size: 19px;
+
+            margin-bottom: 17px;
+        }
+
+        .metric-label {
+            color: #708d7c;
+
+            font-size: 9px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.2px;
+
+            font-weight: 800;
+        }
+
+        .metric-value {
+            position: relative;
+
+            margin-top: 6px;
+
+            color: #f0fdf4;
+
+            font-size: 28px;
+
+            line-height: 1;
+
+            font-weight: 800;
+
+            letter-spacing: -0.7px;
+        }
+
+        .metric-value span {
+            color: #698878;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            letter-spacing: 0;
+
+            margin-left: 3px;
+        }
+
+        /* =========================================================
+           CONTENT GRID
+        ========================================================= */
+
+        .content-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.25fr) minmax(330px, 0.9fr);
+
+            gap: 19px;
+        }
+
+        .panel {
+            position: relative;
+
+            background:
+                linear-gradient(145deg,
+                    rgba(10, 33, 22, 0.87),
+                    rgba(6, 24, 16, 0.78));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.085);
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.15);
+        }
+
+        .panel-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 21px;
+        }
+
+        .panel-title {
+            font-size: 16px;
+
+            font-weight: 750;
+
+            color: #e5f9ed;
+        }
+
+        .panel-subtitle {
+            color: #668475;
+
+            font-size: 10px;
+
+            margin-top: 5px;
+
+            line-height: 1.5;
+        }
+
+        /* =========================================================
+           IMPACT SCORE
+        ========================================================= */
+
+        .impact-box {
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 27px;
+
+            min-height: 190px;
+
+            padding: 25px;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(34, 197, 94, 0.065),
+                    rgba(16, 185, 129, 0.025));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.085);
+
+            overflow: hidden;
+        }
+
+        .impact-box::after {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            right: -80px;
+            bottom: -100px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(74, 222, 128, 0.10),
+                    transparent 68%);
+        }
+
+        .score-circle {
+            position: relative;
+
+            width: 140px;
+            height: 140px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(74, 222, 128, 0.085),
+                    rgba(5, 22, 14, 0.85) 62%);
+
+            border:
+                9px solid rgba(74, 222, 128, 0.12);
+
+            box-shadow:
+                inset 0 0 25px rgba(74, 222, 128, 0.05),
+                0 0 30px rgba(34, 197, 94, 0.05);
+        }
+
+        .score-circle::before {
+            content: "";
+
+            position: absolute;
+
+            inset: -9px;
+
+            border-radius: 50%;
+
+            border:
+                2px solid transparent;
+
+            border-top-color:
+                rgba(74, 222, 128, 0.8);
+
+            border-right-color:
+                rgba(16, 185, 129, 0.35);
+
+            transform: rotate(-35deg);
+        }
+
+        .score-circle strong {
+            color: #86efac;
+
+            font-size: 34px;
+
+            line-height: 1;
+
+            font-weight: 800;
+
+            letter-spacing: -1px;
+        }
+
+        .score-circle span {
+            margin-top: 5px;
+
+            color: #648274;
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+        }
+
+        .impact-text {
+            position: relative;
+
+            z-index: 2;
+        }
+
+        .impact-text h3 {
+            color: #ecfdf5;
+
+            font-size: 18px;
+
+            margin-bottom: 9px;
+        }
+
+        .impact-text p {
+            color: #769485;
+
+            line-height: 1.75;
+
+            font-size: 11.5px;
+
+            max-width: 560px;
+        }
+
+        /* =========================================================
+           RECIPIENT
+        ========================================================= */
+
+        .recipient-card {
+            position: relative;
+
+            padding: 20px;
+
+            border-radius: 16px;
+
+            background:
+                linear-gradient(145deg,
+                    rgba(5, 25, 16, 0.9),
+                    rgba(7, 30, 19, 0.65));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.085);
+
+            overflow: hidden;
+        }
+
+        .recipient-card::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 3px;
+
+            background:
+                linear-gradient(180deg,
+                    #86efac,
+                    #10b981);
+        }
+
+        .recipient-name {
+            font-size: 16px;
+
+            font-weight: 750;
+
+            color: #ecfdf5;
+
+            margin-bottom: 15px;
+
+            padding-left: 3px;
+        }
+
+        .recipient-row {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 10px 2px;
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.045);
+
+            font-size: 11px;
+        }
+
+        .recipient-row:last-child {
+            border-bottom: none;
+        }
+
+        .recipient-row span:first-child {
+            color: #688577;
+        }
+
+        .recipient-row span:last-child {
+            color: #d1fae5;
+
+            font-weight: 700;
+
+            text-align: right;
+        }
+
+        .match {
+            color: #4ade80 !important;
+
+            padding:
+                5px 9px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(74, 222, 128, 0.08);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.08);
+        }
+
+        /* =========================================================
+           ANALYSIS
+        ========================================================= */
+
+        .analysis {
+            margin-top: 19px;
+        }
+
+        .analysis .panel-header {
+            margin-bottom: 17px;
+        }
+
+        .table-wrap {
+            width: 100%;
+
+            overflow-x: auto;
+
+            border-radius: 14px;
+
+            border:
+                1px solid rgba(74, 222, 128, 0.065);
+        }
+
+        table {
+            width: 100%;
+
+            min-width: 700px;
+
+            border-collapse: collapse;
+
+            font-size: 11px;
+        }
+
+        thead {
+            background:
+                rgba(4, 19, 12, 0.7);
+        }
+
+        th {
+            text-align: left;
+
+            color: #5f7b6c;
+
+            font-size: 9px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.9px;
+
+            font-weight: 800;
+
+            padding: 13px 13px;
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.055);
+        }
+
+        td {
+            padding: 15px 13px;
+
+            color: #b8cfc1;
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.035);
+
+            transition:
+                background 0.2s ease;
+        }
+
+        tbody tr {
+            transition:
+                background 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background:
+                rgba(74, 222, 128, 0.025);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        td:first-child {
+            color: #d8eee0;
+
+            font-weight: 650;
+        }
+
+        .score {
+            color: #4ade80 !important;
+
+            font-weight: 800;
+        }
+
+        .badge {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.4px;
+
+            background:
+                rgba(74, 222, 128, 0.08);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.09);
+
+            color: #6ee7a0;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1150px) {
+
+            .main {
+                padding-left: 28px;
+                padding-right: 28px;
+            }
+
+            .metrics {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 760px) {
+
+            .sidebar {
+                width: 76px;
+
+                padding:
+                    20px 10px;
+            }
+
+            .logo {
+                text-align: center;
+
+                padding:
+                    7px 0 24px;
+            }
+
+            .logo h1,
+            .logo p,
+            .nav-title,
+            .nav-link span {
+                display: none;
+            }
+
+            .logo::before {
+                content: "🌿";
+
+                display: block;
+
+                font-size: 24px;
+            }
+
+            .nav-link {
+                justify-content: center;
+
+                padding: 13px 8px;
+            }
+
+            .nav-link.active::before {
+                left: -10px;
+            }
+
+            .change-category {
+                left: 10px;
+                right: 10px;
+            }
+
+            .main {
+                margin-left: 76px;
+
+                padding:
+                    25px 17px 40px;
+            }
+
+            .topbar {
+                flex-direction: column;
+
+                margin-bottom: 24px;
+            }
+
+            .topbar h2 {
+                font-size: 27px;
+            }
+
+            .topbar p {
+                font-size: 12px;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr;
+
+                gap: 12px;
+            }
+
+            .metric {
+                min-height: 135px;
+            }
+
+            .impact-box {
+                flex-direction: column;
+
+                text-align: center;
+
+                padding: 24px 18px;
+            }
+
+            .impact-text p {
+                max-width: none;
+            }
+
+            .recipient-row {
+                font-size: 10px;
+            }
+
+        }
+
+        @media (max-width: 450px) {
+
+            .main {
+                padding-left: 13px;
+                padding-right: 13px;
+            }
+
+            .panel {
+                padding: 18px;
+            }
+
+            .score-circle {
+                width: 125px;
+                height: 125px;
+            }
+
+            .topbar h2 {
+                font-size: 24px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <h1>EcoNex</h1>
+
+            <p>
+                Restaurant Intelligence
+            </p>
+
+        </div>
+
+
+        <div class="nav-title">
+            RESTAURANT WORKSPACE
+        </div>
+
+
+        <a href="/restaurant" class="nav-link">
+
+            <div class="nav-icon">
+                ⌂
+            </div>
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+        <a href="/restaurant/dashboard" class="nav-link">
+
+            <div class="nav-icon">
+                ▦
+            </div>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a href="/restaurant/add-surplus" class="nav-link">
+
+            <div class="nav-icon">
+                ＋
+            </div>
+
+            <span>
+                Add Surplus
+            </span>
+
+        </a>
+
+
+        <a href="/restaurant/inventory" class="nav-link">
+
+            <div class="nav-icon">
+                📦
+            </div>
+
+            <span>
+                Surplus Inventory
+            </span>
+
+        </a>
+
+
+        <a href="/restaurant/quality" class="nav-link">
+
+            <div class="nav-icon">
+                🛡
+            </div>
+
+            <span>
+                Food Quality
+            </span>
+
+        </a>
+
+
+        <a href="/restaurant/redistribution" class="nav-link">
+
+            <div class="nav-icon">
+                ⌖
+            </div>
+
+            <span>
+                Redistribution
+            </span>
+
+        </a>
+
+
+        <a href="/restaurant/impact" class="nav-link active">
+
+            <div class="nav-icon">
+                ✦
+            </div>
+
+            <span>
+                Impact
+            </span>
+
+        </a>
+
+
+        <div class="change-category">
+
+            <a href="/" class="nav-link">
+
+                <div class="nav-icon">
+                    ⇄
+                </div>
+
+                <span>
+                    Change Category
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================= -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <div>
+
+                <div class="eyebrow">
+                    RESTAURANT • SUSTAINABILITY
+                </div>
+
+                <h2>
+                    Impact Analytics
+                </h2>
+
+                <p>
+                    Measure how your surplus food is being converted
+                    into environmental and social impact.
+                </p>
+
+            </div>
+
+
+            <div class="status">
+                ● AI IMPACT ANALYSIS
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             METRICS
+        ===================================================== -->
+
+        <section class="metrics">
+
+
+            <div class="metric">
+
+                <div class="metric-icon">
+                    🍱
+                </div>
+
+                <div class="metric-label">
+                    Food Rescued
+                </div>
+
+                <div class="metric-value">
+
+                    {{ food_rescued }}
+
+                    <span>
+                        units
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="metric">
+
+                <div class="metric-icon">
+                    ♻️
+                </div>
+
+                <div class="metric-label">
+                    Waste Prevented
+                </div>
+
+                <div class="metric-value">
+
+                    {{ waste_prevented }}
+
+                    <span>
+                        units
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="metric">
+
+                <div class="metric-icon">
+                    🤖
+                </div>
+
+                <div class="metric-label">
+                    AI Recipient Match
+                </div>
+
+                <div class="metric-value">
+
+                    {{ recipient_match }}
+
+                    <span>
+                        %
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="metric">
+
+                <div class="metric-icon">
+                    🌍
+                </div>
+
+                <div class="metric-label">
+                    CO₂ Avoided
+                </div>
+
+                <div class="metric-value">
+
+                    {{ co2_avoided }}
+
+                    <span>
+                        kg
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             CONTENT GRID
+        ===================================================== -->
+
+        <div class="content-grid">
+
+
+            <!-- =================================================
+                 IMPACT SCORE
+            ================================================= -->
+
+            <section class="panel">
+
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <div class="panel-title">
+                            Sustainability Impact
+                        </div>
+
+                        <div class="panel-subtitle">
+                            Overall restaurant performance
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="impact-box">
+
+
+                    <div class="score-circle">
+
+                        <strong>
+                            {{ impact_score }}
+                        </strong>
+
+                        <span>
+                            / 100
+                        </span>
+
+                    </div>
+
+
+                    <div class="impact-text">
+
+                        <h3>
+                            EcoNex Impact Score
+                        </h3>
+
+                        <p>
+                            This score combines rescued food quantity,
+                            recipient matching performance and verified
+                            food quality to represent the restaurant's
+                            current sustainability contribution.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================================
+                 BEST RECIPIENT
+            ================================================= -->
+
+            <section class="panel">
+
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <div class="panel-title">
+                            AI Recommended Recipient
+                        </div>
+
+                        <div class="panel-subtitle">
+                            Based on current surplus analysis
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="recipient-card">
+
+
+                    <div class="recipient-name">
+
+                        {{ best_recipient.name }}
+
+                    </div>
+
+
+                    <div class="recipient-row">
+
+                        <span>
+                            AI Match Score
+                        </span>
+
+                        <span class="match">
+
+                            {{ best_recipient.match_score }}%
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="recipient-row">
+
+                        <span>
+                            Distance
+                        </span>
+
+                        <span>
+
+                            {{ best_recipient.distance }} km
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="recipient-row">
+
+                        <span>
+                            Recipient Capacity
+                        </span>
+
+                        <span>
+
+                            {{ best_recipient.capacity }}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="recipient-row">
+
+                        <span>
+                            Pickup Readiness
+                        </span>
+
+                        <span>
+
+                            {{ best_recipient.pickup_ready }}%
+
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+        <!-- =====================================================
+             RECIPIENT ANALYSIS
+        ===================================================== -->
+
+        <section class="panel analysis">
+
+
+            <div class="panel-header">
+
+                <div>
+
+                    <div class="panel-title">
+                        Recipient Analysis
+                    </div>
+
+                    <div class="panel-subtitle">
+                        AI matching based on quantity, distance,
+                        food quality and pickup readiness
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrap">
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Recipient
+                            </th>
+
+                            <th>
+                                Capacity
+                            </th>
+
+                            <th>
+                                Distance
+                            </th>
+
+                            <th>
+                                Pickup Ready
+                            </th>
+
+                            <th>
+                                Match Score
+                            </th>
+
+                            <th>
+                                Level
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        {% if recipient_analysis %}
+
+
+                        {% for recipient in recipient_analysis %}
+
+
+                        <tr>
+
+
+                            <td>
+                                {{ recipient.name }}
+                            </td>
+
+
+                            <td>
+                                {{ recipient.capacity }}
+                            </td>
+
+
+                            <td>
+                                {{ recipient.distance }} km
+                            </td>
+
+
+                            <td>
+                                {{ recipient.pickup_ready }}%
+                            </td>
+
+
+                            <td class="score">
+                                {{ recipient.match_score }}%
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge">
+                                    {{ recipient.match_level }}
+                                </span>
+
+                            </td>
+
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+                        {% else %}
+
+
+                        <tr>
+
+                            <td colspan="6" style="text-align:center; padding:34px; color:#607d6c;">
+
+                                Add surplus food and complete the quality check
+                                to generate AI recipient matching.
+
+                            </td>
+
+                        </tr>
+
+
+                        {% endif %}
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

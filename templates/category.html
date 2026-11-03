@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EcoNex • Select Category</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Inter", sans-serif;
+
+            background:
+                radial-gradient(circle at 15% 20%, rgba(0, 255, 170, 0.10), transparent 30%),
+                radial-gradient(circle at 85% 80%, rgba(0, 190, 120, 0.10), transparent 30%),
+                linear-gradient(135deg, #031a12, #06281d 45%, #02130d);
+
+            color: #ffffff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+
+        /* =========================================
+           BACKGROUND GLOW
+        ========================================= */
+
+        .glow {
+            position: fixed;
+            width: 420px;
+            height: 420px;
+
+            border-radius: 50%;
+
+            background: rgba(0, 255, 170, 0.07);
+
+            filter: blur(100px);
+
+            pointer-events: none;
+        }
+
+        .glow.one {
+            top: -180px;
+            left: -120px;
+        }
+
+        .glow.two {
+            bottom: -200px;
+            right: -120px;
+        }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
+
+        .container {
+            width: min(1200px, 92%);
+
+            text-align: center;
+
+            position: relative;
+            z-index: 2;
+
+            animation: pageEnter 0.8s ease;
+        }
+
+        @keyframes pageEnter {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* =========================================
+           BRAND
+        ========================================= */
+
+        .brand {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 18px;
+        }
+
+        .brand-icon {
+
+            width: 48px;
+            height: 48px;
+
+            border-radius: 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+
+            background: rgba(0, 255, 170, 0.10);
+
+            border: 1px solid rgba(0, 255, 170, 0.25);
+
+            box-shadow:
+                0 0 30px rgba(0, 255, 170, 0.10);
+        }
+
+        .brand-name {
+
+            font-size: 28px;
+            font-weight: 800;
+
+            letter-spacing: -1px;
+
+            background: linear-gradient(90deg,
+                    #ffffff,
+                    #7affd2);
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        /* =========================================
+           HEADINGS
+        ========================================= */
+
+        .badge {
+
+            display: inline-flex;
+
+            padding: 8px 15px;
+
+            border-radius: 999px;
+
+            background: rgba(0, 255, 170, 0.08);
+
+            border: 1px solid rgba(0, 255, 170, 0.20);
+
+            color: #72ffd0;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            letter-spacing: 1.4px;
+
+            margin-bottom: 20px;
+        }
+
+        h1 {
+
+            font-size: clamp(38px, 5vw, 64px);
+
+            line-height: 1.05;
+
+            letter-spacing: -2.5px;
+
+            margin-bottom: 18px;
+
+            font-weight: 800;
+        }
+
+        h1 span {
+
+            background: linear-gradient(90deg,
+                    #ffffff,
+                    #5fffc7);
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+
+            max-width: 650px;
+
+            margin: 0 auto 50px;
+
+            color: #9eb7ad;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================================
+           CATEGORY GRID
+        ========================================= */
+
+        .categories {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 22px;
+
+            max-width: 1050px;
+
+            margin: auto;
+        }
+
+
+        /* =========================================
+           CATEGORY CARD
+        ========================================= */
+
+        .category {
+
+            position: relative;
+
+            text-decoration: none;
+
+            color: white;
+
+            padding: 38px 30px 32px;
+
+            min-height: 330px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(145deg,
+                    rgba(255, 255, 255, 0.07),
+                    rgba(255, 255, 255, 0.025));
+
+            border: 1px solid rgba(255, 255, 255, 0.10);
+
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.22);
+
+            transition:
+                transform 0.35s ease,
+                border-color 0.35s ease,
+                box-shadow 0.35s ease,
+                background 0.35s ease;
+
+            overflow: hidden;
+        }
+
+
+        .category::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: rgba(0, 255, 170, 0.08);
+
+            filter: blur(55px);
+
+            top: -80px;
+            right: -70px;
+
+            transition: 0.35s ease;
+        }
+
+
+        .category:hover {
+
+            transform: translateY(-10px);
+
+            border-color:
+                rgba(83, 255, 200, 0.35);
+
+            background:
+                linear-gradient(145deg,
+                    rgba(0, 255, 170, 0.10),
+                    rgba(255, 255, 255, 0.035));
+
+            box-shadow:
+                0 30px 80px rgba(0, 255, 170, 0.10);
+        }
+
+
+        .category:hover::before {
+
+            transform: scale(1.4);
+
+            background: rgba(0, 255, 170, 0.13);
+        }
+
+
+        /* =========================================
+           ICON
+        ========================================= */
+
+        .category-icon {
+
+            width: 86px;
+            height: 86px;
+
+            border-radius: 24px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 42px;
+
+            margin-bottom: 25px;
+
+            background:
+                rgba(0, 255, 170, 0.08);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.18);
+
+            box-shadow:
+                inset 0 0 25px rgba(0, 255, 170, 0.04);
+
+            transition: 0.35s ease;
+        }
+
+
+        .category:hover .category-icon {
+
+            transform:
+                scale(1.08) rotate(-3deg);
+
+            box-shadow:
+                0 0 35px rgba(0, 255, 170, 0.14);
+        }
+
+
+        /* =========================================
+           TEXT
+        ========================================= */
+
+        .category h2 {
+
+            font-size: 23px;
+
+            margin-bottom: 12px;
+
+            font-weight: 800;
+        }
+
+        .category p {
+
+            color: #9db5ac;
+
+            font-size: 14px;
+
+            line-height: 1.65;
+
+            max-width: 250px;
+
+            min-height: 48px;
+        }
+
+
+        /* =========================================
+           ENTER BUTTON
+        ========================================= */
+
+        .enter {
+
+            margin-top: 25px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 11px 18px;
+
+            border-radius: 12px;
+
+            color: #9affdc;
+
+            background:
+                rgba(0, 255, 170, 0.07);
+
+            border:
+                1px solid rgba(0, 255, 170, 0.15);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            transition: 0.3s ease;
+        }
+
+        .category:hover .enter {
+
+            background:
+                rgba(0, 255, 170, 0.14);
+
+            border-color:
+                rgba(0, 255, 170, 0.30);
+
+            transform: translateX(3px);
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .footer {
+
+            margin-top: 40px;
+
+            color: #6e8980;
+
+            font-size: 12px;
+        }
+
+        .footer span {
+
+            color: #65e7bd;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 850px) {
+
+            .categories {
+
+                grid-template-columns: 1fr;
+
+                max-width: 500px;
+            }
+
+            .category {
+
+                min-height: 260px;
+            }
+
+            .subtitle {
+
+                margin-bottom: 30px;
+            }
+
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+
+
+    <main class="container">
+
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🌿
+            </div>
+
+            <div class="brand-name">
+                EcoNex
+            </div>
+
+        </div>
+
+
+        <!-- BADGE -->
+
+        <div class="badge">
+            SMART FOOD RESCUE ECOSYSTEM
+        </div>
+
+
+        <!-- HEADING -->
+
+        <h1>
+            Choose Your
+            <span>EcoNex Workspace</span>
+        </h1>
+
+
+        <p class="subtitle">
+
+            Select the type of food operation you manage.
+            EcoNex will provide a workspace designed specifically
+            for your food surplus, quality and redistribution needs.
+
+        </p>
+
+
+        <!-- CATEGORY CARDS -->
+
+        <section class="categories">
+
+
+            <!-- CANTEEN -->
+
+            <a href="/canteen" class="category">
+
+                <div class="category-icon">
+                    🍽️
+                </div>
+
+                <h2>
+                    Canteen
+                </h2>
+
+                <p>
+                    AI-powered demand prediction,
+                    meal planning and institutional
+                    food waste management.
+                </p>
+
+                <div class="enter">
+                    Enter Canteen
+                    →
+                </div>
+
+            </a>
+
+
+            <!-- RESTAURANT -->
+
+            <a href="/restaurant" class="category">
+
+                <div class="category-icon">
+                    🍴
+                </div>
+
+                <h2>
+                    Restaurant
+                </h2>
+
+                <p>
+                    Manage restaurant food surplus,
+                    classify food items and prepare
+                    them for smart redistribution.
+                </p>
+
+                <div class="enter">
+                    Enter Restaurant
+                    →
+                </div>
+
+            </a>
+
+
+            <!-- CATERER -->
+
+            <a href="/caterer" class="category">
+
+                <div class="category-icon">
+                    🎪
+                </div>
+
+                <h2>
+                    Caterer
+                </h2>
+
+                <p>
+                    Manage event food, unexpected
+                    surplus and diverse food items
+                    across catering operations.
+                </p>
+
+                <div class="enter">
+                    Enter Caterer
+                    →
+                </div>
+
+            </a>
+
+
+        </section>
+
+
+        <div class="footer">
+
+            One ecosystem.
+            <span>Three intelligent workspaces.</span>
+
+        </div>
+
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,2866 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EcoNex | Restaurant Food Quality</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            font-family: "Inter", sans-serif;
+
+            background:
+                radial-gradient(circle at 10% 10%,
+                    rgba(34, 197, 94, 0.10),
+                    transparent 30%),
+                radial-gradient(circle at 90% 85%,
+                    rgba(16, 185, 129, 0.08),
+                    transparent 28%),
+                #06130d;
+
+            color: #ecfdf5;
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 255px;
+            height: 100vh;
+
+            background:
+                linear-gradient(180deg,
+                    rgba(7, 29, 19, 0.98),
+                    rgba(4, 20, 13, 0.98));
+
+            border-right:
+                1px solid rgba(74, 222, 128, 0.12);
+
+            padding: 25px 17px;
+
+            display: flex;
+            flex-direction: column;
+
+            z-index: 100;
+
+            box-shadow:
+                10px 0 40px rgba(0, 0, 0, 0.22);
+        }
+
+
+        .brand {
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            padding:
+                5px 12px 25px;
+        }
+
+
+        .brand-icon {
+
+            width: 43px;
+            height: 43px;
+
+            border-radius: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 22px;
+
+            background:
+                linear-gradient(135deg,
+                    #16a34a,
+                    #10b981);
+
+            box-shadow:
+                0 0 25px rgba(34, 197, 94, 0.25);
+        }
+
+
+        .brand-text h2 {
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+        }
+
+
+        .brand-text p {
+
+            margin-top: 3px;
+
+            font-size: 10px;
+
+            color: #86efac;
+
+            letter-spacing: 1.1px;
+
+            text-transform: uppercase;
+        }
+
+
+        .nav-label {
+
+            font-size: 10px;
+
+            color: #6b8f7b;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+
+            padding: 0 13px;
+
+            margin:
+                7px 0 10px;
+        }
+
+
+        .nav {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+        }
+
+
+        .nav a {
+
+            text-decoration: none;
+
+            color: #9ab5a5;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            padding:
+                12px 13px;
+
+            border-radius: 12px;
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease,
+                color 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .nav a:hover {
+
+            color: #ecfdf5;
+
+            background:
+                rgba(34, 197, 94, 0.08);
+
+            transform:
+                translateX(4px);
+        }
+
+
+        .nav a.active {
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(90deg,
+                    rgba(34, 197, 94, 0.18),
+                    rgba(16, 185, 129, 0.07));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.12);
+
+            box-shadow:
+                inset 3px 0 0 #22c55e,
+                0 8px 25px rgba(34, 197, 94, 0.06);
+        }
+
+
+        .nav-icon {
+
+            width: 22px;
+
+            text-align: center;
+
+            font-size: 17px;
+        }
+
+
+        .sidebar-bottom {
+
+            margin-top: auto;
+        }
+
+
+        .category-box {
+
+            margin-top: 18px;
+
+            padding: 14px;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(34, 197, 94, 0.09),
+                    rgba(16, 185, 129, 0.03));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.10);
+        }
+
+
+        .category-box small {
+
+            display: block;
+
+            color: #6b8f7b;
+
+            font-size: 9px;
+
+            letter-spacing: 1.2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 5px;
+        }
+
+
+        .category-box strong {
+
+            font-size: 12px;
+
+            color: #bbf7d0;
+        }
+
+
+        .change-category {
+
+            display: block;
+
+            text-decoration: none;
+
+            color: #86efac;
+
+            font-size: 11px;
+
+            margin-top: 8px;
+
+            transition:
+                color 0.2s ease;
+        }
+
+
+        .change-category:hover {
+
+            color: #ffffff;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+
+            margin-left: 255px;
+
+            min-height: 100vh;
+
+            padding:
+                30px 38px 50px;
+        }
+
+
+        .topbar {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 30px;
+        }
+
+
+        .breadcrumb {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: #709080;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.1px;
+        }
+
+
+        .breadcrumb strong {
+
+            color: #bbf7d0;
+        }
+
+
+        .status-pill {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                8px 13px;
+
+            border-radius: 999px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            color: #86efac;
+
+            background:
+                rgba(34, 197, 94, 0.07);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.13);
+
+            letter-spacing: 0.8px;
+        }
+
+
+        .status-dot {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+
+            box-shadow:
+                0 0 10px rgba(34, 197, 94, 0.8);
+
+            animation:
+                pulse 2s infinite;
+        }
+
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+
+                opacity: 1;
+
+                transform:
+                    scale(1);
+            }
+
+            50% {
+
+                opacity: 0.45;
+
+                transform:
+                    scale(0.75);
+            }
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding:
+                31px 34px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(18, 64, 39, 0.88),
+                    rgba(7, 35, 22, 0.88));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.13);
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.20);
+
+            margin-bottom: 25px;
+        }
+
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            right: -100px;
+            top: -150px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(34, 197, 94, 0.09);
+
+            filter:
+                blur(5px);
+        }
+
+
+        .hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 170px;
+            height: 170px;
+
+            right: 130px;
+            bottom: -110px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(16, 185, 129, 0.06);
+        }
+
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 760px;
+        }
+
+
+        .eyebrow {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding:
+                6px 10px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(34, 197, 94, 0.08);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.11);
+
+            color: #86efac;
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 13px;
+        }
+
+
+        .hero h1 {
+
+            font-size:
+                clamp(28px, 3vw, 42px);
+
+            line-height: 1.08;
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 11px;
+
+            background:
+                linear-gradient(90deg,
+                    #ffffff,
+                    #bbf7d0,
+                    #86efac);
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .hero p {
+
+            color: #9ab8a7;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            max-width: 680px;
+        }
+
+
+        /* =====================================================
+           CONTENT GRID
+        ===================================================== */
+
+        .content-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr) minmax(340px, 0.82fr);
+
+            gap: 22px;
+
+            align-items: start;
+        }
+
+
+        .left-column,
+        .right-column {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 20px;
+        }
+
+
+        /* =====================================================
+           CARDS
+        ===================================================== */
+
+        .card {
+
+            background:
+                linear-gradient(145deg,
+                    rgba(13, 40, 27, 0.94),
+                    rgba(7, 27, 18, 0.94));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.10);
+
+            border-radius: 19px;
+
+            padding: 23px;
+
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.14);
+
+            transition:
+                border-color 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .card:hover {
+
+            border-color:
+                rgba(74, 222, 128, 0.17);
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.20);
+        }
+
+
+        .card-heading {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 19px;
+        }
+
+
+        .card-title-wrap {
+
+            display: flex;
+
+            gap: 12px;
+
+            align-items: center;
+        }
+
+
+        .card-icon {
+
+            width: 39px;
+            height: 39px;
+
+            border-radius: 11px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 18px;
+
+            background:
+                rgba(34, 197, 94, 0.09);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.10);
+        }
+
+
+        .card h2 {
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            color: #ecfdf5;
+        }
+
+
+        .card-subtitle {
+
+            font-size: 10px;
+
+            color: #668576;
+
+            margin-top: 3px;
+        }
+
+
+        /* =====================================================
+           INVENTORY
+        ===================================================== */
+
+        .inventory-count {
+
+            padding:
+                6px 10px;
+
+            border-radius: 999px;
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            color: #86efac;
+
+            background:
+                rgba(34, 197, 94, 0.07);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.10);
+        }
+
+
+        .food-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 9px;
+        }
+
+
+        .food-item {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                13px 14px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(4, 20, 13, 0.50);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.07);
+
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .food-item:hover {
+
+            transform:
+                translateX(3px);
+
+            background:
+                rgba(34, 197, 94, 0.045);
+
+            border-color:
+                rgba(74, 222, 128, 0.14);
+        }
+
+
+        .food-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .food-icon {
+
+            width: 31px;
+            height: 31px;
+
+            border-radius: 9px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                rgba(34, 197, 94, 0.08);
+
+            font-size: 15px;
+        }
+
+
+        .food-name {
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            color: #d7f7e4;
+        }
+
+
+        .food-meta {
+
+            font-size: 9px;
+
+            color: #648072;
+
+            margin-top: 3px;
+        }
+
+
+        .food-quantity {
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            color: #86efac;
+        }
+
+
+        .empty-state {
+
+            padding:
+                35px 20px;
+
+            text-align: center;
+
+            border-radius: 14px;
+
+            border:
+                1px dashed rgba(74, 222, 128, 0.12);
+
+            background:
+                rgba(4, 20, 13, 0.35);
+        }
+
+
+        .empty-icon {
+
+            font-size: 29px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .empty-state h3 {
+
+            font-size: 13px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .empty-state p {
+
+            color: #6d8979;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           AI STORAGE ESTIMATE
+        ===================================================== */
+
+        .estimate-card {
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(16, 185, 129, 0.11),
+                    rgba(34, 197, 94, 0.025));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.12);
+        }
+
+
+        .estimate-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 150px;
+            height: 150px;
+
+            right: -55px;
+            top: -65px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(34, 197, 94, 0.06);
+        }
+
+
+        .estimate-content {
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .estimate-header {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .estimate-icon {
+
+            width: 36px;
+            height: 36px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                rgba(34, 197, 94, 0.10);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.10);
+
+            font-size: 17px;
+        }
+
+
+        .estimate-header h3 {
+
+            font-size: 13px;
+        }
+
+
+        .estimate-header p {
+
+            color: #668576;
+
+            font-size: 9px;
+
+            margin-top: 3px;
+        }
+
+
+        .estimate-value {
+
+            display: flex;
+
+            align-items: baseline;
+
+            gap: 7px;
+
+            margin-top: 5px;
+        }
+
+
+        .estimate-number {
+
+            font-size: 36px;
+
+            line-height: 1;
+
+            font-weight: 800;
+
+            letter-spacing: -1px;
+
+            color: #bbf7d0;
+        }
+
+
+        .estimate-unit {
+
+            color: #86efac;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .estimate-description {
+
+            margin-top: 11px;
+
+            color: #789888;
+
+            font-size: 9px;
+
+            line-height: 1.65;
+        }
+
+
+        .estimate-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            margin-top: 13px;
+
+            padding:
+                6px 9px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(34, 197, 94, 0.07);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.09);
+
+            color: #86efac;
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.7px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =====================================================
+           INFO CARD
+        ===================================================== */
+
+        .info-card {
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(16, 185, 129, 0.08),
+                    rgba(34, 197, 94, 0.025));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.10);
+        }
+
+
+        .info-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 130px;
+            height: 130px;
+
+            right: -50px;
+            bottom: -65px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(34, 197, 94, 0.06);
+        }
+
+
+        .info-content {
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .info-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .info-title span {
+
+            width: 30px;
+            height: 30px;
+
+            border-radius: 9px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                rgba(34, 197, 94, 0.10);
+
+            font-size: 14px;
+        }
+
+
+        .info-title h3 {
+
+            font-size: 13px;
+        }
+
+
+        .info-card p {
+
+            color: #87a796;
+
+            font-size: 10px;
+
+            line-height: 1.75;
+        }
+
+
+        .factors {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 8px;
+
+            margin-top: 15px;
+        }
+
+
+        .factor {
+
+            padding: 12px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(3, 17, 11, 0.35);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.07);
+
+            text-align: center;
+        }
+
+
+        .factor-icon {
+
+            font-size: 16px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .factor span {
+
+            display: block;
+
+            color: #789888;
+
+            font-size: 8px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.6px;
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-card {
+
+            padding: 25px;
+        }
+
+
+        .form-header {
+
+            margin-bottom: 21px;
+        }
+
+
+        .form-header h2 {
+
+            font-size: 17px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .form-header p {
+
+            color: #698878;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+        }
+
+
+        .form-group {
+
+            margin-bottom: 15px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #a8c4b4;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.2px;
+        }
+
+
+        .input-wrap {
+
+            position: relative;
+        }
+
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 13px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            font-size: 15px;
+
+            opacity: 0.75;
+
+            pointer-events: none;
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            padding:
+                12px 55px 12px 39px;
+
+            border-radius: 11px;
+
+            outline: none;
+
+            background:
+                rgba(2, 15, 9, 0.65);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.10);
+
+            color: #ecfdf5;
+
+            font-family: inherit;
+
+            font-size: 12px;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .form-group input::placeholder {
+
+            color: #496556;
+        }
+
+
+        .form-group input:focus {
+
+            border-color:
+                rgba(74, 222, 128, 0.42);
+
+            background:
+                rgba(4, 24, 15, 0.78);
+
+            box-shadow:
+                0 0 0 3px rgba(34, 197, 94, 0.07);
+        }
+
+
+        .input-unit {
+
+            position: absolute;
+
+            right: 13px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color: #6f9a80;
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        .analyze-button {
+
+            width: 100%;
+
+            border: none;
+
+            outline: none;
+
+            margin-top: 5px;
+
+            padding:
+                13px 17px;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            font-family: inherit;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            color: #052e16;
+
+            background:
+                linear-gradient(135deg,
+                    #4ade80,
+                    #10b981);
+
+            box-shadow:
+                0 10px 25px rgba(34, 197, 94, 0.16);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+
+        .analyze-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 14px 30px rgba(34, 197, 94, 0.23);
+        }
+
+
+        .analyze-button:active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        .analyze-button:disabled {
+
+            cursor: wait;
+
+            opacity: 0.65;
+
+            transform: none;
+        }
+
+
+        /* =====================================================
+           RESULT
+        ===================================================== */
+
+        .result-box {
+
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 19px;
+
+            border-radius: 15px;
+
+            border:
+                1px solid rgba(74, 222, 128, 0.12);
+
+            background:
+                rgba(3, 18, 11, 0.65);
+
+            animation:
+                resultIn 0.35s ease;
+        }
+
+
+        @keyframes resultIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(8px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        .result-top {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 13px;
+        }
+
+
+        .result-label {
+
+            color: #6d8979;
+
+            font-size: 8px;
+
+            letter-spacing: 1.1px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 5px;
+        }
+
+
+        #resultStatus {
+
+            font-size: 17px;
+
+            font-weight: 800;
+        }
+
+
+        .score-circle {
+
+            width: 70px;
+            height: 70px;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                radial-gradient(circle,
+                    rgba(34, 197, 94, 0.12),
+                    rgba(34, 197, 94, 0.025));
+
+            border:
+                1px solid rgba(74, 222, 128, 0.16);
+
+            box-shadow:
+                0 0 25px rgba(34, 197, 94, 0.05);
+        }
+
+
+        #resultScore {
+
+            font-size: 19px;
+
+            font-weight: 800;
+
+            color: #86efac;
+        }
+
+
+        .score-label {
+
+            color: #668576;
+
+            font-size: 7px;
+
+            margin-top: 1px;
+        }
+
+
+        .result-metrics {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 8px;
+
+            margin-top: 14px;
+        }
+
+
+        .result-metric {
+
+            padding:
+                10px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(4, 20, 13, 0.45);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.07);
+        }
+
+
+        .result-metric small {
+
+            display: block;
+
+            color: #638071;
+
+            font-size: 7px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.6px;
+
+            margin-bottom: 4px;
+        }
+
+
+        .result-metric strong {
+
+            color: #bbf7d0;
+
+            font-size: 12px;
+        }
+
+
+        #resultMessage {
+
+            color: #88a494;
+
+            font-size: 10px;
+
+            line-height: 1.7;
+
+            padding-top: 12px;
+
+            margin-top: 12px;
+
+            border-top:
+                1px solid rgba(74, 222, 128, 0.07);
+        }
+
+
+        .continue-button {
+
+            display: block;
+
+            width: 100%;
+
+            margin-top: 14px;
+
+            padding: 12px;
+
+            border-radius: 11px;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            color: #86efac;
+
+            background:
+                rgba(34, 197, 94, 0.07);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.12);
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .continue-button:hover {
+
+            background:
+                rgba(34, 197, 94, 0.13);
+
+            color: #ffffff;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .continue-button.disabled {
+
+            opacity: 0.35;
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           AI NOTE
+        ===================================================== */
+
+        .ai-note {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 10px;
+
+            margin-top: 14px;
+
+            padding:
+                11px 12px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(16, 185, 129, 0.045);
+
+            border:
+                1px solid rgba(74, 222, 128, 0.06);
+        }
+
+
+        .ai-note-icon {
+
+            font-size: 14px;
+        }
+
+
+        .ai-note p {
+
+            color: #668576;
+
+            font-size: 8px;
+
+            line-height: 1.65;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1050px) {
+
+            .sidebar {
+
+                width: 220px;
+            }
+
+            .main {
+
+                margin-left: 220px;
+
+                padding: 25px;
+            }
+
+            .content-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+        }
+
+
+        @media (max-width: 760px) {
+
+            .sidebar {
+
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+
+                border-right: none;
+
+                border-bottom:
+                    1px solid rgba(74, 222, 128, 0.10);
+
+                padding: 16px;
+            }
+
+
+            .brand {
+
+                padding-bottom: 15px;
+            }
+
+
+            .nav {
+
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 5px;
+            }
+
+
+            .nav-label {
+
+                margin-top: 4px;
+            }
+
+
+            .sidebar-bottom {
+
+                margin-top: 10px;
+            }
+
+
+            .category-box {
+
+                display: none;
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+                padding:
+                    20px 15px 40px;
+            }
+
+
+            .topbar {
+
+                margin-bottom: 20px;
+            }
+
+
+            .hero {
+
+                padding:
+                    25px 21px;
+            }
+
+
+            .hero h1 {
+
+                font-size: 29px;
+            }
+
+
+            .factors {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .result-metrics {
+
+                grid-template-columns:
+                    1fr;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ===================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🌿
+            </div>
+
+            <div class="brand-text">
+
+                <h2>
+                    EcoNex
+                </h2>
+
+                <p>
+                    Restaurant Workspace
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="nav-label">
+            Restaurant Operations
+        </div>
+
+
+        <nav class="nav">
+
+            <a href="/restaurant">
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Home
+                </span>
+
+            </a>
+
+
+            <a href="/restaurant/dashboard">
+
+                <span class="nav-icon">
+                    ▦
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="/restaurant/add-surplus">
+
+                <span class="nav-icon">
+                    ＋
+                </span>
+
+                <span>
+                    Add Surplus
+                </span>
+
+            </a>
+
+
+            <a href="/restaurant/inventory">
+
+                <span class="nav-icon">
+                    📦
+                </span>
+
+                <span>
+                    Surplus Inventory
+                </span>
+
+            </a>
+
+
+            <a href="/restaurant/quality" class="active">
+
+                <span class="nav-icon">
+                    🛡️
+                </span>
+
+                <span>
+                    Food Quality
+                </span>
+
+            </a>
+
+
+            <a href="/restaurant/redistribution">
+
+                <span class="nav-icon">
+                    📍
+                </span>
+
+                <span>
+                    Redistribution
+                </span>
+
+            </a>
+
+
+            <a href="/restaurant/impact">
+
+                <span class="nav-icon">
+                    📊
+                </span>
+
+                <span>
+                    Impact
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="category-box">
+
+                <small>
+                    Current workspace
+                </small>
+
+                <strong>
+                    🍽️ Restaurant
+                </strong>
+
+                <a href="/" class="change-category">
+
+                    ↗ Change Category
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <main class="main">
+
+
+        <!-- TOP BAR -->
+
+        <div class="topbar">
+
+            <div class="breadcrumb">
+
+                <span>
+                    Restaurant Operations
+                </span>
+
+                <span>
+                    ›
+                </span>
+
+                <strong>
+                    Food Quality
+                </strong>
+
+            </div>
+
+
+            <div class="status-pill">
+
+                <span class="status-dot"></span>
+
+                QUALITY AI READY
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             HERO
+        ================================================= -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+
+                    🛡️ AI Food Quality Verification
+
+                </div>
+
+
+                <h1>
+
+                    Know Your Food.
+                    <br>
+                    Before You Redistribute.
+
+                </h1>
+
+
+                <p>
+
+                    EcoNex analyzes the restaurant surplus currently
+                    added to the system and calculates an overall
+                    storage tolerance estimate. Enter the actual
+                    storage time to receive a continuous quality
+                    screening score.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CONTENT
+        ================================================= -->
+
+        <div class="content-grid">
+
+
+            <!-- =================================================
+                 LEFT COLUMN
+            ================================================= -->
+
+            <div class="left-column">
+
+
+                <!-- RESTAURANT SURPLUS -->
+
+                <section class="card">
+
+                    <div class="card-heading">
+
+                        <div class="card-title-wrap">
+
+                            <div class="card-icon">
+                                🍱
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Restaurant Surplus
+                                </h2>
+
+                                <div class="card-subtitle">
+                                    Items used by the AI quality engine
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        {% if items %}
+
+                        <div class="inventory-count">
+
+                            {{ items|length }}
+
+                            ITEM{% if items|length != 1 %}S{% endif %}
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    {% if items %}
+
+                    <div class="food-list">
+
+                        {% for item in items %}
+
+                        <div class="food-item">
+
+                            <div class="food-info">
+
+                                <div class="food-icon">
+
+                                    {% if item.unit == "L" %}
+
+                                    🥣
+
+                                    {% elif item.unit == "PIECES" %}
+
+                                    🍰
+
+                                    {% else %}
+
+                                    🍚
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <div>
+
+                                    <div class="food-name">
+
+                                        {{ item.name }}
+
+                                    </div>
+
+                                    <div class="food-meta">
+
+                                        Restaurant surplus item
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="food-quantity">
+
+                                {{ item.quantity }}
+                                {{ item.unit }}
+
+                            </div>
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    {% else %}
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            📦
+                        </div>
+
+                        <h3>
+                            No surplus items yet
+                        </h3>
+
+                        <p>
+
+                            Add surplus food from the
+                            Add Surplus section before
+                            running the quality verification.
+
+                        </p>
+
+                    </div>
+
+                    {% endif %}
+
+                </section>
+
+
+                <!-- =================================================
+                     AI STORAGE ESTIMATE
+                ================================================= -->
+
+                <section class="card estimate-card">
+
+                    <div class="estimate-content">
+
+                        <div class="estimate-header">
+
+                            <div class="estimate-icon">
+                                🤖
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    AI Overall Storage Estimate
+                                </h3>
+
+                                <p>
+                                    Calculated from the current surplus mix
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="estimate-value">
+
+                            <div class="estimate-number">
+
+                                {{ overall_storage_estimate }}
+
+                            </div>
+
+                            <div class="estimate-unit">
+                                HOURS
+                            </div>
+
+                        </div>
+
+
+                        <div class="estimate-description">
+
+                            EcoNex combines the internal storage
+                            characteristics of the currently added
+                            restaurant food items and calculates one
+                            approximate overall storage tolerance.
+
+                        </div>
+
+
+                        <div class="estimate-badge">
+
+                            ✦ AI-Calculated Prototype Estimate
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     HOW IT WORKS
+                ================================================= -->
+
+                <section class="card info-card">
+
+                    <div class="info-content">
+
+                        <div class="info-title">
+
+                            <span>
+                                🤖
+                            </span>
+
+                            <h3>
+                                How Restaurant Quality AI Works
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+
+                            The system first analyzes the restaurant
+                            surplus items that have been added. Each
+                            food type has an internal approximate storage
+                            characteristic. EcoNex combines these values
+                            according to the quantities entered and
+                            produces one overall storage estimate.
+                            Your actual storage time is then compared
+                            against this estimate to generate a
+                            continuous quality screening score.
+
+                        </p>
+
+
+                        <div class="factors">
+
+
+                            <div class="factor">
+
+                                <div class="factor-icon">
+                                    🍱
+                                </div>
+
+                                <span>
+                                    Surplus Mix
+                                </span>
+
+                            </div>
+
+
+                            <div class="factor">
+
+                                <div class="factor-icon">
+                                    ⏱️
+                                </div>
+
+                                <span>
+                                    Storage Time
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 RIGHT COLUMN
+            ================================================= -->
+
+            <div class="right-column">
+
+
+                <!-- QUALITY FORM -->
+
+                <section class="card form-card">
+
+
+                    <div class="form-header">
+
+                        <div class="eyebrow">
+
+                            ✨ AI ANALYSIS
+
+                        </div>
+
+
+                        <h2>
+                            Check Food Quality
+                        </h2>
+
+
+                        <p>
+
+                            Enter only the actual time the
+                            restaurant surplus has been stored.
+                            EcoNex will compare it with the
+                            AI-generated storage estimate.
+
+                        </p>
+
+                    </div>
+
+
+                    <form id="restaurantQualityForm">
+
+
+                        <!-- STORAGE TIME -->
+
+                        <div class="form-group">
+
+                            <label for="storage_time">
+
+                                Actual Storage Time
+
+                            </label>
+
+
+                            <div class="input-wrap">
+
+                                <span class="input-icon">
+                                    ⏱️
+                                </span>
+
+
+                                <input type="number" id="storage_time" name="storage_time" step="0.1" min="0"
+                                    placeholder="Enter storage time" value="{{ storage_time }}" required>
+
+
+                                <span class="input-unit">
+                                    HOURS
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <button type="submit" class="analyze-button" id="checkButton">
+
+                            🔍 Analyze Food Quality
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- =================================================
+                         RESULT
+                    ================================================= -->
+
+                    <div class="result-box" id="resultBox">
+
+                        <div class="result-top">
+
+
+                            <div>
+
+                                <div class="result-label">
+                                    AI Verification Result
+                                </div>
+
+
+                                <div id="resultStatus">
+                                    --
+                                </div>
+
+                            </div>
+
+
+                            <div class="score-circle">
+
+                                <div id="resultScore">
+                                    --
+                                </div>
+
+                                <div class="score-label">
+                                    SCORE
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="result-metrics">
+
+
+                            <div class="result-metric">
+
+                                <small>
+                                    Actual Storage
+                                </small>
+
+                                <strong id="actualStorageResult">
+                                    --
+                                </strong>
+
+                            </div>
+
+
+                            <div class="result-metric">
+
+                                <small>
+                                    AI Estimate
+                                </small>
+
+                                <strong id="estimateResult">
+                                    --
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div id="resultMessage">
+                            --
+                        </div>
+
+
+                        <a href="/restaurant/redistribution" class="continue-button disabled" id="continueButton">
+
+                            Continue to Smart Redistribution →
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- AI NOTE -->
+
+                    <div class="ai-note">
+
+                        <div class="ai-note-icon">
+                            💡
+                        </div>
+
+                        <p>
+
+                            This is an AI-powered prototype
+                            screening estimate. The result helps
+                            EcoNex decide whether surplus should
+                            proceed to the next redistribution stage.
+
+                        </p>
+
+                    </div>
+
+
+                </section>
+
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+
+        const form =
+            document.getElementById(
+                "restaurantQualityForm"
+            );
+
+
+        const checkButton =
+            document.getElementById(
+                "checkButton"
+            );
+
+
+        const resultBox =
+            document.getElementById(
+                "resultBox"
+            );
+
+
+        const resultStatus =
+            document.getElementById(
+                "resultStatus"
+            );
+
+
+        const resultScore =
+            document.getElementById(
+                "resultScore"
+            );
+
+
+        const resultMessage =
+            document.getElementById(
+                "resultMessage"
+            );
+
+
+        const continueButton =
+            document.getElementById(
+                "continueButton"
+            );
+
+
+        const actualStorageResult =
+            document.getElementById(
+                "actualStorageResult"
+            );
+
+
+        const estimateResult =
+            document.getElementById(
+                "estimateResult"
+            );
+
+
+        form.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                const storage_time =
+                    document.getElementById(
+                        "storage_time"
+                    ).value;
+
+
+                if (
+                    storage_time === "" ||
+                    Number(storage_time) < 0
+                ) {
+
+                    resultBox.style.display =
+                        "block";
+
+                    resultStatus.textContent =
+                        "ERROR";
+
+                    resultStatus.style.color =
+                        "#f87171";
+
+                    resultScore.textContent =
+                        "--";
+
+                    resultMessage.textContent =
+                        "Please enter a valid storage time.";
+
+                    continueButton.classList.add(
+                        "disabled"
+                    );
+
+                    return;
+                }
+
+
+                checkButton.disabled =
+                    true;
+
+
+                checkButton.innerHTML =
+                    "⏳ Analyzing Storage Time...";
+
+
+                resultBox.style.display =
+                    "none";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/restaurant/check-quality",
+                            {
+
+                                method: "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json"
+
+                                },
+
+                                body:
+                                    JSON.stringify({
+
+                                        storage_time:
+                                            storage_time
+
+                                    })
+
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    resultBox.style.display =
+                        "block";
+
+
+                    if (data.success) {
+
+
+                        resultStatus.textContent =
+                            data.status;
+
+
+                        resultScore.textContent =
+                            data.score;
+
+
+                        actualStorageResult.textContent =
+                            Number(
+                                data.storage_time
+                            ).toFixed(1)
+                            + " hrs";
+
+
+                        estimateResult.textContent =
+                            Number(
+                                data.overall_storage_estimate
+                            ).toFixed(1)
+                            + " hrs";
+
+
+                        if (
+                            data.status ===
+                            "SAFE"
+                        ) {
+
+                            resultStatus.style.color =
+                                "#4ade80";
+
+
+                            resultMessage.textContent =
+                                "The actual storage time is within the AI-generated storage estimate. The restaurant surplus can proceed to the smart redistribution stage.";
+
+
+                            continueButton.classList.remove(
+                                "disabled"
+                            );
+
+                        }
+
+
+                        else if (
+                            data.status ===
+                            "CHECK REQUIRED"
+                        ) {
+
+                            resultStatus.style.color =
+                                "#facc15";
+
+
+                            resultMessage.textContent =
+                                "The actual storage time is approaching or exceeding the estimated storage tolerance. Additional verification is recommended before redistribution.";
+
+
+                            continueButton.classList.add(
+                                "disabled"
+                            );
+
+                        }
+
+
+                        else {
+
+                            resultStatus.style.color =
+                                "#f87171";
+
+
+                            resultMessage.textContent =
+                                "The actual storage time is significantly beyond the AI-generated estimate. The surplus should not proceed to redistribution.";
+
+
+                            continueButton.classList.add(
+                                "disabled"
+                            );
+
+                        }
+
+                    }
+
+
+                    else {
+
+                        resultStatus.textContent =
+                            "ERROR";
+
+
+                        resultStatus.style.color =
+                            "#f87171";
+
+
+                        resultScore.textContent =
+                            "--";
+
+
+                        resultMessage.textContent =
+                            data.message ||
+                            "Unable to complete the quality analysis.";
+
+
+                        continueButton.classList.add(
+                            "disabled"
+                        );
+
+                    }
+
+                }
+
+
+                catch (error) {
+
+                    resultBox.style.display =
+                        "block";
+
+
+                    resultStatus.textContent =
+                        "ERROR";
+
+
+                    resultStatus.style.color =
+                        "#f87171";
+
+
+                    resultScore.textContent =
+                        "--";
+
+
+                    resultMessage.textContent =
+                        "Unable to connect to the Restaurant Quality AI engine.";
+
+
+                    continueButton.classList.add(
+                        "disabled"
+                    );
+
+                }
+
+
+                finally {
+
+                    checkButton.disabled =
+                        false;
+
+
+                    checkButton.innerHTML =
+                        "🔍 Analyze Food Quality";
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
